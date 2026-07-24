@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Growgames</string>
+    <string name="title_activity_main">Growgames</string>
+    <string name="package_name">com.Growsats.Growgames</string>
+    <string name="custom_url_scheme">com.Growsats.Growgames</string>
+</resources>

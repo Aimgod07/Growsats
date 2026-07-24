@@ -1,0 +1,367 @@
+@import "tailwindcss";
+
+ *{
+  box-sizing: border-box;
+}
+
+.leaderboard {
+  width: 100%;
+  max-width: 28rem;
+  margin: 0 auto;
+  background: #0a0d0a;
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  min-height: 100vh;
+  padding-bottom: 2rem;
+}
+
+.leaderboard--center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  min-height: 60vh;
+  padding: 2rem;
+}
+
+.leaderboard__loading-text {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.875rem;
+}
+
+.leaderboard__error-text {
+  color: #f87171;
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.leaderboard__retry {
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  padding: 0.5rem 1.25rem;
+  border-radius: 9999px;
+  font-size: 0.8125rem;
+  cursor: pointer;
+}
+
+.spin {
+  animation: leaderboard-spin 0.9s linear infinite;
+}
+
+@keyframes leaderboard-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.icon-green {
+  color: #34d399;
+}
+
+/* ---------------- Header ---------------- */
+
+.leaderboard-header {
+  position: relative;
+  text-align: center;
+  padding: 2.25rem 1.5rem 1.5rem;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(74, 222, 128, 0.18), transparent 60%),
+    linear-gradient(180deg, #142016 0%, #0a0d0a 80%);
+}
+
+.leaderboard-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 26px 26px;
+  pointer-events: none;
+}
+
+.leaderboard-header__title {
+  position: relative;
+  font-size: 1.75rem;
+  font-weight: 800;
+  line-height: 1.25;
+  margin: 0 0 0.75rem;
+}
+
+.leaderboard-header__subtitle {
+  position: relative;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.65);
+  max-width: 22rem;
+  margin: 0 auto;
+}
+
+/* ---------------- Podium ---------------- */
+
+.podium {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1.5rem 1rem 2rem;
+  background: linear-gradient(180deg, #0a0d0a 0%, #05070a 100%);
+}
+
+.podium-card {
+  flex: 1;
+  max-width: 8.5rem;
+  background: #101410;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 1rem 1rem 0.6rem 0.6rem;
+  padding: 1.5rem 0.75rem 0.9rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  text-align: center;
+}
+
+.podium-card--first {
+  padding-top: 1.5rem;
+  padding-bottom: 1.15rem;
+  transform: translateY(-0.75rem);
+  border-color: rgba(250, 204, 21, 0.25);
+}
+
+.podium-card--second {
+  border-color: rgba(148, 163, 184, 0.2);
+}
+
+.podium-card--third {
+  border-color: rgba(216, 155, 245, 0.2);
+}
+
+.podium-card__avatar-wrap {
+  position: relative;
+  margin-bottom: 0.35rem;
+}
+
+.podium-card__avatar {
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #ffffff;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.podium-card--first .podium-card__avatar {
+  width: 3.75rem;
+  height: 3.75rem;
+  font-size: 1.3rem;
+  border-color: #facc15;
+}
+
+.podium-card--second .podium-card__avatar {
+  border-color: #9ca3af;
+}
+
+.podium-card--third .podium-card__avatar {
+  border-color: #d8b4fe;
+}
+
+.podium-card__rank {
+  position: absolute;
+  bottom: -0.6rem;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 1.4rem;
+  height: 1.4rem;
+  padding: 0 0.3rem;
+  border-radius: 0.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #111827;
+  clip-path: polygon(0 0, 100% 0, 100% 70%, 50% 100%, 0 70%);
+}
+
+.podium-card--first .podium-card__rank {
+  background: #facc15;
+  color: #3f2d00;
+}
+
+.podium-card--second .podium-card__rank {
+  background: #cbd5e1;
+  color: #1f2937;
+}
+
+.podium-card--third .podium-card__rank {
+  background: #fb923c;
+  color: #3f1d00;
+}
+
+.podium-card__name {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0.5rem 0 0.2rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.podium-card--first .podium-card__name {
+  color: #facc15;
+}
+
+.podium-card--second .podium-card__name,
+.podium-card--third .podium-card__name {
+  color: #fb923c;
+}
+
+.podium-card__coins {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 9999px;
+  padding: 0.2rem 0.6rem;
+}
+
+.coin-dot {
+  font-size: 0.75rem;
+}
+
+/* ---------------- Wavy divider ---------------- */
+
+.wavy-divider-wrap {
+  margin-top: -0.5rem;
+}
+
+.wavy-divider {
+  width: 100%;
+  height: 1.5rem;
+  display: block;
+}
+
+/* ---------------- Section heading ---------------- */
+
+.section-heading {
+  text-align: center;
+  padding: 0.25rem 1.25rem 0;
+}
+
+.section-heading__title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-size: 1.6rem;
+  margin: 0;
+  background: linear-gradient(90deg, #86efac, #34d399);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ---------------- Reset banner ---------------- */
+
+.reset-banner {
+  margin: 1rem 1.25rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: linear-gradient(90deg, #22c55e, #059669);
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.7rem 1rem;
+  border-radius: 9999px;
+  box-shadow: 0 12px 25px rgba(5, 150, 105, 0.3);
+}
+
+.reset-countdown {
+  text-align: center;
+  color: #4ade80;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  margin: 0.75rem 0 0;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------------- Ranked list ---------------- */
+
+.leaderboard-list {
+  margin-top: 1.25rem;
+  padding: 0 1.25rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.list-row {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.list-row:last-child {
+  border-bottom: none;
+}
+
+.list-row__rank {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 0.4rem;
+  background: #1c2b22;
+  color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.list-row__avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #ffffff;
+  flex-shrink: 0;
+}
+
+.list-row__name {
+  flex: 1;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.9);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.list-row__coins {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 9999px;
+  padding: 0.25rem 0.65rem;
+  flex-shrink: 0;
+}

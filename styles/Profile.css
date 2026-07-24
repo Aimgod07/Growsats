@@ -1,0 +1,401 @@
+@import "tailwindcss";
+
+* {
+  box-sizing: border-box;
+}
+
+.profile-page {
+  width: 100%;
+  max-width: 28rem;
+  margin: 0 auto;
+  background: #090b10;
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  min-height: 100vh;
+  padding-bottom: 2rem;
+}
+
+.profile-page--center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  min-height: 60vh;
+  padding: 2rem;
+}
+
+.profile-page__loading-text {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.875rem;
+}
+
+.profile-page__error-text {
+  color: #f87171;
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.profile-page__retry {
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  padding: 0.5rem 1.25rem;
+  border-radius: 9999px;
+  font-size: 0.8125rem;
+  cursor: pointer;
+}
+
+.spin {
+  animation: profile-spin 0.9s linear infinite;
+}
+
+@keyframes profile-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.icon-teal {
+  color: #2dd4bf;
+}
+
+/* ---------------- Hero ---------------- */
+
+.profile-hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 1.5rem 2rem;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(45, 212, 191, 0.16), transparent 55%),
+    linear-gradient(160deg, #0f2f3a 0%, #131233 55%, #0a0b17 100%);
+}
+
+.profile-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 26px 26px;
+  pointer-events: none;
+}
+
+.profile-hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------------- Header ---------------- */
+
+.profile-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 0 1.30rem;
+}
+
+.profile-header__title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.country-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* ---------------- Avatar ---------------- */
+
+.avatar-wrap {
+  position: relative;
+  width: 8rem;
+  height: 8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+.avatar-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.avatar {
+  width: 6.5rem;
+  height: 6.5rem;
+  border-radius: 9999px;
+  background: linear-gradient(160deg, #22d3ee, #6366f1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(34, 211, 238, 0.25);
+}
+
+.avatar__emoji {
+  font-size: 2.75rem;
+}
+
+.avatar__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatar-edit {
+  position: absolute;
+  bottom: 0.15rem;
+  right: 0.15rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #a855f7, #6366f1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #090b10;
+  cursor: pointer;
+  color: #ffffff;
+}
+
+.avatar-edit__input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* ---------------- Name / email ---------------- */
+
+.profile-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  margin: 0 0 0.4rem;
+}
+
+.profile-email {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.65);
+  margin: 0;
+}
+
+.verified-badge {
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 0.3rem;
+  background: #22c55e;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---------------- Wavy divider ---------------- */
+
+.wavy-divider-wrap {
+  margin-top: -0.5rem;
+}
+
+.wavy-divider {
+  width: 100%;
+  height: 1.5rem;
+  display: block;
+}
+
+/* ---------------- Section heading ---------------- */
+
+.section-heading {
+  text-align: center;
+  padding: 0.25rem 1.25rem 0;
+}
+
+.section-heading__title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-size: 1.6rem;
+  margin: 0;
+  background: linear-gradient(90deg, #7dd3fc, #a5b4fc);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.section-heading__caption {
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0.35rem 0 0;
+}
+
+/* ---------------- Body ---------------- */
+
+.profile-body {
+  padding: 1.5rem 1.25rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+/* ---------------- User ID card ---------------- */
+
+.info-card {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  background: #14161d;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 1rem;
+  padding: 0.9rem 1rem;
+}
+
+.info-card__icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.75rem;
+  background: rgba(45, 212, 191, 0.12);
+  color: #2dd4bf;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.info-card__text {
+  flex: 1;
+  min-width: 0;
+}
+
+.info-card__title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin: 0 0 0.15rem;
+}
+
+.info-card__subtitle {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.info-card__action {
+  background: rgba(255, 255, 255, 0.06);
+  border: none;
+  color: #ffffff;
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 0.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* ---------------- System info link ---------------- */
+
+.system-info-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.85rem;
+  padding: 0;
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+/* ---------------- Menu list ---------------- */
+
+.menu-list {
+  background: #14161d;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.menu-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  background: none;
+  border: none;
+  color: #ffffff;
+  padding: 1rem;
+  cursor: pointer;
+  text-align: left;
+}
+
+.menu-item__icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.75rem;
+  background: rgba(99, 102, 241, 0.14);
+  color: #a5b4fc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.menu-item__text {
+  min-width: 0;
+}
+
+.menu-item__title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin: 0 0 0.15rem;
+}
+
+.menu-item__subtitle {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
+}
+
+.menu-item__divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.06);
+  margin: 0 1rem;
+}
+
+/* ---------------- Rate us ---------------- */
+
+.rate-us-link {
+  align-self: flex-start;
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0.5rem 0 1rem;
+}
