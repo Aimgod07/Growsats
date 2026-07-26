@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 import { useEffect, useState, useCallback, useMemo } from "react";
+import GameWebViewOverlay from "../components/timer/GameWebViewOverlay";
 
 const FEATURED_COUNT = 10; // scroller only ever shows this many games
 const SKELETON_COUNT = 6;
@@ -22,40 +23,6 @@ function shuffle(arr) {
     [a[i], a[j]] = [a[j], a[i]];
   }
   return a;
-}
-
-// ---------------------------------------------------------------------------
-// Opens a game URL outside of an iframe.
-//
-// - Inside a Capacitor (Android/iOS) build: uses @capacitor/browser to open
-//   an in-app browser (Chrome Custom Tabs on Android). This avoids all the
-//   WebView iframe issues (broken WebGL/audio context, blocked permissions,
-//   no real fullscreen, etc).
-// - In a plain web browser (no Capacitor): falls back to window.open in a
-//   new tab.
-//
-// Requires: npm install @capacitor/browser && npx cap sync
-// ---------------------------------------------------------------------------
-async function openGameUrl(url) {
-  if (!url) return;
-
-  const isCapacitor =
-    typeof window !== "undefined" && !!window.Capacitor?.isNativePlatform?.();
-
-  if (isCapacitor) {
-    try {
-      const { Browser } = await import("@capacitor/browser");
-      await Browser.open({ url, presentationStyle: "fullscreen" });
-      return;
-    } catch (err) {
-      console.error(
-        "Capacitor Browser plugin unavailable, falling back to window.open:",
-        err
-      );
-    }
-  }
-
-  window.open(url, "_blank", "noopener,noreferrer");
 }
 
 // ---- Styles ---------------------------------------------------------------
@@ -309,7 +276,10 @@ export default function FeaturedGames({
 }) {
   const [allGames, setAllGames] = useState([]);
   const [status, setStatus] = useState("loading");
-  const [openingId, setOpeningId] = useState(null); // brief "opening..." state per card
+
+  // The one piece of state that controls the overlay: whichever game
+  // object is here (or null) is what GameWebViewOverlay renders.
+  const [activeGame, setActiveGame] = useState(null);
 
   const fetchGames = useCallback(() => {
     let cancelled = false;
@@ -348,22 +318,20 @@ export default function FeaturedGames({
     return shuffle(allGames).slice(0, FEATURED_COUNT);
   }, [allGames]);
 
-  const handleSelectGame = useCallback(async (game) => {
-    setOpeningId(game.id);
-    try {
-      await openGameUrl(game.playUrl);
-    } finally {
-      setOpeningId(null);
-    }
-  }, []);
-
-  const handleViewAll = () => {
+  const handleViewAll = useCallback(() => {
     if (onViewAll) {
       onViewAll();
     } else if (typeof window !== "undefined") {
       window.location.href = "/all-games";
     }
-  };
+  }, [onViewAll]);
+
+  // Opening a game is now just "set it as active" — GameWebViewOverlay
+  // handles native mounting vs. web iframe, the timer, and the claim flow.
+  const handleSelectGame = useCallback((game) => {
+    if (!game.playUrl) return;
+    setActiveGame(game);
+  }, []);
 
   return (
     <section style={styles.section}>
@@ -409,10 +377,10 @@ export default function FeaturedGames({
         </div>
       )}
 
-      {/* No iframe/modal anymore — games open via Capacitor Browser plugin
-          (in-app Chrome Custom Tab) or window.open on the web. `openingId`
-          is exposed in case you want to show a tiny spinner/opacity change
-          on the tapped card while the browser is launching. */}
+      <GameWebViewOverlay
+        game={activeGame}
+        onClose={() => setActiveGame(null)}
+      />
     </section>
   );
 }

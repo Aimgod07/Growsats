@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import  { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Gamepad2,Sparkles, Mail, Lock, X, Loader2 } from "lucide-react";
 import "../styles/Login.css";
 
@@ -47,6 +48,7 @@ function GoogleMark() {
 
 
 export default function Login({ onAuthenticated }) {
+  const navigate=useNavigate();
   const [showEmailForm, setShowEmailForm] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -59,17 +61,21 @@ export default function Login({ onAuthenticated }) {
     if (onAuthenticated) onAuthenticated(user);
   };
 
-  const handleGoogleClick = async () => {
-    setError(null);
-    setActiveProvider("google");
-    try {
-      const user = await authenticateWithGoogle();
-      handleSuccess(user);
-    } catch (err) {
-      setError(err.message || "Google sign-in failed");
-    } finally {
-      setActiveProvider(null);
-    }
+  const handleGoogleClick= ()=> {
+       
+
+       navigate('/Home')
+    
+    // setError(null);
+    // setActiveProvider("google");
+    // try {
+    //   const user = await authenticateWithGoogle();
+    //   handleSuccess(user);
+    // } catch (err) {
+    //   setError(err.message || "Google sign-in failed");
+    // } finally {
+    //   setActiveProvider(null);
+    // }
   };
 
   const handleFacebookClick = async () => {
