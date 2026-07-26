@@ -299,8 +299,7 @@ export default function AllGames({
     });
   }, [allGames, query, activeCategory]);
 
-  // Opening a game is now just "set it as active" — GameWebViewOverlay
-  // handles native mounting vs. web iframe, the timer, and the claim flow.
+
   const handleSelectGame = useCallback((game) => {
     if (!game.playUrl) return;
     setActiveGame(game);

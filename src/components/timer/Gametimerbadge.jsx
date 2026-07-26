@@ -57,9 +57,6 @@ const claimCSS = `
   }
 `;
 
-// Shows the running elapsed time. Once elapsedSeconds crosses
-// claimThreshold (default 120s / 2 minutes), a pulsing "Claim" button
-// appears next to it. Tapping it fires onClaim.
 export default function GameTimerBadge({
   elapsedSeconds,
   onClaim,

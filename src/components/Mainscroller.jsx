@@ -1,14 +1,10 @@
 import React, { useEffect, useState, useCallback } from "react";
 import "./mainscroller.css";
 
-// ---- Config -------------------------------------------------------------
-// Point this at your real endpoint. Expected response: an array of games
-// (or an object with a `games` array) shaped like:
-// { id, title, thumbnail, playUrl }
-const DEFAULT_API_URL = "https://your-api.example.com/games/play-and-win";
-const SKELETON_COUNT = 8; // fills 2 rows x 4 cols while loading
 
-// ---- Game card template ---------------------------------------------------
+const DEFAULT_API_URL = "https://your-api.example.com/games/play-and-win";
+const SKELETON_COUNT = 8; 
+
 function GameCard({ game, onSelect }) {
   return (
     <div
@@ -45,7 +41,6 @@ function GameCard({ game, onSelect }) {
   );
 }
 
-// ---- Skeleton template (shown while loading) -----------------------------
 function GameCardSkeleton() {
   return <div className="ms-game-card ms-skeleton" aria-hidden="true" />;
 }

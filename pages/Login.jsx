@@ -62,20 +62,8 @@ export default function Login({ onAuthenticated }) {
   };
 
   const handleGoogleClick= ()=> {
-       
-
        navigate('/Home')
-    
-    // setError(null);
-    // setActiveProvider("google");
-    // try {
-    //   const user = await authenticateWithGoogle();
-    //   handleSuccess(user);
-    // } catch (err) {
-    //   setError(err.message || "Google sign-in failed");
-    // } finally {
-    //   setActiveProvider(null);
-    // }
+  
   };
 
   const handleFacebookClick = async () => {

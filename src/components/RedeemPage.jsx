@@ -16,10 +16,8 @@ import Footer from "./Footer";
 
 
 async function fetchUserBalance() {
-  // --- Replace this block with a real call, e.g.:
-  // const res = await fetch("/api/user/balance");
-  // if (!res.ok) throw new Error("Failed to load balance");
-  // return res.json();
+
+
   await mockDelay(400);
   return {
     name: "Deepanshu",
@@ -32,11 +30,6 @@ async function fetchUserBalance() {
 
 
 async function fetchRedeemCategories() {
-
-  //  Replace this block with a real call,
-  // const res = await fetch("/api/redeem/options");
-  // if (!res.ok) throw new Error("Failed to load redeem options");
-  // return res.json();
 
   await mockDelay(600);
   return [
@@ -85,15 +78,6 @@ async function fetchRedeemCategories() {
 
 
 async function submitRedemption(categoryId, optionId) {
-  // --- Replace this block with a real call
-
-  // {const res = await fetch("/api/redeem", {
-  //   method: "POST",
-  //   headers: { "Content-Type": "application/json" },
-  //   body: JSON.stringify({ categoryId, optionId }),
-  // });
-  // if (!res.ok) throw new Error("Redemption failed");
-  // return res.json(); }
 
   await mockDelay(700);
   return { success: true };
@@ -208,7 +192,6 @@ export default function RedeemPage() {
     try {
       const result = await submitRedemption(categoryId, optionId);
       if (result.success) {
-        // Optimistically refresh balance after a successful redemption.
         const freshUser = await fetchUserBalance();
         setUser(freshUser);
       }

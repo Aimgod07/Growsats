@@ -2,7 +2,7 @@
 import { useEffect, useState, useCallback, useMemo } from "react";
 import GameWebViewOverlay from "../components/timer/GameWebViewOverlay";
 
-const FEATURED_COUNT = 10; // scroller only ever shows this many games
+const FEATURED_COUNT = 10; 
 const SKELETON_COUNT = 6;
 
 export function mapApiGame(raw) {
@@ -140,7 +140,7 @@ const styles = {
       "0 0 0 6px rgba(212,255,62,0.14), 0 4px 10px rgba(0,0,0,0.4)",
     pointerEvents: "none",
   },
-  // ---- "View All" card, appended after the 10th game ----
+  // ---- "View All" card
   viewAllCard: {
     flexShrink: 0,
     width: "130px",
@@ -244,7 +244,7 @@ function GameCard({ game, onSelect }) {
   );
 }
 
-// ---- "View All" card, shown after the 10th game ---------------------------
+// ---- "View All" card
 function ViewAllCard({ onClick }) {
   return (
     <div
@@ -277,8 +277,7 @@ export default function FeaturedGames({
   const [allGames, setAllGames] = useState([]);
   const [status, setStatus] = useState("loading");
 
-  // The one piece of state that controls the overlay: whichever game
-  // object is here (or null) is what GameWebViewOverlay renders.
+
   const [activeGame, setActiveGame] = useState(null);
 
   const fetchGames = useCallback(() => {
@@ -292,7 +291,6 @@ export default function FeaturedGames({
       })
       .then((data) => {
         if (cancelled) return;
-        // API shape: { success, message, data: [ ...games ] }
         const rawList = Array.isArray(data) ? data : data.data || data.games || [];
         setAllGames(rawList.map(mapApiGame));
         setStatus("success");
@@ -326,8 +324,7 @@ export default function FeaturedGames({
     }
   }, [onViewAll]);
 
-  // Opening a game is now just "set it as active" — GameWebViewOverlay
-  // handles native mounting vs. web iframe, the timer, and the claim flow.
+
   const handleSelectGame = useCallback((game) => {
     if (!game.playUrl) return;
     setActiveGame(game);

@@ -3,14 +3,9 @@ import { Zap, Loader2 } from "lucide-react";
 import "../../styles/Leaderboard.css";
 import Footer from "./Footer";
 
-//The only function you need to touch to go live: fetchLeaderboard().
-
-
 async function fetchLeaderboard() {
 
-  // const res = await fetch("/api/leaderboard");
-  // if (!res.ok) throw new Error("Failed to load leaderboard");
-  // return res.json();
+
 
   await mockDelay(500);
 
@@ -34,8 +29,6 @@ function mockDelay(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-//helping logic
-
 function formatCoins(value) {
   if (value >= 1000) {
     return `${(value / 1000).toFixed(value % 1000 === 0 ? 0 : 1)}K`;
@@ -53,7 +46,7 @@ function formatCountdown(ms) {
   return `${pad(hours)}h : ${pad(minutes)}m : ${pad(seconds)}s`;
 }
 
-const RANK_ORDER = [2, 1, 3]; // visual order on the podium: 2nd, 1st, 3rd
+const RANK_ORDER = [2, 1, 3]; 
 const RANK_CLASS = { 1: "podium-card--first", 2: "podium-card--second", 3: "podium-card--third" };
 
 //cards

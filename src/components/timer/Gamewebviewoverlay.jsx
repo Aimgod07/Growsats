@@ -5,8 +5,7 @@ import { GameWebView as NativeGameWebView, launchGameOverlay } from "./gameWebVi
 import { useGameTimer } from "./Usegametimer";
 import GameTimerBadge, { CLAIM_THRESHOLD_SECONDS } from "./GameTimerBadge";
 
-const CLOSE_BAR_HEIGHT = 60; // px reserved at the top for the close bar
-
+const CLOSE_BAR_HEIGHT = 60; 
 function computeOverlayRect(safeArea) {
   const top = CLOSE_BAR_HEIGHT + (safeArea?.top || 0);
   const bottom = safeArea?.bottom || 0;
@@ -94,13 +93,11 @@ const styles = {
 };
 
 export default function GameWebViewOverlay({ game, onClose }) {
-  const [status, setStatus] = useState("loading"); // 'loading' | 'error' | null
+  const [status, setStatus] = useState("loading");
   const listenersRef = useRef([]);
   const navigate = useNavigate();
   const isNative = Capacitor.isNativePlatform();
 
-  // Starts the instant `game` goes from null -> truthy, resets to 0 the
-  // moment it goes back to null (see onClose below).
   const elapsedSeconds = useGameTimer(game?.id ?? null);
 
   const teardownNative = useCallback(async () => {
@@ -127,15 +124,13 @@ export default function GameWebViewOverlay({ game, onClose }) {
     onClose();
   }, [isNative, teardownNative, onClose]);
 
-  // Fires once elapsedSeconds >= CLAIM_THRESHOLD_SECONDS and the user taps
-  // the Claim button in the timer badge.
+
   const handleClaim = useCallback(async () => {
     if (isNative) await teardownNative();
     onClose();
     navigate("/Home");
   }, [isNative, teardownNative, onClose, navigate]);
 
-  // ---- Native: mount the game via the GameWebView plugin ----
   useEffect(() => {
     if (!game || !isNative) return;
     let cancelled = false;
@@ -165,13 +160,12 @@ export default function GameWebViewOverlay({ game, onClose }) {
     };
   }, [game, isNative]);
 
-  // ---- Web: reset status whenever a new game is selected for the iframe ----
+
   useEffect(() => {
     if (!game || isNative) return;
     setStatus("loading");
   }, [game, isNative]);
 
-  // ---- Native: keep the overlay rect in sync with viewport/orientation ----
   useEffect(() => {
     if (!game || !isNative) return;
 
@@ -192,7 +186,7 @@ export default function GameWebViewOverlay({ game, onClose }) {
     };
   }, [game, isNative]);
 
-  // ---- Safety net: tear down native overlay if this unmounts unexpectedly ----
+
   useEffect(() => {
     return () => {
       if (isNative && game) {

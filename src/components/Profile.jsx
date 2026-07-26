@@ -6,10 +6,7 @@ import Footer from "./Footer";
 
 async function fetchProfile() {
 
-  //  Replace this block with a real call,
-  // const res = await fetch("/api/user/profile");
-  // if (!res.ok) throw new Error("Failed to load profile");
-  // return res.json();
+
 
   await mockDelay(400);
   return {
@@ -26,12 +23,7 @@ async function fetchProfile() {
 
 async function uploadAvatar(file) {
 
-  // --- Replace this block with a real call,
-  // const formData = new FormData();
-  // formData.append("avatar", file);
-  // const res = await fetch("/api/user/avatar", { method: "POST", body: formData });
-  // if (!res.ok) throw new Error("Upload failed");
-  // return res.json();
+
 
   await mockDelay(500);
   return { avatarUrl: URL.createObjectURL(file) };

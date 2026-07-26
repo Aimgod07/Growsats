@@ -17,11 +17,10 @@ export interface GameWebViewMountOptions extends GameWebViewRect {
 }
 
 export interface GameTimerOptions {
-  /** Where the timer overlay is anchored on screen */
   position?: 'top-left' | 'top-right' | 'top-center';
-  /** Starting value in seconds (default 0) */
+
   startSeconds?: number;
-  /** Count up from startSeconds, or down to 0 */
+
   direction?: 'up' | 'down';
 }
 
