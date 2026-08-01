@@ -1,16 +1,12 @@
-import React, { useState, useEffect, useCallback, useMemo } from "react";
-import { Zap, Loader2 } from "lucide-react";
+import { useState, useEffect, useCallback, useMemo } from "react";
+import { ChevronLeft, MoreHorizontal, Clock3, Gem, Loader2 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import "../../styles/Leaderboard.css";
 import Footer from "./Footer";
 
 async function fetchLeaderboard() {
-
-
-
   await mockDelay(500);
-
   const resetAt = new Date(Date.now() + (18 * 3600 + 43 * 60 + 54) * 1000).toISOString();
-
   return {
     resetAt,
     players: [
@@ -30,9 +26,7 @@ function mockDelay(ms) {
 }
 
 function formatCoins(value) {
-  if (value >= 1000) {
-    return `${(value / 1000).toFixed(value % 1000 === 0 ? 0 : 1)}K`;
-  }
+  if (value >= 1000) return `${(value / 1000).toFixed(value % 1000 === 0 ? 0 : 1)}K`;
   return `${value}`;
 }
 
@@ -46,25 +40,32 @@ function formatCountdown(ms) {
   return `${pad(hours)}h : ${pad(minutes)}m : ${pad(seconds)}s`;
 }
 
-const RANK_ORDER = [2, 1, 3]; 
+const RANK_ORDER = [2, 1, 3];
 const RANK_CLASS = { 1: "podium-card--first", 2: "podium-card--second", 3: "podium-card--third" };
 
-//cards
+function Avatar({ player, className }) {
+  return (
+    <div className={className} style={{ backgroundColor: player.avatarColor }} aria-label={player.name}>
+      {player.avatarLetter}
+    </div>
+  );
+}
 
 function PodiumCard({ player }) {
   return (
-    <div className={`podium-card ${RANK_CLASS[player.rank] || ""}`}>
-      <div className="podium-card__avatar-wrap">
-        <div className="podium-card__avatar" style={{ backgroundColor: player.avatarColor }}>
-          {player.avatarLetter}
+    <article className={`podium-card ${RANK_CLASS[player.rank]}`}>
+      <div className="podium-card__profile">
+        <div className="podium-card__avatar-shell">
+          <span className="podium-card__crown-dot" aria-hidden="true" />
+          <Avatar player={player} className="podium-card__avatar" />
         </div>
-        <span className="podium-card__rank">{player.rank}</span>
+        <p className="podium-card__name">{player.name}</p>
+        <span className="podium-card__coins"><Gem size={12} /> {formatCoins(player.coins)}</span>
       </div>
-      <p className="podium-card__name">{player.name}</p>
-      <span className="podium-card__coins">
-        <span className="coin-dot">🪙</span> {formatCoins(player.coins)}
-      </span>
-    </div>
+      <div className="podium-card__platform" aria-label={`Rank ${player.rank}`}>
+        <span>{player.rank}</span>
+      </div>
+    </article>
   );
 }
 
@@ -72,20 +73,18 @@ function ListRow({ player }) {
   return (
     <div className="list-row">
       <span className="list-row__rank">{player.rank}</span>
-      <div className="list-row__avatar" style={{ backgroundColor: player.avatarColor }}>
-        {player.avatarLetter}
+      <Avatar player={player} className="list-row__avatar" />
+      <div className="list-row__details">
+        <span className="list-row__name">{player.name}</span>
+        <span className="list-row__handle">@{player.name.toLowerCase().replace(/\s+/g, "")}</span>
       </div>
-      <span className="list-row__name">{player.name}</span>
-      <span className="list-row__coins">
-        <span className="coin-dot">🪙</span> {formatCoins(player.coins)}
-      </span>
+      <span className="list-row__coins"><Gem size={13} /> {formatCoins(player.coins)}</span>
     </div>
   );
 }
 
-//main component
-
 export default function Leaderboard() {
+  const navigate = useNavigate();
   const [players, setPlayers] = useState([]);
   const [resetAt, setResetAt] = useState(null);
   const [now, setNow] = useState(() => Date.now());
@@ -110,8 +109,6 @@ export default function Leaderboard() {
     Promise.resolve().then(loadData);
   }, [loadData]);
 
-//countdown
-
   useEffect(() => {
     if (!resetAt) return undefined;
     const interval = setInterval(() => setNow(Date.now()), 1000);
@@ -124,79 +121,37 @@ export default function Leaderboard() {
   }, [resetAt, now]);
 
   const podium = useMemo(() => {
-    const byRank = {};
-    players.forEach((p) => {
-      if (p.rank <= 3) byRank[p.rank] = p;
-    });
+    const byRank = Object.fromEntries(players.filter((player) => player.rank <= 3).map((player) => [player.rank, player]));
     return RANK_ORDER.map((rank) => byRank[rank]).filter(Boolean);
   }, [players]);
-
-  const rest = useMemo(() => players.filter((p) => p.rank > 3), [players]);
+  const rest = useMemo(() => players.filter((player) => player.rank > 3), [players]);
+  const monthLabel = useMemo(() => new Intl.DateTimeFormat("en-US", { month: "long", year: "numeric" }).format(new Date()), []);
 
   if (loading) {
-    return (
-      <div className="leaderboard leaderboard--center">
-        <Loader2 size={28} className="spin icon-green" />
-        <p className="leaderboard__loading-text">Loading leaderboard…</p>
-      </div>
-    );
+    return <div className="leaderboard leaderboard--center"><Loader2 size={28} className="spin icon-green" /><p>Loading leaderboard...</p></div>;
   }
-
   if (error) {
-    return (
-      <div className="leaderboard leaderboard--center">
-        <p className="leaderboard__error-text">{error}</p>
-        <button className="leaderboard__retry" onClick={loadData}>
-          Try again
-        </button>
-      </div>
-    );
+    return <div className="leaderboard leaderboard--center"><p className="leaderboard__error-text">{error}</p><button className="leaderboard__retry" onClick={loadData}>Try again</button></div>;
   }
 
   return (
-    <div className="leaderboard">
-      
-      {/* ---------------- Section heading ---------------- */}
-      <div className="section-heading">
-        <h2 className="section-heading__title">Leaderboard</h2>
-      </div>
+    <main className="leaderboard">
+      <header className="leaderboard-header">
+        <button className="leaderboard-header__button" onClick={() => navigate("/Home")} aria-label="Back to home"><ChevronLeft size={22} /></button>
+        <div><h1>Leaderboard</h1><p>{monthLabel}</p></div>
+        <button className="leaderboard-header__button" aria-label="More leaderboard options"><MoreHorizontal size={21} /></button>
+      </header>
 
-      {/* ---------------- Podium (top 3) ---------------- */}
-      <div className="podium">
-        {podium.map((player) => (
-          <PodiumCard key={player.rank} player={player} />
-        ))}
-      </div>
+      <section className="podium" aria-label="Top three players">
+        {podium.map((player) => <PodiumCard key={player.rank} player={player} />)}
+      </section>
 
-      {/* ---------------- Wavy divider ---------------- */}
-      <div className="wavy-divider-wrap">
-        <svg viewBox="0 0 400 24" preserveAspectRatio="none" className="wavy-divider">
-          <path
-            d="M0,4 L150,4 C165,4 165,20 185,20 L215,20 C235,20 235,4 250,4 L400,4"
-            fill="none"
-            stroke="rgba(52,211,153,0.35)"
-            strokeWidth="2"
-          />
-        </svg>
-      </div>
+      <div className="leaderboard-status"><Clock3 size={14} /> <span>Leaderboard updates in</span> <strong>{countdownLabel}</strong></div>
 
-      
-
-      {/* ---------------- Reset banner + countdown ---------------- */}
-      <div className="reset-banner">
-        <Zap size={14} />
-        <span>The Leaderboard will be reset in</span>
-        <Zap size={14} />
-      </div>
-      <p className="reset-countdown">{countdownLabel}</p>
-
-      {/* ---------------- Ranked list (4+) ---------------- */}
-      <div className="leaderboard-list">
-        {rest.map((player) => (
-          <ListRow key={player.rank} player={player} />
-        ))}
-      </div>
-      <Footer/>
-    </div>
+      <section className="leaderboard-list" aria-label="Remaining player rankings">
+        {rest.map((player) => <ListRow key={player.rank} player={player} />)}
+      </section>
+      <Footer />
+    </main>
   );
 }

@@ -38,35 +38,54 @@ const styles = {
   header: {
     display: "flex",
     alignItems: "center",
-    justifyContent: "space-between",
-    marginBottom: "14px",
+    justifyContent: "center",
+    position: "relative",
+    marginBottom: "19px",
+    marginTop: "8px",
   },
   headerLeft: {
     display: "flex",
     alignItems: "center",
     gap: "8px",
+    padding: "6px 12px 6px 6px",
+    background: "linear-gradient(145deg, #1a4a2b 20%, #0e2414 65%, #060f07 100%)",
+    border: "1px solid rgba(60,140,90,0.3)",
+    clipPath: "polygon(5% 0, 100% 0, 96% 100%, 0 100%)",
+    boxShadow: "4px 4px 0 #050606, 0 0 16px rgba(26,74,43,0.55)",
+    transform: "skewY(-1deg)",
   },
   headerIcon: {
-    fontSize: "18px",
+    width: "27px",
+    height: "26px",
+    display: "grid",
+    placeItems: "center",
+    fontSize: "17px",
     lineHeight: 1,
-    filter: "drop-shadow(0 0 6px rgba(255,130,40,0.6))",
+    color: "#7cffa3",
+    background: "#080a09",
+    clipPath: "polygon(25% 0, 75% 0, 100% 25%, 100% 75%, 75% 100%, 25% 100%, 0 75%, 0 25%)",
   },
   headerTitle: {
-    color: "#ffffff",
-    fontSize: "18px",
-    fontWeight: 800,
+    color: "#eafff0",
+    fontFamily: "Impact, Haettenschweiler, Arial Narrow Bold, sans-serif",
+    fontSize: "16px",
+    fontWeight: 400,
+    letterSpacing: "0.02em",
+    lineHeight: 2,
+    textTransform: "uppercase",
     margin: 0,
   },
   retryBtn: {
-    color: "#d4ff3e",
+    color: "#7cffa3",
     fontSize: "13px",
     fontWeight: 700,
     background: "none",
     border: "none",
     cursor: "pointer",
     padding: "4px",
-  },
-  scrollRow: {
+    position: "absolute",
+    right: 0,
+  },  scrollRow: {
     display: "flex",
     gap: "12px",
     overflowX: "auto",
@@ -79,18 +98,51 @@ const styles = {
   card: {
     position: "relative",
     flexShrink: 0,
-    width: "130px",
-    height: "130px",
-    borderRadius: "16px",
-    overflow: "hidden",
+    width: "142px",
+    height: "220px",
+    padding: "6px",
     scrollSnapAlign: "start",
     cursor: "pointer",
     WebkitTapHighlightColor: "transparent",
     userSelect: "none",
-    background: "linear-gradient(150deg, #23233b, #191930)",
-    border: "1px solid #2c2c46",
-    boxShadow: "0 4px 14px rgba(0,0,0,0.4)",
+    background: "linear-gradient(145deg, #e5c7ff 0%, #a855f7 58%, #6d28d9 100%)",
+    clipPath: "polygon(8% 0, 92% 0, 100% 6%, 100% 91%, 91% 100%, 9% 100%, 0 91%, 0 6%)",
+    boxShadow: "0 10px 20px rgba(0,0,0,0.45), 0 0 16px rgba(168,85,247,0.25)",
     transition: "transform 0.12s ease",
+  },
+  cardInner: {
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    overflow: "hidden",
+    background: "#080a13",
+    clipPath: "polygon(7% 0, 93% 0, 100% 6%, 100% 90%, 90% 100%, 10% 100%, 0 90%, 0 6%)",
+  },
+  cardHeader: {
+    minHeight: "32px",
+    padding: "7px 9px 5px",
+    color: "#22102f",
+    background: "linear-gradient(180deg, #f0ddff, #c084fc)",
+    fontSize: "13px",
+    fontWeight: 950,
+    lineHeight: 1.02,
+    letterSpacing: "-0.035em",
+    textAlign: "center",
+    textTransform: "uppercase",
+    overflow: "hidden",
+    display: "-webkit-box",
+    WebkitLineClamp: 2,
+    WebkitBoxOrient: "vertical",
+  },
+  cardArtwork: {
+    position: "relative",
+    flex: 1,
+    minHeight: 0,
+    margin: "0 7px", marginBottom: "4px",
+    overflow: "hidden",
+    background: "#10121e",
+    borderLeft: "2px solid #161826",
+    borderRight: "2px solid #161826",
   },
   cardImg: {
     width: "100%",
@@ -100,26 +152,25 @@ const styles = {
   },
   cardScrim: {
     position: "absolute",
-    inset: "auto 0 0 0",
-    height: "60%",
-    background:
-      "linear-gradient(180deg, rgba(16,16,28,0) 0%, rgba(16,16,28,0.92) 100%)",
+    inset: 0,
+    background: "linear-gradient(180deg, rgba(4,7,16,0.08), rgba(4,7,16,0.24))",
     pointerEvents: "none",
   },
-  cardTitle: {
-    position: "absolute",
-    left: "8px",
-    right: "8px",
-    bottom: "8px",
-    fontSize: "11.5px",
-    fontWeight: 700,
-    color: "#ffffff",
-    lineHeight: 1.2,
-    display: "-webkit-box",
-    WebkitLineClamp: 2,
-    WebkitBoxOrient: "vertical",
+  cardFooter: {
+    minHeight: "44px", margin: "0 7px 10px",
+    padding: "8px 10px 9px",
+    color: "#ead8ff",
+    background: "linear-gradient(180deg, #070912, #03040a)",
+    fontSize: "10px",
+    fontWeight: 800,
+    lineHeight: 1.15,
+    letterSpacing: "0.01em",
+    textAlign: "center",
+    textTransform: "uppercase",
     overflow: "hidden",
-    textShadow: "0 1px 3px rgba(0,0,0,0.6)",
+    display: "-webkit-box",
+    WebkitLineClamp: 3,
+    WebkitBoxOrient: "vertical",
   },
   playBadge: {
     position: "absolute",
@@ -136,16 +187,15 @@ const styles = {
     justifyContent: "center",
     fontSize: "11px",
     paddingLeft: "2px",
-    boxShadow:
-      "0 0 0 6px rgba(212,255,62,0.14), 0 4px 10px rgba(0,0,0,0.4)",
+    boxShadow: "0 0 0 5px rgba(212,255,62,0.14), 0 4px 10px rgba(0,0,0,0.4)",
     pointerEvents: "none",
   },
   // ---- "View All" card
   viewAllCard: {
     flexShrink: 0,
-    width: "130px",
-    height: "130px",
-    borderRadius: "16px",
+    width: "142px",
+    height: "220px",
+    clipPath: "polygon(8% 0, 92% 0, 100% 6%, 100% 91%, 91% 100%, 9% 100%, 0 91%, 0 6%)",
     scrollSnapAlign: "start",
     cursor: "pointer",
     WebkitTapHighlightColor: "transparent",
@@ -157,6 +207,17 @@ const styles = {
     gap: "8px",
     background: "rgba(212,255,62,0.07)",
     border: "1.5px dashed rgba(212,255,62,0.45)",
+  },
+  viewAllInner: {
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: "8px",
+    background: "linear-gradient(160deg, #25204c, #121429)",
+    clipPath: "polygon(7% 0, 93% 0, 100% 5%, 100% 85%, 50% 97%, 0 85%, 0 5%)",
   },
   viewAllArrow: {
     width: "34px",
@@ -177,11 +238,10 @@ const styles = {
   },
   // ---- skeleton template ----
   skeleton: {
-    width: "130px",
-    height: "130px",
+    width: "142px",
+    height: "220px",
     flexShrink: 0,
-    borderRadius: "16px",
-    border: "1px solid #2c2c46",
+    clipPath: "polygon(8% 0, 92% 0, 100% 6%, 100% 91%, 91% 100%, 9% 100%, 0 91%, 0 6%)",
     backgroundImage:
       "linear-gradient(100deg, #1b1b2e 20%, #2a2a46 40%, #1b1b2e 60%)",
     backgroundSize: "200% 100%",
@@ -204,11 +264,17 @@ const globalCSS = `
   }
   .featured-game-card:active,
   .featured-view-all-card:active { transform: scale(0.94); }
+  @media (max-width: 360px) {
+    .featured-game-card, .featured-view-all-card, .featured-game-skeleton {
+      width: 98px !important;
+      height: 154px !important;
+    }
+  }
 `;
 
 // ---- Skeleton template ---------------------------------------------------
 function GameCardSkeleton() {
-  return <div style={styles.skeleton} aria-hidden="true" />;
+  return <div className="featured-game-skeleton" style={styles.skeleton} aria-hidden="true" />;
 }
 
 // ---- Game card template ---------------------------------------------------
@@ -227,19 +293,17 @@ function GameCard({ game, onSelect }) {
         }
       }}
     >
-      {game.thumbnail && (
-        <img
-          src={game.thumbnail}
-          alt={game.title}
-          style={styles.cardImg}
-          loading="lazy"
-        />
-      )}
-      <div style={styles.cardScrim} />
-      <span style={styles.playBadge} aria-hidden="true">
-        ▶
-      </span>
-      <span style={styles.cardTitle}>{game.title}</span>
+      <div style={styles.cardInner}>
+        <div style={styles.cardHeader}>{game.title}</div>
+        <div style={styles.cardArtwork}>
+          {game.thumbnail && (
+            <img src={game.thumbnail} alt={game.title} style={styles.cardImg} loading="lazy" />
+          )}
+          <div style={styles.cardScrim} />
+          <span style={styles.playBadge} aria-hidden="true">▶</span>
+        </div>
+        {game.description && <div style={styles.cardFooter}>{game.description}</div>}
+      </div>
     </div>
   );
 }
@@ -271,7 +335,7 @@ function ViewAllCard({ onClick }) {
 // ---- Main component ---------------------------------------------------
 export default function FeaturedGames({
   apiUrl = "https://67c7374cbb0988d092ea.appwrite.global/games",
-  title = "Featured",
+  title = "Featured Games",
   onViewAll,
 }) {
   const [allGames, setAllGames] = useState([]);
@@ -337,7 +401,7 @@ export default function FeaturedGames({
       <div style={styles.header}>
         <div style={styles.headerLeft}>
           <span style={styles.headerIcon} aria-hidden="true">
-            🔥
+            ✦
           </span>
           <h2 style={styles.headerTitle}>{title}</h2>
         </div>

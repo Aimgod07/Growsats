@@ -100,76 +100,48 @@ const styles = {
   }),
   grid: {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(110px, 1fr))",
+    gridTemplateColumns: "repeat(auto-fill, minmax(142px, 1fr))",
     gap: "12px",
   },
   card: {
     position: "relative",
     width: "100%",
-    aspectRatio: "1 / 1",
-    borderRadius: "16px",
-    overflow: "hidden",
+    aspectRatio: "142 / 220",
+    padding: "6px",
     cursor: "pointer",
     WebkitTapHighlightColor: "transparent",
     userSelect: "none",
-    background: "linear-gradient(150deg, #23233b, #191930)",
-    border: "1px solid #2c2c46",
-    boxShadow: "0 4px 14px rgba(0,0,0,0.4)",
+    background: "linear-gradient(145deg, #e5c7ff 0%, #a855f7 58%, #6d28d9 100%)",
+    clipPath: "polygon(8% 0, 92% 0, 100% 6%, 100% 91%, 91% 100%, 9% 100%, 0 91%, 0 6%)",
+    boxShadow: "0 10px 20px rgba(0,0,0,0.45), 0 0 16px rgba(168,85,247,0.25)",
     transition: "transform 0.12s ease",
   },
-  cardImg: {
-    width: "100%",
-    height: "100%",
-    objectFit: "cover",
-    display: "block",
+  cardInner: {
+    height: "100%", display: "flex", flexDirection: "column", overflow: "hidden", background: "#080a13",
+    clipPath: "polygon(7% 0, 93% 0, 100% 6%, 100% 90%, 90% 100%, 10% 100%, 0 90%, 0 6%)",
   },
-  cardScrim: {
-    position: "absolute",
-    inset: "auto 0 0 0",
-    height: "60%",
-    background:
-      "linear-gradient(180deg, rgba(16,16,28,0) 0%, rgba(16,16,28,0.92) 100%)",
-    pointerEvents: "none",
+  cardHeader: {
+    minHeight: "32px", padding: "7px 9px 5px", color: "#22102f", background: "linear-gradient(180deg, #f0ddff, #c084fc)",
+    fontSize: "13px", fontWeight: 950, lineHeight: 1.02, letterSpacing: "-0.035em", textAlign: "center", textTransform: "uppercase",
+    overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical",
   },
-  cardTitle: {
-    position: "absolute",
-    left: "8px",
-    right: "8px",
-    bottom: "8px",
-    fontSize: "11.5px",
-    fontWeight: 700,
-    color: "#ffffff",
-    lineHeight: 1.2,
-    display: "-webkit-box",
-    WebkitLineClamp: 2,
-    WebkitBoxOrient: "vertical",
-    overflow: "hidden",
-    textShadow: "0 1px 3px rgba(0,0,0,0.6)",
+  cardArtwork: { position: "relative", flex: 1, minHeight: 0, margin: "0 7px", marginBottom: "4px", overflow: "hidden", background: "#10121e", borderLeft: "2px solid #161826", borderRight: "2px solid #161826" },
+  cardImg: { width: "100%", height: "100%", objectFit: "cover", display: "block" },
+  cardScrim: { position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(4,7,16,0.08), rgba(4,7,16,0.24))", pointerEvents: "none" },
+  cardFooter: {
+    minHeight: "44px", margin: "0 7px 10px", padding: "8px 10px 9px", color: "#ead8ff", background: "linear-gradient(180deg, #070912, #03040a)",
+    fontSize: "10px", fontWeight: 800, lineHeight: 1.15, letterSpacing: "0.01em", textAlign: "center", textTransform: "uppercase",
+    overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical",
   },
   playBadge: {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: "30px",
-    height: "30px",
-    borderRadius: "50%",
-    backgroundColor: "#d4ff3e",
-    color: "#10101c",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    fontSize: "11px",
-    paddingLeft: "2px",
-    boxShadow:
-      "0 0 0 6px rgba(212,255,62,0.14), 0 4px 10px rgba(0,0,0,0.4)",
-    pointerEvents: "none",
+    position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "30px", height: "30px", borderRadius: "50%",
+    backgroundColor: "#d4ff3e", color: "#10101c", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "11px", paddingLeft: "2px",
+    boxShadow: "0 0 0 5px rgba(212,255,62,0.14), 0 4px 10px rgba(0,0,0,0.4)", pointerEvents: "none",
   },
   skeleton: {
     width: "100%",
-    aspectRatio: "1 / 1",
-    borderRadius: "16px",
-    border: "1px solid #2c2c46",
+    aspectRatio: "142 / 220",
+    clipPath: "polygon(8% 0, 92% 0, 100% 6%, 100% 91%, 91% 100%, 9% 100%, 0 91%, 0 6%)",
     backgroundImage:
       "linear-gradient(100deg, #1b1b2e 20%, #2a2a46 40%, #1b1b2e 60%)",
     backgroundSize: "200% 100%",
@@ -220,19 +192,17 @@ function GameCard({ game, onSelect }) {
         }
       }}
     >
-      {game.thumbnail && (
-        <img
-          src={game.thumbnail}
-          alt={game.title}
-          style={styles.cardImg}
-          loading="lazy"
-        />
-      )}
-      <div style={styles.cardScrim} />
-      <span style={styles.playBadge} aria-hidden="true">
-        ▶
-      </span>
-      <span style={styles.cardTitle}>{game.title}</span>
+      <div style={styles.cardInner}>
+        <div style={styles.cardHeader}>{game.title}</div>
+        <div style={styles.cardArtwork}>
+          {game.thumbnail && (
+            <img src={game.thumbnail} alt={game.title} style={styles.cardImg} loading="lazy" />
+          )}
+          <div style={styles.cardScrim} />
+          <span style={styles.playBadge} aria-hidden="true">▶</span>
+        </div>
+        {game.description && <div style={styles.cardFooter}>{game.description}</div>}
+      </div>
     </div>
   );
 }

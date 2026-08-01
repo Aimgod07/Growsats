@@ -247,7 +247,7 @@ export default function GameWebViewOverlay({ game, onClose }) {
               src={game.playUrl}
               title={game.title}
               style={styles.iframe}
-              allow="autoplay; fullscreen; gamepad; accelerometer; gyroscope; encrypted-media"
+              allow="autoplay; allowfullscreen; gamepad; accelerometer; gyroscope; encrypted-media"
               allowFullScreen
               onLoad={() => setStatus(null)}
               onError={() => setStatus("error")}

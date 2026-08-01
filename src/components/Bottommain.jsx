@@ -1,5 +1,10 @@
-
 import "../../styles/Lastsection.css";
+
+const INVITE_FRIEND_CARDS = [
+  { id: "riya", emoji: "🦸", name: "Riya", coins: "+500" },
+  { id: "karan", emoji: "🎮", name: "Karan", coins: "+500" },
+  { id: "zoya", emoji: "🕹️", name: "Zoya", coins: "+500" },
+];
 
 export default function LastSection() {
   return (
@@ -11,13 +16,19 @@ export default function LastSection() {
         <p className="hero-subtitle">WIN UNLIMITED COINS</p>
 
         <div className="playtime-card">
-          <h2 className="playtime-heading">PlayTime</h2>
+          <div className="playtime-glow" aria-hidden="true"></div>
+          <span className="playtime-tag">GROWGAMES REWARDS™</span>
+
+          <h2 className="playtime-heading">PLAYTIME</h2>
+
+          <p className="playtime-quote">&ldquo; EARN AS YOU PLAY &rdquo;</p>
           <p className="playtime-desc">
-            Get Upto{" "}
-            Coins playing by game per-minutes.
+            Get Upto Coins playing by game per-minutes.
           </p>
 
-          <div className="playtime-badge">PlayTime</div>
+          <button className="playtime-play-btn">
+            <span className="playtime-play-icon">▶</span> Play
+          </button>
 
           <div className="gamepad-icon gamepad-1">
             <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="white" strokeWidth="1.6">
@@ -47,8 +58,13 @@ export default function LastSection() {
 
           <div className="offer-cards">
             <div className="offer-card">
-              <div className="offer-logo logo-growdeck">Snake</div>
-              <div className="offer-footer">
+              <div className="offer-card__icon-wrap">
+                <span className="offer-card__glow logo-growdeck" aria-hidden="true"></span>
+                <span className="offer-card__icon logo-growdeck">🐍</span>
+              </div>
+              <h4 className="offer-card__title">Snake Rush</h4>
+              <p className="offer-card__desc">Play snake and win big every day</p>
+              <div className="offer-card__footer">
                 <div className="offer-win">
                   <span className="coin-icon small">●</span> Win UpTo 100K+
                 </div>
@@ -57,8 +73,13 @@ export default function LastSection() {
             </div>
 
             <div className="offer-card">
-              <div className="offer-logo logo-pubscale">PubScale</div>
-              <div className="offer-footer">
+              <div className="offer-card__icon-wrap">
+                <span className="offer-card__glow logo-pubscale" aria-hidden="true"></span>
+                <span className="offer-card__icon logo-pubscale">📱</span>
+              </div>
+              <h4 className="offer-card__title">PubScale</h4>
+              <p className="offer-card__desc">Complete quick offers and earn instantly</p>
+              <div className="offer-card__footer">
                 <div className="offer-win">
                   <span className="coin-icon small">●</span> Win UpTo 100K+
                 </div>
@@ -78,8 +99,13 @@ export default function LastSection() {
 
           <div className="offer-cards">
             <div className="offer-card">
-              <div className="offer-logo logo-p">P</div>
-              <div className="offer-footer">
+              <div className="offer-card__icon-wrap">
+                <span className="offer-card__glow logo-p" aria-hidden="true"></span>
+                <span className="offer-card__icon logo-p">P</span>
+              </div>
+              <h4 className="offer-card__title">Prime Offers</h4>
+              <p className="offer-card__desc">Unlock premium rewards in minutes</p>
+              <div className="offer-card__footer">
                 <div className="offer-win">
                   <span className="coin-icon small">●</span> Win UpTo 100K+
                 </div>
@@ -88,10 +114,15 @@ export default function LastSection() {
             </div>
 
             <div className="offer-card">
-              <div className="offer-logo logo-timewall">
-                Wolf<span className="wall-highlight">gate</span>
+              <div className="offer-card__icon-wrap">
+                <span className="offer-card__glow logo-timewall" aria-hidden="true"></span>
+                <span className="offer-card__icon logo-timewall">🎧</span>
               </div>
-              <div className="offer-footer">
+              <h4 className="offer-card__title">
+                Wolf<span className="wall-highlight">gate</span>
+              </h4>
+              <p className="offer-card__desc">Explore surveys and stack up coins</p>
+              <div className="offer-card__footer">
                 <div className="offer-win">
                   <span className="coin-icon small">●</span> Win UpTo 100K+
                 </div>
@@ -152,19 +183,77 @@ export default function LastSection() {
       </section>
 
       {/* SECTION 5: Invite friends */}
-      <section className="invite-section">
-        <h3 className="invite-title">Invite your friends, win Rewards!</h3>
-        <p className="invite-subtitle">
-          Refer and win, Share with your friends
-          <br />
-          unlock exciting rewards!
-        </p>
-        <button className="invite-btn">Invite Now! →</button>
-        <div className="invite-glow">
-          <span className="heart heart-1">❤️</span>
-          <span className="heart heart-2">❤️</span>
-          <span className="heart heart-3">❤️</span>
-          <div className="glow-podium"></div>
+      <section className="invite-hero">
+        <div className="invite-hero__glow" aria-hidden="true"></div>
+        <div className="invite-hero__stars" aria-hidden="true"></div>
+        <div className="invite-hero__fence" aria-hidden="true"></div>
+
+        <div className="invite-hero__body">
+          <div className="invite-hero__content">
+            <h2 className="invite-hero__headline">
+              INVITE YOUR FRIENDS,
+              <br />
+              WIN <span className="invite-hero__accent">REWARDS!</span>
+            </h2>
+
+            <p className="invite-hero__subtitle">
+              Refer and win — share with your friends and unlock exciting
+              rewards together.
+            </p>
+
+            <div className="invite-hero__cards">
+              {INVITE_FRIEND_CARDS.map((card) => (
+                <div className="invite-mini-card" key={card.id}>
+                  <div className="invite-mini-card__avatar">{card.emoji}</div>
+                  <div className="invite-mini-card__footer">
+                    <div>
+                      <p className="invite-mini-card__name">{card.name}</p>
+                      <p className="invite-mini-card__coins">{card.coins} Coins</p>
+                    </div>
+                    <span className="invite-mini-card__arrow" aria-hidden="true">
+                      →
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <p className="invite-hero__testimonial">
+              <strong>ALEX R.</strong> — Invited 8 friends and earned 12,400
+              coins in his first week.
+            </p>
+
+            <button className="invite-hero__cta">Invite Now! →</button>
+          </div>
+
+          <div className="invite-hero__side">
+            <div className="invite-hero__stats">
+              <div className="invite-hero__stat">
+                <span className="invite-hero__stat-num">10K+</span>
+                <span className="invite-hero__stat-label">
+                  Friends invited this month
+                </span>
+              </div>
+              <div className="invite-hero__stat">
+                <span className="invite-hero__stat-num">24 HRS</span>
+                <span className="invite-hero__stat-label">
+                  Avg. time to first reward
+                </span>
+              </div>
+              <div className="invite-hero__stat">
+                <span className="invite-hero__stat-num">5%</span>
+                <span className="invite-hero__stat-label">
+                  Bonus on every friend's play
+                </span>
+              </div>
+            </div>
+
+            <img
+              src="/invite-mascot.png"
+              alt="GrowGames mascot"
+              className="invite-hero__character"
+            />
+          </div>
         </div>
       </section>
 

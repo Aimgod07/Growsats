@@ -1,5 +1,4 @@
-
-import { Gem, Sparkles, Coins } from "lucide-react";
+import { Coins } from "lucide-react";
 import "../styles/Home.css";
 import Footer from "../src/components/Footer";
 import LastSection from "../src/components/Bottommain";
@@ -13,6 +12,7 @@ const OFFERS = [
     id: "umbrella-escape",
     title: "Diamond",
     reward: "∞",
+    description: "Collect sparkling diamonds and unlock special rewards.",
     tileClass: "offer-tile--sky",
     emoji: "💎",
   },
@@ -20,6 +20,7 @@ const OFFERS = [
     id: "offer-pro",
     title: "Star",
     reward: "100K",
+    description: "Earn bright stars while playing your favourite games.",
     tileClass: "offer-tile--violet",
     emoji: "⭐",
   },
@@ -68,6 +69,21 @@ function WavyDivider() {
   );
 }
 
+// ---------------- Badge-style section heading (matches FeaturedGames header) ----------------
+function SectionBadgeHeading({ title, caption }) {
+  return (
+    <div className="section-badge-header">
+      <div className="section-badge-header__left">
+        <span className="section-badge-header__icon" aria-hidden="true">
+          ✦
+        </span>
+        <h2 className="section-badge-header__title">{title}</h2>
+      </div>
+      {caption && <p className="section-badge-header__caption">{caption}</p>}
+    </div>
+  );
+}
+
 function OfferCard({ offer }) {
   return (
     <div className="offer-card">
@@ -109,21 +125,16 @@ export default function Home({ userName = "Deepanshu", cash = 100, coins = 2240,
         {/* ---------------- Header ---------------- */}
         <header className="home-header">
           <div className="home-header__profile">
-            <div className="home-header__avatar">🙂</div>
-            <div >
-              <p className="home-header__greeting">
-                Hi {userName.toUpperCase()}
-              </p>
-             <p>Welcome</p>
+            <div className="home-header__balance" aria-label={`Coin balance ${coins}`}>
+              <span className="home-header__balance-icon" aria-hidden="true">🪙</span>
+              <div>
+                <p className="home-header__balance-label">Coin Balance</p>
+                <p className="home-header__balance-value">{coins.toLocaleString()}</p>
+              </div>
             </div>
           </div>
 
           <div className="home-header__pills">
-            {/* <CurrencyPill
-              icon={<span className="pill-icon" style={{}}>💵</span>}
-              value={`₹ ${cash}`}
-              pillClass="currency-pill--cash"
-            /> */}
             <CurrencyPill
               icon={<span className="pill-icon" style={{}}>💵</span>}
               value={`₹ ${cash}`}
@@ -132,22 +143,11 @@ export default function Home({ userName = "Deepanshu", cash = 100, coins = 2240,
           </div>
         </header>
 
-        {/* ---------------- Balance card (div) ---------------- */}
-        <div className="balance-card">
-          <span className="balance-card__label">Available Balance</span>
+                {/* ---------------- GrowGames hero ---------------- */}
+        <section className="home-game-hero" aria-label="GrowGames">
+          <div className="home-game-hero__brand">GrowGames</div>
+        </section>
 
-          <div className="balance-card__row">
-            <div className="balance-chip balance-chip--coins">
-              <span className="balance-chip__icon">🪙</span>
-              <span className="balance-chip__value">{coins}</span>
-            </div>
-
-            <div className="balance-chip balance-chip--diamonds">
-              <Gem size={18} className="icon-violet" />
-              <span className="balance-chip__value">{diamonds}</span>
-            </div>
-          </div>
-        </div>
 
       
         {/* ---------------- Wavy divider (from wireframe) ---------------- */}
@@ -159,14 +159,7 @@ export default function Home({ userName = "Deepanshu", cash = 100, coins = 2240,
           <FeaturedGames/>
 
         {/* ---------------- Text (section title) ---------------- */}
-        <div className="section-heading">
-          <h2 className="section-heading__title">
-            <Sparkles size={16} className="icon-amber not-italic" />
-            Offers for the Day
-            <Sparkles size={16} className="icon-violet not-italic" />
-          </h2>
-         
-        </div>
+        <SectionBadgeHeading title="Offers for the Day" />
 
         {/* ---------------- Rewards panel (div) ---------------- */}
         <div className="rewards-panel">
@@ -176,16 +169,7 @@ export default function Home({ userName = "Deepanshu", cash = 100, coins = 2240,
             ))}
           </div>
 
-          <div className="section-heading section-heading--sub">
-            <h3 className="section-heading__title section-heading__title--sm">
-              <Sparkles size={14} className="icon-amber not-italic" />
-               Rewards
-              <Sparkles size={14} className="icon-violet not-italic" />
-            </h3>
-            <p className="section-heading__caption">
-              WIN COINS INSTANTLY &amp; EASY
-            </p>
-          </div>
+          <SectionBadgeHeading title="Rewards" caption="WIN COINS INSTANTLY & EASY" />
 
           <div className="reward-grid">
             {REWARDS.map((reward) => (
