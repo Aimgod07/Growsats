@@ -11,7 +11,7 @@ const OFFERS = [
   {
     id: "umbrella-escape",
     title: "Diamond",
-    reward: "∞",
+    reward: "∞", 
     description: "Collect sparkling diamonds and unlock special rewards.",
     tileClass: "offer-tile--sky",
     emoji: "💎",
@@ -145,7 +145,7 @@ export default function Home({ userName = "Deepanshu", cash = 100, coins = 2240,
 
                 {/* ---------------- GrowGames hero ---------------- */}
         <section className="home-game-hero" aria-label="GrowGames">
-          <div className="home-game-hero__brand">GrowGames</div>
+          <div className="home-game-hero__brand">Check kara </div>
         </section>
 
 
