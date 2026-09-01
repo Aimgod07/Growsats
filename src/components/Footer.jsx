@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { House, WalletCards, Trophy, CircleUserRound } from "lucide-react";
-import "../../styles/Footer.css";
+import "../styles/Footer.css";
 
 const TABS = [
   { path: "/Home", label: "Home", icon: House, color: "#b7ff51", strokeWidth: 2.5, end: true },

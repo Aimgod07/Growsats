@@ -1,27 +1,25 @@
-import Home from "../pages/Home"
-import {BrowserRouter as Router ,Routes,Route} from 'react-router-dom';
-import Login from "../pages/Login";
-import Profile from "./components/Profile";
-import RedeemPage from "./components/RedeemPage";
-import Leaderboard from "./components/Leaderboard";
-import AllGames from "../pages/Allgames";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import ErrorBoundary from "./components/ErrorBoundary";
+import Login from "./pages/Login";
+import Home from "./pages/Home";
+import Profile from "./pages/Profile";
+import RedeemPage from "./pages/RedeemPage";
+import Leaderboard from "./pages/Leaderboard";
+import AllGames from "./pages/AllGames";
 
-function App() {
-
+export default function App() {
   return (
-
-     <Router>
-      <Routes>
-        <Route path="/" element={<Login/>}/>
-        <Route path="/Home" element={<Home/>}/>
-        <Route path="/profile" element={<Profile/>} />
-        <Route path="/redeem" element={<RedeemPage/>} />
-        <Route path="leaderboard" element={<Leaderboard/>} />
-         <Route path="all-games" element={<AllGames/>} />
-      </Routes>
-     </Router>
-
-  )
+    <ErrorBoundary>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/Home" element={<Home />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/redeem" element={<RedeemPage />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
+          <Route path="/all-games" element={<AllGames />} />
+        </Routes>
+      </Router>
+    </ErrorBoundary>
+  );
 }
-
-export default App

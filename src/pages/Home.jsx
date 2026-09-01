@@ -1,17 +1,14 @@
 import { Coins } from "lucide-react";
 import "../styles/Home.css";
-import Footer from "../src/components/Footer";
-import LastSection from "../src/components/Bottommain";
-import FeaturedGames from "../src/components/FeaturedGames";
-
-
-
+import Footer from "../components/Footer";
+import LastSection from "../components/Bottommain";
+import FeaturedGames from "../components/FeaturedGames";
 
 const OFFERS = [
   {
     id: "umbrella-escape",
     title: "Diamond",
-    reward: "∞", 
+    reward: "∞",
     description: "Collect sparkling diamonds and unlock special rewards.",
     tileClass: "offer-tile--sky",
     emoji: "💎",
@@ -54,11 +51,7 @@ function CurrencyPill({ icon, value, pillClass }) {
 
 function WavyDivider() {
   return (
-    <svg
-      viewBox="0 0 400 24"
-      preserveAspectRatio="none"
-      className="wavy-divider"
-    >
+    <svg viewBox="0 0 400 24" preserveAspectRatio="none" className="wavy-divider">
       <path
         d="M0,4 L150,4 C165,4 165,20 185,20 L215,20 C235,20 235,4 250,4 L400,4"
         fill="none"
@@ -69,14 +62,11 @@ function WavyDivider() {
   );
 }
 
-// ---------------- Badge-style section heading (matches FeaturedGames header) ----------------
 function SectionBadgeHeading({ title, caption }) {
   return (
     <div className="section-badge-header">
       <div className="section-badge-header__left">
-        <span className="section-badge-header__icon" aria-hidden="true">
-          ✦
-        </span>
+        <span className="section-badge-header__icon" aria-hidden="true">✦</span>
         <h2 className="section-badge-header__title">{title}</h2>
       </div>
       {caption && <p className="section-badge-header__caption">{caption}</p>}
@@ -117,12 +107,13 @@ function RewardCard({ reward }) {
   );
 }
 
-export default function Home({ userName = "Deepanshu", cash = 100, coins = 2240, diamonds = 0 }) {
+export default function Home() {
+  const coins = 2240;
+  const cash = 100;
+
   return (
     <div className="home-page">
       <div className="home-page__inner">
-
-        {/* ---------------- Header ---------------- */}
         <header className="home-header">
           <div className="home-header__profile">
             <div className="home-header__balance" aria-label={`Coin balance ${coins}`}>
@@ -143,25 +134,18 @@ export default function Home({ userName = "Deepanshu", cash = 100, coins = 2240,
           </div>
         </header>
 
-                {/* ---------------- GrowGames hero ---------------- */}
         <section className="home-game-hero" aria-label="GrowGames">
           <div className="home-game-hero__brand">GrowGames</div>
         </section>
 
-
-      
-        {/* ---------------- Wavy divider (from wireframe) ---------------- */}
         <div className="wavy-divider-wrap">
           <WavyDivider />
         </div>
 
-          {/* featured games */}
-          <FeaturedGames/>
+        <FeaturedGames />
 
-        {/* ---------------- Text (section title) ---------------- */}
         <SectionBadgeHeading title="Offers for the Day" />
 
-        {/* ---------------- Rewards panel (div) ---------------- */}
         <div className="rewards-panel">
           <div className="offer-grid">
             {OFFERS.map((offer) => (
@@ -176,9 +160,9 @@ export default function Home({ userName = "Deepanshu", cash = 100, coins = 2240,
               <RewardCard key={reward.id} reward={reward} />
             ))}
           </div>
-          <LastSection/>
+          <LastSection />
         </div>
-        <Footer/>
+        <Footer />
       </div>
     </div>
   );

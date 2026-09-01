@@ -1,4 +1,4 @@
-import "../../styles/Lastsection.css";
+import "../styles/Lastsection.css";
 
 const INVITE_FRIEND_CARDS = [
   { id: "riya", emoji: "🦸", name: "Riya", coins: "+500" },
@@ -9,8 +9,6 @@ const INVITE_FRIEND_CARDS = [
 export default function LastSection() {
   return (
     <div className="lastsection">
-
-      {/* SECTION 1: Hero / PlayTime */}
       <section className="hero-section">
         <h1 className="hero-title"> PlayTime!</h1>
         <p className="hero-subtitle">WIN UNLIMITED COINS</p>
@@ -45,7 +43,6 @@ export default function LastSection() {
         </div>
       </section>
 
-      {/* SECTION 2: Offer Partners header + Task/Survey offers */}
       <section className="offers-section">
         <h2 className="offers-title"> Partners</h2>
         <p className="offers-subtitle">WIN COINS INSTANTLY &amp; EASY</p>
@@ -133,7 +130,6 @@ export default function LastSection() {
         </div>
       </section>
 
-      {/* SECTION 3: Rayole Offers */}
       <section className="rayole-section">
         <h2 className="rayole-title">Royal Offers</h2>
         <p className="rayole-subtitle">WIN BIG WITH ROYAL</p>
@@ -182,7 +178,6 @@ export default function LastSection() {
         </div>
       </section>
 
-      {/* SECTION 5: Invite friends */}
       <section className="invite-hero">
         <div className="invite-hero__glow" aria-hidden="true"></div>
         <div className="invite-hero__stars" aria-hidden="true"></div>
@@ -210,9 +205,7 @@ export default function LastSection() {
                       <p className="invite-mini-card__name">{card.name}</p>
                       <p className="invite-mini-card__coins">{card.coins} Coins</p>
                     </div>
-                    <span className="invite-mini-card__arrow" aria-hidden="true">
-                      →
-                    </span>
+                    <span className="invite-mini-card__arrow" aria-hidden="true">→</span>
                   </div>
                 </div>
               ))}
@@ -256,7 +249,6 @@ export default function LastSection() {
           </div>
         </div>
       </section>
-
     </div>
   );
 }

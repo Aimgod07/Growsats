@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef } from "react";
 
-
 export function useGameTimer(activeKey) {
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const prevKeyRef = useRef(null);

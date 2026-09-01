@@ -1,31 +1,12 @@
-/* eslint-disable react-hooks/set-state-in-effect */
 import { useEffect, useState, useCallback, useMemo } from "react";
-import GameWebViewOverlay from "../components/timer/GameWebViewOverlay";
+import { useNavigate } from "react-router-dom";
+import GameWebViewOverlay from "./timer/GameWebViewOverlay";
+import { API_ENDPOINTS, mapApiGame, fetchJson, extractGameList } from "../utils/api";
+import { shuffleArray } from "../utils/helpers";
 
-const FEATURED_COUNT = 10; 
+const FEATURED_COUNT = 10;
 const SKELETON_COUNT = 6;
 
-export function mapApiGame(raw) {
-  return {
-    id: raw.code,
-    title: raw.name,
-    description: raw.description,
-    category: raw.category?.name,
-    thumbnail: raw.images?.square || raw.images?.thumb || raw.images?.cover,
-    playUrl: raw.url,
-  };
-}
-
-function shuffle(arr) {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
-
-// ---- Styles ---------------------------------------------------------------
 const styles = {
   section: {
     backgroundColor: "#10101c",
@@ -85,7 +66,8 @@ const styles = {
     padding: "4px",
     position: "absolute",
     right: 0,
-  },  scrollRow: {
+  },
+  scrollRow: {
     display: "flex",
     gap: "12px",
     overflowX: "auto",
@@ -139,7 +121,8 @@ const styles = {
     position: "relative",
     flex: 1,
     minHeight: 0,
-    margin: "0 7px", marginBottom: "4px",
+    margin: "0 7px",
+    marginBottom: "4px",
     overflow: "hidden",
     background: "#10121e",
     borderLeft: "2px solid #161826",
@@ -159,7 +142,8 @@ const styles = {
     pointerEvents: "none",
   },
   cardFooter: {
-    minHeight: "44px", margin: "0 7px 10px",
+    minHeight: "44px",
+    margin: "0 7px 10px",
     padding: "8px 10px 9px",
     color: "#ead8ff",
     background: "linear-gradient(180deg, #070912, #03040a)",
@@ -192,7 +176,6 @@ const styles = {
     boxShadow: "0 0 0 5px rgba(212,255,62,0.14), 0 4px 10px rgba(0,0,0,0.4)",
     pointerEvents: "none",
   },
-  // ---- "View All" card
   viewAllCard: {
     flexShrink: 0,
     width: "142px",
@@ -238,7 +221,6 @@ const styles = {
     fontWeight: 700,
     color: "#d4ff3e",
   },
-  // ---- skeleton template ----
   skeleton: {
     width: "142px",
     height: "220px",
@@ -249,7 +231,6 @@ const styles = {
     backgroundSize: "200% 100%",
     animation: "featuredGamesShimmer 1.4s ease-in-out infinite",
   },
-  // ---- error template ----
   errorBox: {
     color: "#9494b0",
     fontSize: "13px",
@@ -274,12 +255,10 @@ const globalCSS = `
   }
 `;
 
-// ---- Skeleton template ---------------------------------------------------
 function GameCardSkeleton() {
   return <div className="featured-game-skeleton" style={styles.skeleton} aria-hidden="true" />;
 }
 
-// ---- Game card template ---------------------------------------------------
 function GameCard({ game, onSelect }) {
   return (
     <div
@@ -310,7 +289,6 @@ function GameCard({ game, onSelect }) {
   );
 }
 
-// ---- "View All" card
 function ViewAllCard({ onClick }) {
   return (
     <div
@@ -326,39 +304,26 @@ function ViewAllCard({ onClick }) {
         }
       }}
     >
-      <span style={styles.viewAllArrow} aria-hidden="true">
-        →
-      </span>
+      <span style={styles.viewAllArrow} aria-hidden="true">→</span>
       <span style={styles.viewAllLabel}>View All</span>
     </div>
   );
 }
 
-// ---- Main component ---------------------------------------------------
-export default function FeaturedGames({
-  apiUrl = "https://67c7374cbb0988d092ea.appwrite.global/games",
-  title = "Featured Games",
-  onViewAll,
-}) {
+export default function FeaturedGames({ title = "Featured Games" }) {
   const [allGames, setAllGames] = useState([]);
   const [status, setStatus] = useState("loading");
-
-
   const [activeGame, setActiveGame] = useState(null);
+  const navigate = useNavigate();
 
   const fetchGames = useCallback(() => {
     let cancelled = false;
     setStatus("loading");
 
-    fetch(apiUrl)
-      .then((res) => {
-        if (!res.ok) throw new Error(`Request failed: ${res.status}`);
-        return res.json();
-      })
+    fetchJson(API_ENDPOINTS.games)
       .then((data) => {
         if (cancelled) return;
-        const rawList = Array.isArray(data) ? data : data.data || data.games || [];
-        setAllGames(rawList.map(mapApiGame));
+        setAllGames(extractGameList(data).map(mapApiGame));
         setStatus("success");
       })
       .catch((err) => {
@@ -367,10 +332,8 @@ export default function FeaturedGames({
         setStatus("error");
       });
 
-    return () => {
-      cancelled = true;
-    };
-  }, [apiUrl]);
+    return () => { cancelled = true; };
+  }, []);
 
   useEffect(() => {
     const cleanup = fetchGames();
@@ -379,17 +342,12 @@ export default function FeaturedGames({
 
   const featuredGames = useMemo(() => {
     if (allGames.length === 0) return [];
-    return shuffle(allGames).slice(0, FEATURED_COUNT);
+    return shuffleArray(allGames).slice(0, FEATURED_COUNT);
   }, [allGames]);
 
   const handleViewAll = useCallback(() => {
-    if (onViewAll) {
-      onViewAll();
-    } else if (typeof window !== "undefined") {
-      window.location.href = "/all-games";
-    }
-  }, [onViewAll]);
-
+    navigate("/all-games");
+  }, [navigate]);
 
   const handleSelectGame = useCallback((game) => {
     if (!game.playUrl) return;
@@ -402,9 +360,7 @@ export default function FeaturedGames({
 
       <div style={styles.header}>
         <div style={styles.headerLeft}>
-          <span style={styles.headerIcon} aria-hidden="true">
-            ✦
-          </span>
+          <span style={styles.headerIcon} aria-hidden="true">✦</span>
           <h2 style={styles.headerTitle}>{title}</h2>
         </div>
         {status === "error" && (
@@ -433,7 +389,6 @@ export default function FeaturedGames({
                     onSelect={handleSelectGame}
                   />
                 ))}
-                {/* Appears right after the 10th (last) featured game */}
                 <ViewAllCard onClick={handleViewAll} />
               </>
             )}

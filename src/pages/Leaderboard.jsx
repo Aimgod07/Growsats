@@ -1,8 +1,13 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { ChevronLeft, MoreHorizontal, Clock3, Gem, Loader2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import "../../styles/Leaderboard.css";
-import Footer from "./Footer";
+import "../styles/Leaderboard.css";
+import Footer from "../components/Footer";
+import { mockDelay } from "../utils/api";
+import { formatCoins, formatCountdown } from "../utils/helpers";
+
+const RANK_ORDER = [2, 1, 3];
+const RANK_CLASS = { 1: "podium-card--first", 2: "podium-card--second", 3: "podium-card--third" };
 
 async function fetchLeaderboard() {
   await mockDelay(500);
@@ -20,28 +25,6 @@ async function fetchLeaderboard() {
     ],
   };
 }
-
-function mockDelay(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-function formatCoins(value) {
-  if (value >= 1000) return `${(value / 1000).toFixed(value % 1000 === 0 ? 0 : 1)}K`;
-  return `${value}`;
-}
-
-function formatCountdown(ms) {
-  if (ms <= 0) return "00h : 00m : 00s";
-  const totalSeconds = Math.floor(ms / 1000);
-  const hours = Math.floor(totalSeconds / 3600);
-  const minutes = Math.floor((totalSeconds % 3600) / 60);
-  const seconds = totalSeconds % 60;
-  const pad = (n) => String(n).padStart(2, "0");
-  return `${pad(hours)}h : ${pad(minutes)}m : ${pad(seconds)}s`;
-}
-
-const RANK_ORDER = [2, 1, 3];
-const RANK_CLASS = { 1: "podium-card--first", 2: "podium-card--second", 3: "podium-card--third" };
 
 function Avatar({ player, className }) {
   return (
@@ -106,7 +89,7 @@ export default function Leaderboard() {
   }, []);
 
   useEffect(() => {
-    Promise.resolve().then(loadData);
+    loadData();
   }, [loadData]);
 
   useEffect(() => {
@@ -121,32 +104,59 @@ export default function Leaderboard() {
   }, [resetAt, now]);
 
   const podium = useMemo(() => {
-    const byRank = Object.fromEntries(players.filter((player) => player.rank <= 3).map((player) => [player.rank, player]));
+    const byRank = Object.fromEntries(
+      players.filter((p) => p.rank <= 3).map((p) => [p.rank, p])
+    );
     return RANK_ORDER.map((rank) => byRank[rank]).filter(Boolean);
   }, [players]);
-  const rest = useMemo(() => players.filter((player) => player.rank > 3), [players]);
-  const monthLabel = useMemo(() => new Intl.DateTimeFormat("en-US", { month: "long", year: "numeric" }).format(new Date()), []);
+
+  const rest = useMemo(() => players.filter((p) => p.rank > 3), [players]);
+
+  const monthLabel = useMemo(
+    () => new Intl.DateTimeFormat("en-US", { month: "long", year: "numeric" }).format(new Date()),
+    []
+  );
 
   if (loading) {
-    return <div className="leaderboard leaderboard--center"><Loader2 size={28} className="spin icon-green" /><p>Loading leaderboard...</p></div>;
+    return (
+      <div className="leaderboard leaderboard--center">
+        <Loader2 size={28} className="spin icon-green" />
+        <p>Loading leaderboard...</p>
+      </div>
+    );
   }
+
   if (error) {
-    return <div className="leaderboard leaderboard--center"><p className="leaderboard__error-text">{error}</p><button className="leaderboard__retry" onClick={loadData}>Try again</button></div>;
+    return (
+      <div className="leaderboard leaderboard--center">
+        <p className="leaderboard__error-text">{error}</p>
+        <button className="leaderboard__retry" onClick={loadData}>Try again</button>
+      </div>
+    );
   }
 
   return (
     <main className="leaderboard">
       <header className="leaderboard-header">
-        <button className="leaderboard-header__button" onClick={() => navigate("/Home")} aria-label="Back to home"><ChevronLeft size={22} /></button>
-        <div><h1>Leaderboard</h1><p>{monthLabel}</p></div>
-        <button className="leaderboard-header__button" aria-label="More leaderboard options"><MoreHorizontal size={21} /></button>
+        <button className="leaderboard-header__button" onClick={() => navigate("/Home")} aria-label="Back to home">
+          <ChevronLeft size={22} />
+        </button>
+        <div>
+          <h1>Leaderboard</h1>
+          <p>{monthLabel}</p>
+        </div>
+        <button className="leaderboard-header__button" aria-label="More leaderboard options">
+          <MoreHorizontal size={21} />
+        </button>
       </header>
 
       <section className="podium" aria-label="Top three players">
         {podium.map((player) => <PodiumCard key={player.rank} player={player} />)}
       </section>
 
-      <div className="leaderboard-status"><Clock3 size={14} /> <span>Leaderboard updates in</span> <strong>{countdownLabel}</strong></div>
+      <div className="leaderboard-status">
+        <Clock3 size={14} /> <span>Leaderboard updates in</span> <strong>{countdownLabel}</strong>
+      </div>
 
       <section className="leaderboard-list" aria-label="Remaining player rankings">
         {rest.map((player) => <ListRow key={player.rank} player={player} />)}

@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
-  History,
   ChevronRight,
   Zap,
   Coins,
@@ -10,14 +9,25 @@ import {
   Wallet,
   Loader2,
 } from "lucide-react";
-import "../../styles/Redeempage.css";
-import Footer from "./Footer";
+import "../styles/Redeempage.css";
+import Footer from "../components/Footer";
+import { mockDelay } from "../utils/api";
 
+const CATEGORY_ICON = {
+  "google-play": Smartphone,
+  amazon: ShoppingBag,
+  imps: Banknote,
+  paypal: Wallet,
+};
 
+const CATEGORY_ICON_CLASS = {
+  "google-play": "category-icon--googleplay",
+  amazon: "category-icon--amazon",
+  imps: "category-icon--imps",
+  paypal: "category-icon--paypal",
+};
 
 async function fetchUserBalance() {
-
-
   await mockDelay(400);
   return {
     name: "Deepanshu",
@@ -28,9 +38,7 @@ async function fetchUserBalance() {
   };
 }
 
-
 async function fetchRedeemCategories() {
-
   await mockDelay(600);
   return [
     {
@@ -76,34 +84,11 @@ async function fetchRedeemCategories() {
   ];
 }
 
-
-async function submitRedemption(categoryId, optionId) {
-
+async function submitRedemption() {
   await mockDelay(700);
   return { success: true };
 }
 
-function mockDelay(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-//icon
-
-const CATEGORY_ICON = {
-  "google-play": Smartphone,
-  amazon: ShoppingBag,
-  imps: Banknote,
-  paypal: Wallet,
-};
-
-const CATEGORY_ICON_CLASS = {
-  "google-play": "category-icon--googleplay",
-  amazon: "category-icon--amazon",
-  imps: "category-icon--imps",
-  paypal: "category-icon--paypal",
-};
-
-//cards
 function RedeemCard({ option, userCoins, onRedeem, isRedeeming }) {
   const progress = Math.min(100, Math.round((userCoins / option.coinsRequired) * 100));
   const unlocked = userCoins >= option.coinsRequired;
@@ -157,8 +142,6 @@ function RedeemCategory({ category, userCoins, onRedeem, redeemingId }) {
   );
 }
 
-//main
-
 export default function RedeemPage() {
   const [user, setUser] = useState(null);
   const [categories, setCategories] = useState([]);
@@ -184,7 +167,7 @@ export default function RedeemPage() {
   }, []);
 
   useEffect(() => {
-    Promise.resolve().then(loadData);
+    loadData();
   }, [loadData]);
 
   const handleRedeem = async (categoryId, optionId) => {
@@ -219,17 +202,13 @@ export default function RedeemPage() {
     return (
       <div className="redeem-page redeem-page--center">
         <p className="redeem-page__error-text">{error}</p>
-        <button className="redeem-page__retry" onClick={loadData}>
-          Try again
-        </button>
+        <button className="redeem-page__retry" onClick={loadData}>Try again</button>
       </div>
     );
   }
 
   return (
     <div className="redeem-page">
-      
-      {/* ---------------- Hero / balance section ---------------- */}
       <div className="redeem-hero">
         <div className="redeem-hero__icon">🏦</div>
 
@@ -262,7 +241,6 @@ export default function RedeemPage() {
         </div>
       </div>
 
-      {/* ---------------- Wavy divider ---------------- */}
       <div className="wavy-divider-wrap">
         <svg viewBox="0 0 400 24" preserveAspectRatio="none" className="wavy-divider">
           <path
@@ -274,9 +252,6 @@ export default function RedeemPage() {
         </svg>
       </div>
 
-      
-
-      {/* ---------------- Redeem categories ---------------- */}
       <div className="redeem-categories">
         {categories.map((category) => (
           <RedeemCategory
@@ -288,7 +263,7 @@ export default function RedeemPage() {
           />
         ))}
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }

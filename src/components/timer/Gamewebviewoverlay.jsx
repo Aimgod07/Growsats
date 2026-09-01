@@ -2,10 +2,11 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import { Capacitor } from "@capacitor/core";
 import { useNavigate } from "react-router-dom";
 import { GameWebView as NativeGameWebView, launchGameOverlay } from "./gameWebView";
-import { useGameTimer } from "./Usegametimer";
+import { useGameTimer } from "./useGameTimer";
 import GameTimerBadge, { CLAIM_THRESHOLD_SECONDS } from "./GameTimerBadge";
 
-const CLOSE_BAR_HEIGHT = 60; 
+const CLOSE_BAR_HEIGHT = 60;
+
 function computeOverlayRect(safeArea) {
   const top = CLOSE_BAR_HEIGHT + (safeArea?.top || 0);
   const bottom = safeArea?.bottom || 0;
@@ -124,7 +125,6 @@ export default function GameWebViewOverlay({ game, onClose }) {
     onClose();
   }, [isNative, teardownNative, onClose]);
 
-
   const handleClaim = useCallback(async () => {
     if (isNative) await teardownNative();
     onClose();
@@ -160,7 +160,6 @@ export default function GameWebViewOverlay({ game, onClose }) {
     };
   }, [game, isNative]);
 
-
   useEffect(() => {
     if (!game || isNative) return;
     setStatus("loading");
@@ -186,7 +185,6 @@ export default function GameWebViewOverlay({ game, onClose }) {
     };
   }, [game, isNative]);
 
-
   useEffect(() => {
     return () => {
       if (isNative && game) {
@@ -194,8 +192,7 @@ export default function GameWebViewOverlay({ game, onClose }) {
         NativeGameWebView.unmount().catch(() => {});
       }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isNative, game]);
 
   if (!game) return null;
 

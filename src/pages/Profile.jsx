@@ -1,46 +1,27 @@
-import React, { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Pencil, Copy, Check, HelpCircle, Trophy, Languages, Loader2 } from "lucide-react";
-import "../../styles/Profile.css";
-import Footer from "./Footer";
-
+import "../styles/Profile.css";
+import Footer from "../components/Footer";
+import { mockDelay } from "../utils/api";
+import { formatJoinDate } from "../utils/helpers";
 
 async function fetchProfile() {
-
-
-
   await mockDelay(400);
   return {
     name: "Deepanshu",
     email: "deep447@gmail.com",
     emailVerified: true,
-    avatarUrl: null, 
+    avatarUrl: null,
     country: { code: "IN", label: "India", flag: "🇮🇳" },
     dateJoined: "2026-07-17",
     userId: "sBKlqMOjhKMyssMG8xTKkf9z9Ls1",
   };
 }
 
-
 async function uploadAvatar(file) {
-
-
-
   await mockDelay(500);
   return { avatarUrl: URL.createObjectURL(file) };
 }
-
-function mockDelay(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-function formatJoinDate(isoDate) {
-  const date = new Date(isoDate);
-  return date
-    .toLocaleDateString("en-GB", { day: "2-digit", month: "long", year: "numeric" })
-    .toUpperCase();
-}
-
-//main
 
 export default function Profile() {
   const [profile, setProfile] = useState(null);
@@ -63,7 +44,7 @@ export default function Profile() {
   }, []);
 
   useEffect(() => {
-    Promise.resolve().then(loadProfile);
+    loadProfile();
   }, [loadProfile]);
 
   const handleCopyUserId = async () => {
@@ -73,7 +54,7 @@ export default function Profile() {
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
     } catch {
-      // Clipboard API unavailable — fail silently, no need to block the user.
+      // Clipboard API unavailable
     }
   };
 
@@ -104,24 +85,20 @@ export default function Profile() {
     return (
       <div className="profile-page profile-page--center">
         <p className="profile-page__error-text">{error}</p>
-        <button className="profile-page__retry" onClick={loadProfile}>
-          Try again
-        </button>
+        <button className="profile-page__retry" onClick={loadProfile}>Try again</button>
       </div>
     );
   }
 
   return (
     <div className="profile-page">
-      {/* ---------------- Hero section ---------------- */}
       <div className="profile-hero">
-  
-        {/* ---------------- Section heading ---------------- */}
-      <div className="section-heading">
-        <h2 className="section-heading__title">Date joined</h2>
-        <p className="section-heading__caption">{formatJoinDate(profile.dateJoined)}</p>
-      </div>
-      <br></br>
+        <div className="section-heading">
+          <h2 className="section-heading__title">Date joined</h2>
+          <p className="section-heading__caption">{formatJoinDate(profile.dateJoined)}</p>
+        </div>
+        <br />
+
         <div className="avatar-wrap">
           <div className="avatar-ring" />
           <div className="avatar">
@@ -154,7 +131,6 @@ export default function Profile() {
         </p>
       </div>
 
-      {/* ---------------- Wavy divider ---------------- */}
       <div className="wavy-divider-wrap">
         <svg viewBox="0 0 400 24" preserveAspectRatio="none" className="wavy-divider">
           <path
@@ -166,11 +142,7 @@ export default function Profile() {
         </svg>
       </div>
 
-      
-
-      {/* ---------------- Body ---------------- */}
       <div className="profile-body">
-        {/* User ID card */}
         <div className="info-card">
           <div className="info-card__icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
@@ -187,13 +159,11 @@ export default function Profile() {
           </button>
         </div>
 
-        {/* System info link */}
         <button className="system-info-link">
           <HelpCircle size={16} />
           <span>View the system information</span>
         </button>
 
-        {/* Menu list */}
         <div className="menu-list">
           <button className="menu-item">
             <div className="menu-item__icon">
@@ -220,7 +190,7 @@ export default function Profile() {
 
         <button className="rate-us-link">Rate Us!</button>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }

@@ -1,22 +1,11 @@
 import { useEffect, useState, useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
-import GameWebViewOverlay from "../src/components/timer/Gamewebviewoverlay";
+import GameWebViewOverlay from "../components/timer/GameWebViewOverlay";
+import { API_ENDPOINTS, mapApiGame, fetchJson, extractGameList } from "../utils/api";
 
 const SKELETON_COUNT = 12;
 
-export function mapApiGame(raw) {
-  return {
-    id: raw.code,
-    title: raw.name,
-    description: raw.description,
-    category: raw.category?.name,
-    thumbnail: raw.images?.square || raw.images?.thumb || raw.images?.cover,
-    playUrl: raw.url,
-  };
-}
-
-// ---- Styles ---------------------------------------------------------------
 const styles = {
   page: {
     backgroundColor: "#10101c",
@@ -118,26 +107,81 @@ const styles = {
     margin: "0 0 2px 0",
   },
   cardInner: {
-    height: "100%", display: "flex", flexDirection: "column", overflow: "hidden", background: "#080a13",
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    overflow: "hidden",
+    background: "#080a13",
     clipPath: "polygon(7% 0, 93% 0, 100% 6%, 100% 90%, 90% 100%, 10% 100%, 0 90%, 0 6%)",
   },
   cardHeader: {
-    minHeight: "32px", padding: "7px 9px 5px", color: "white", background: "linear-gradient(115deg, #e5c7ff 11%,#0e2414 18%, #6d28d9 100%)",
-    fontSize: "13px", fontWeight: 950, lineHeight: 1.02, letterSpacing: "-0.035em", textAlign: "center", textTransform: "uppercase",
-    overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical",
+    minHeight: "32px",
+    padding: "7px 9px 5px",
+    color: "white",
+    background: "linear-gradient(115deg, #e5c7ff 11%,#0e2414 18%, #6d28d9 100%)",
+    fontSize: "13px",
+    fontWeight: 950,
+    lineHeight: 1.02,
+    letterSpacing: "-0.035em",
+    textAlign: "center",
+    textTransform: "uppercase",
+    overflow: "hidden",
+    display: "-webkit-box",
+    WebkitLineClamp: 2,
+    WebkitBoxOrient: "vertical",
   },
-  cardArtwork: { position: "relative", flex: 1, minHeight: 0, margin: "0 7px", marginBottom: "4px", overflow: "hidden", background: "#10121e", borderLeft: "2px solid #161826", borderRight: "2px solid #161826" },
+  cardArtwork: {
+    position: "relative",
+    flex: 1,
+    minHeight: 0,
+    margin: "0 7px",
+    marginBottom: "4px",
+    overflow: "hidden",
+    background: "#10121e",
+    borderLeft: "2px solid #161826",
+    borderRight: "2px solid #161826",
+  },
   cardImg: { width: "100%", height: "100%", objectFit: "cover", display: "block" },
-  cardScrim: { position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(4,7,16,0.08), rgba(4,7,16,0.24))", pointerEvents: "none" },
+  cardScrim: {
+    position: "absolute",
+    inset: 0,
+    background: "linear-gradient(180deg, rgba(4,7,16,0.08), rgba(4,7,16,0.24))",
+    pointerEvents: "none",
+  },
   cardFooter: {
-    minHeight: "44px", margin: "0 7px 10px", padding: "8px 10px 9px", color: "#ead8ff", background: "linear-gradient(180deg, #070912, #03040a)",
-    fontSize: "10px", fontWeight: 800, lineHeight: 1.15, letterSpacing: "0.01em", textAlign: "center", textTransform: "uppercase",
-    overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical",
+    minHeight: "44px",
+    margin: "0 7px 10px",
+    padding: "8px 10px 9px",
+    color: "#ead8ff",
+    background: "linear-gradient(180deg, #070912, #03040a)",
+    fontSize: "10px",
+    fontWeight: 800,
+    lineHeight: 1.15,
+    letterSpacing: "0.01em",
+    textAlign: "center",
+    textTransform: "uppercase",
+    overflow: "hidden",
+    display: "-webkit-box",
+    WebkitLineClamp: 3,
+    WebkitBoxOrient: "vertical",
   },
   playBadge: {
-    position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "30px", height: "30px", borderRadius: "50%",
-    backgroundColor: "#d4ff3e", color: "#10101c", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "11px", paddingLeft: "2px",
-    boxShadow: "0 0 0 5px rgba(212,255,62,0.14), 0 4px 10px rgba(0,0,0,0.4)", pointerEvents: "none",
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "30px",
+    height: "30px",
+    borderRadius: "50%",
+    backgroundColor: "#d4ff3e",
+    color: "#10101c",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: "11px",
+    paddingLeft: "2px",
+    boxShadow: "0 0 0 5px rgba(212,255,62,0.14), 0 4px 10px rgba(0,0,0,0.4)",
+    pointerEvents: "none",
   },
   skeleton: {
     width: "100%",
@@ -172,12 +216,10 @@ const globalCSS = `
   .all-game-card:active { transform: scale(0.94); }
 `;
 
-// ---- Skeleton template ---------------------------------------------------
 function GameCardSkeleton() {
   return <div style={styles.skeleton} aria-hidden="true" />;
 }
 
-// ---- Game card template ---------------------------------------------------
 function GameCard({ game, onSelect }) {
   return (
     <div
@@ -208,17 +250,11 @@ function GameCard({ game, onSelect }) {
   );
 }
 
-// ---- Main component ---------------------------------------------------
-export default function AllGames({
-  apiUrl = "https://67c7374cbb0988d092ea.appwrite.global/games",
-  title = "All Games",
-}) {
+export default function AllGames({ title = "All Games" }) {
   const [allGames, setAllGames] = useState([]);
   const [status, setStatus] = useState("loading");
   const [query, setQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
-
-  // The one piece of state that controls the overlay.
   const [activeGame, setActiveGame] = useState(null);
 
   const navigate = useNavigate();
@@ -227,15 +263,10 @@ export default function AllGames({
     let cancelled = false;
     setStatus("loading");
 
-    fetch(apiUrl)
-      .then((res) => {
-        if (!res.ok) throw new Error(`Request failed: ${res.status}`);
-        return res.json();
-      })
+    fetchJson(API_ENDPOINTS.games)
       .then((data) => {
         if (cancelled) return;
-        const rawList = Array.isArray(data) ? data : data.data || data.games || [];
-        setAllGames(rawList.map(mapApiGame));
+        setAllGames(extractGameList(data).map(mapApiGame));
         setStatus("success");
       })
       .catch((err) => {
@@ -244,10 +275,8 @@ export default function AllGames({
         setStatus("error");
       });
 
-    return () => {
-      cancelled = true;
-    };
-  }, [apiUrl]);
+    return () => { cancelled = true; };
+  }, []);
 
   useEffect(() => {
     const cleanup = fetchGames();
@@ -263,13 +292,11 @@ export default function AllGames({
   const filteredGames = useMemo(() => {
     const q = query.trim().toLowerCase();
     return allGames.filter((g) => {
-      const matchesCategory =
-        activeCategory === "All" || g.category === activeCategory;
+      const matchesCategory = activeCategory === "All" || g.category === activeCategory;
       const matchesQuery = !q || g.title?.toLowerCase().includes(q);
       return matchesCategory && matchesQuery;
     });
   }, [allGames, query, activeCategory]);
-
 
   const handleSelectGame = useCallback((game) => {
     if (!game.playUrl) return;
@@ -300,7 +327,6 @@ export default function AllGames({
         )}
       </div>
 
-      {/* search box */}
       {status !== "error" && (
         <div style={styles.searchWrap}>
           <input

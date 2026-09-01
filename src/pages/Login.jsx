@@ -1,38 +1,8 @@
-import  { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Gamepad2,Sparkles, Mail, Lock, X, Loader2 } from "lucide-react";
-import "../styles/Login.css";
-
-
-
-async function authenticateWithGoogle() {
-  
-  await mockDelay(700);
-  return { provider: "google", name: "Sarthak Ahuja", email: "sarthakahuja447@gmail.com" };
-}
-
-async function authenticateWithFacebook() {
-  
-  await mockDelay(700);
-  return { provider: "facebook", name: "Sarthak Ahuja", email: "sarthakahuja447@gmail.com" };
-}
-
-async function authenticateWithEmail(email, password) {
-  
-  await mockDelay(700);
-  if (!email || !password) {
-    throw new Error("Please enter both email and password");
-  }
-  if (password.length < 6) {
-    throw new Error("Password must be at least 6 characters");
-  }
-  return { provider: "email", name: email.split("@")[0], email };
-}
-
-function mockDelay(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
+import { Gamepad2, Sparkles, Mail, Lock, X, Loader2 } from "lucide-react";
+import { mockDelay } from "../utils/api";
+import "../../src/styles/Login.css";
 
 function GoogleMark() {
   return (
@@ -45,33 +15,60 @@ function GoogleMark() {
   );
 }
 
+async function authenticateWithGoogle() {
+  await mockDelay(700);
+  return { provider: "google", name: "Sarthak Ahuja", email: "sarthakahuja447@gmail.com" };
+}
 
+async function authenticateWithFacebook() {
+  await mockDelay(700);
+  return { provider: "facebook", name: "Sarthak Ahuja", email: "sarthakahuja447@gmail.com" };
+}
 
-export default function Login({ onAuthenticated }) {
-  const navigate=useNavigate();
+async function authenticateWithEmail(email, password) {
+  await mockDelay(700);
+  if (!email || !password) {
+    throw new Error("Please enter both email and password");
+  }
+  if (password.length < 6) {
+    throw new Error("Password must be at least 6 characters");
+  }
+  return { provider: "email", name: email.split("@")[0], email };
+}
+
+export default function Login() {
+  const navigate = useNavigate();
   const [showEmailForm, setShowEmailForm] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [activeProvider, setActiveProvider] = useState(null); 
+  const [activeProvider, setActiveProvider] = useState(null);
   const [error, setError] = useState(null);
 
-  const handleSuccess = (user) => {
+  const handleSuccess = () => {
     setError(null);
     setActiveProvider(null);
-    if (onAuthenticated) onAuthenticated(user);
+    navigate("/Home");
   };
 
-  const handleGoogleClick= ()=> {
-       navigate('/Home')
-  
+  const handleGoogleClick = async () => {
+    setError(null);
+    setActiveProvider("google");
+    try {
+      await authenticateWithGoogle();
+      handleSuccess();
+    } catch (err) {
+      setError(err.message || "Google sign-in failed");
+    } finally {
+      setActiveProvider(null);
+    }
   };
 
   const handleFacebookClick = async () => {
     setError(null);
     setActiveProvider("facebook");
     try {
-      const user = await authenticateWithFacebook();
-      handleSuccess(user);
+      await authenticateWithFacebook();
+      handleSuccess();
     } catch (err) {
       setError(err.message || "Facebook sign-in failed");
     } finally {
@@ -84,8 +81,8 @@ export default function Login({ onAuthenticated }) {
     setError(null);
     setActiveProvider("email");
     try {
-      const user = await authenticateWithEmail(email, password);
-      handleSuccess(user);
+      await authenticateWithEmail(email, password);
+      handleSuccess();
       setShowEmailForm(false);
     } catch (err) {
       setError(err.message || "Login failed");
@@ -96,7 +93,6 @@ export default function Login({ onAuthenticated }) {
 
   return (
     <div className="login-page">
-      {/* ---------------- App icon ---------------- */}
       <div className="app-icon-wrap">
         <Sparkles size={16} className="sparkle sparkle--tl" />
         <Sparkles size={12} className="sparkle sparkle--br" />
@@ -107,13 +103,11 @@ export default function Login({ onAuthenticated }) {
         </div>
       </div>
 
-      {/* ---------------- Title ---------------- */}
       <h1 className="login-title">Welcome To GameApp</h1>
       <p className="login-subtitle">Powered by Growsats</p>
 
       {error && <p className="login-error">{error}</p>}
 
-      {/* ---------------- Auth buttons ---------------- */}
       <div className="auth-buttons">
         <button
           className="auth-button auth-button--google"
@@ -150,7 +144,6 @@ export default function Login({ onAuthenticated }) {
         </button>
       </div>
 
-      {/* ---------------- Email login form (opens on "Login with Email") ---------------- */}
       {showEmailForm && (
         <div className="email-modal">
           <div className="email-modal__backdrop" onClick={() => setShowEmailForm(false)} />
