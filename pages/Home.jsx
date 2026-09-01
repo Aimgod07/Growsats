@@ -145,7 +145,7 @@ export default function Home({ userName = "Deepanshu", cash = 100, coins = 2240,
 
                 {/* ---------------- GrowGames hero ---------------- */}
         <section className="home-game-hero" aria-label="GrowGames">
-          <div className="home-game-hero__brand">Check kara </div>
+          <div className="home-game-hero__brand">GrowGames</div>
         </section>
 
 
