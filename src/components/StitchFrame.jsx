@@ -773,16 +773,16 @@ const HOME_SECTIONS_LOADER = `<script>
   }
 
   function bannerHtml() {
-    return '<div class="relative overflow-hidden rounded-xl shadow-xl" style="background:linear-gradient(120deg,rgba(76,215,246,0.22),rgba(96,1,209,0.28) 55%,rgba(17,19,29,0.9));padding:18px">'
+    return '<div class="gz-mission-banner relative overflow-hidden rounded-xl shadow-xl" style="background:linear-gradient(120deg,rgba(76,215,246,0.22),rgba(96,1,209,0.28) 55%,rgba(17,19,29,0.9));padding:18px">'
       + '<div class="absolute" style="top:-40px;right:-30px;width:130px;height:130px;border-radius:999px;background:rgba(76,215,246,0.22);filter:blur(34px)"></div>'
-      + '<div style="position:relative;display:flex;align-items:center;justify-content:space-between;gap:14px">'
-      + '<div style="display:flex;flex-direction:column;gap:8px;min-width:0">'
+      + '<div class="gz-mission-layout" style="position:relative;display:flex;align-items:center;justify-content:space-between;gap:14px">'
+      + '<div class="gz-mission-copy" style="display:flex;flex-direction:column;gap:8px;min-width:0">'
       + '<span style="align-self:flex-start;padding:3px 9px;border-radius:999px;background:rgba(76,215,246,0.18);color:#4cd7f6;font-size:10px;font-weight:800;letter-spacing:0.1em">DAILY</span>'
       + '<h3 style="margin:0;font-size:20px;line-height:1.15;font-weight:900;color:#e1e1f0">Daily Missions</h3>'
       + '<p style="margin:0;font-size:12px;color:#bcc9cd">Earn coins &amp; gems daily</p>'
       + '<button type="button" style="align-self:flex-start;margin-top:4px;padding:9px 16px;border-radius:999px;border:none;background:#4cd7f6;color:#003640;font-size:12px;font-weight:800;cursor:pointer">Start Now</button>'
       + '</div>'
-      + '<div style="position:relative;width:96px;height:96px;flex-shrink:0">'
+      + '<div class="gz-mission-art" style="position:relative;width:96px;height:96px;flex-shrink:0">'
       + '<div style="position:absolute;top:0;right:0;width:62px;height:82px;border-radius:12px;background:#0c0e18;transform:rotate(9deg);box-shadow:0 8px 18px rgba(0,0,0,0.4)"></div>'
       + '<div style="position:absolute;top:6px;right:8px;width:62px;height:82px;border-radius:12px;background:#191b26;transform:rotate(9deg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;box-shadow:0 8px 18px rgba(0,0,0,0.4)">'
       + icon("deployed_code", "#4cd7f6", 26) + '<span style="font-size:9px;font-weight:800;color:#869397;letter-spacing:0.08em">SPIN</span></div>'
@@ -795,9 +795,9 @@ const HOME_SECTIONS_LOADER = `<script>
     var cards = "";
     for (var i = 0; i < QUICK.length; i++) {
       var q = QUICK[i];
-      cards += '<div style="flex:0 0 auto;width:112px;border-radius:14px;background:#191b26;padding:12px;display:flex;flex-direction:column;gap:10px">'
-        + '<div style="width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:' + q.b + '">' + icon(q.i, q.c, 22) + '</div>'
-        + '<p style="margin:0;font-size:11.5px;font-weight:700;color:#e1e1f0;line-height:1.25">' + q.t + '</p>'
+      cards += '<div class="gz-quick-card" style="flex:0 0 auto;width:112px;border-radius:14px;background:#191b26;padding:12px;display:flex;flex-direction:column;gap:10px">'
+        + '<div class="gz-quick-icon" style="width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:' + q.b + '">' + icon(q.i, q.c, 22) + '</div>'
+        + '<p style="margin:0;font-size:11.5px;font-weight:700;color:#e1e1f0;line-height:1.25">' + q.t + '</p><span class="gz-quick-arrow" aria-hidden="true">→</span>'
         + '</div>';
     }
     return '<div style="display:flex;flex-direction:column;gap:12px">'
@@ -806,7 +806,7 @@ const HOME_SECTIONS_LOADER = `<script>
       + '<span style="width:8px;height:16px;border-radius:3px;background:#a78bfa"></span>'
       + '<h2 style="margin:0;font-size:17px;font-weight:700;letter-spacing:0.02em;color:#e1e1f0;text-transform:uppercase">Quick Loot</h2>'
       + '</div></div>'
-      + '<div class="no-scrollbar" style="display:flex;gap:12px;overflow-x:auto;padding-bottom:4px">' + cards + '</div>'
+      + '<div class="gz-quick-grid no-scrollbar" style="display:flex;gap:12px;overflow-x:auto;padding-bottom:4px">' + cards + '</div>'
       + '</div>';
   }
 

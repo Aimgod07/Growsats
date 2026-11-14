@@ -5,7 +5,7 @@ import {backend} from '../utils/api';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAppConfig } from "../config/appConfig";
 
-const ROUTES = { arcade: "/Home", ranks: "/leaderboard", loot: "/redeem", profile: "/profile" };
+const ROUTES = { arcade: "/Home", ranks: "/leaderboard", events: "/events", loot: "/redeem", profile: "/profile" };
 
 export default function AppBottomNav() {
   const config = useAppConfig();
@@ -15,8 +15,12 @@ export default function AppBottomNav() {
   const navigate = useNavigate();
   const location = useLocation();
   if (config.navigation?.enabled === false) return null;
-  const items = (config.navigation?.items || []).filter((item) => {
-    const screen = item.id === "arcade" ? "arcade" : item.id === "ranks" ? "ranks" : item.id === "loot" ? "loot" : "profile";
+  const configuredItems = config.navigation?.items || [];
+  const itemsWithEvents = configuredItems.some(item => item.id === 'events')
+    ? configuredItems
+    : [...configuredItems.slice(0, 2), { id: 'events', label: 'Events', icon: 'emoji_events', enabled: true }, ...configuredItems.slice(2)];
+  const items = itemsWithEvents.filter((item) => {
+    const screen = item.id === "arcade" ? "arcade" : item.id === "ranks" ? "ranks" : item.id === "events" ? "events" : item.id === "loot" ? "loot" : "profile";
     return item.enabled !== false && config.screens?.[screen]?.enabled !== false && ROUTES[item.id];
   });
   if (!items.length) return null;
@@ -31,7 +35,7 @@ export default function AppBottomNav() {
         || (item.id === 'loot' && ['/offers','/transactions'].includes(location.pathname))
           || (item.id === "arcade" && (location.pathname === "/all-games" || location.pathname.startsWith("/coming-soon/")))
         || (item.id === "ranks" && location.pathname.startsWith("/players/"))
-        || (item.id === "ranks" && (location.pathname.startsWith("/events") || location.pathname === '/tournaments'))
+        || (item.id === "events" && (location.pathname.startsWith("/events") || location.pathname === '/tournaments'))
         || (item.id === "profile" && (location.pathname === "/missions" || location.pathname.startsWith("/profile/")));
       return <button key={item.id} type="button" aria-current={active ? "page" : undefined} onClick={() => navigate(ROUTES[item.id])} style={{
         border: 0, borderRadius: 12, background: active ? item.activeBackgroundColor || "rgba(76,215,246,.12)" : item.backgroundColor || "transparent",

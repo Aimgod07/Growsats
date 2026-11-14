@@ -12,6 +12,7 @@ export const DEFAULT_APP_CONFIG = {
     items: [
       { id: "arcade", label: "Arcade", icon: "sports_esports", enabled: true },
       { id: "ranks", label: "Ranks", icon: "leaderboard", enabled: true },
+      { id: "events", label: "Events", icon: "emoji_events", enabled: true },
       { id: "loot", label: "Loot", icon: "redeem", enabled: true },
       { id: "profile", label: "Profile", icon: "badge", enabled: true },
     ],
@@ -35,6 +36,7 @@ export const DEFAULT_APP_CONFIG = {
       grid: { enabled: true, limit: 24, categories: [], providers: [] },
     },
     ranks: { enabled: true, sections: { leaderboard: true } },
+    events: { enabled: true },
     loot: { enabled: true, sections: { balance: true, daily: true, rewards: true, redeem: true } },
     profile: { enabled: true, sections: { identity: true, stats: true, recentGames: true, notifications: true, settings: true } },
   },
