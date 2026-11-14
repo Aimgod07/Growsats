@@ -1,0 +1,1 @@
+globalThis.GameCatalog=[{"id":"mini-sudoku","name":"Mini Sudoku","category":"Puzzle","tagline":"Four by four. All yours to solve.","help":"Select an empty square, then tap 1–4. Every row, column and 2×2 box needs each number once. Tap the eraser to clear.","accent":"#bad2ed","bg":"#344759","label":"NUMBER PUZZLE","number":11}];globalThis.Games={};

@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Fredoka:wght@600;700&display=swap');
+
+:root{
+  --ui-ink:#33281f;--ui-cream:#fff3cd;--ui-gold:#ffc94d;--ui-green:#8ed33c;
+  --ui-teal:#25c7bd;--ui-red:#ef6a5b;--ui-edge:#342b27;--ui-shadow:#172b2e80;
+}
+body{font-family:'Baloo 2',system-ui,sans-serif!important}
+button,a,[role=button]{-webkit-tap-highlight-color:transparent}
+
+/* Illustrated display lettering */
+h1,h2,.logo,.brand,.wordmark,#title,#dialog-title{
+  font-family:'Fredoka','Baloo 2',system-ui,sans-serif!important;font-weight:700!important;
+  letter-spacing:.01em!important;text-wrap:balance;
+}
+.panel h1,.dialog h2,.intro h1,.pause h2,#dialog-title{
+  color:var(--ui-cream)!important;
+  text-shadow:0 3px 0 #5d382c,0 6px 0 #2a2421,0 11px 22px #172b2e88!important;
+}
+.eyebrow,.tag,.rule>span{font-family:'Fredoka','Baloo 2',sans-serif!important;font-weight:700!important}
+
+/* Carved menu cards and pause/settings sheets */
+.panel,.dialog,.intro,.pause>div,.modal>div,[class*=settings-panel],[class*=menu-panel]{
+  position:relative;border:3px solid #fff0c980!important;border-radius:25px!important;
+  background:
+    radial-gradient(circle at 18% 7%,#fff8dc2e 0 2px,transparent 3px),
+    linear-gradient(155deg,#36594ef2,#1d3e3beb 55%,#183535f2)!important;
+  box-shadow:0 7px 0 #102d2f,0 16px 35px var(--ui-shadow),inset 0 2px 0 #ffffff40,inset 0 -4px 0 #0d252744!important;
+  backdrop-filter:blur(12px) saturate(1.15)!important;
+}
+.panel::before,.dialog::before,.intro::before,.pause>div::before{
+  content:"";position:absolute;inset:8px;border:1px dashed #ffe8a340;border-radius:17px;pointer-events:none
+}
+.dialog,.panel,.intro{isolation:isolate}
+.dialog>* ,.panel>* ,.intro>*{position:relative;z-index:1}
+
+/* Chunky tactile controls */
+button,.primary,.secondary,.play,[class*=button]{font-family:'Fredoka','Baloo 2',system-ui,sans-serif!important;font-weight:700!important}
+.primary,.play,#start,#play,#resume,#again,.dialog button:not(.secondary),.panel button:not(.icon):not(:disabled){
+  min-height:52px;border:2px solid #4d5928!important;border-radius:16px!important;
+  color:#2c351f!important;background:linear-gradient(180deg,#d8ff5c 0%,#9be329 52%,#74b91d 100%)!important;
+  box-shadow:0 6px 0 #426c18,0 10px 18px #10262f55,inset 0 3px 0 #f6ffb8,inset 0 -2px 0 #4e841b!important;
+  text-shadow:0 1px 0 #efffb0;letter-spacing:.04em!important;transition:transform .13s ease,filter .13s ease,box-shadow .13s ease!important;
+}
+.secondary,#secondary,#restart,.under-game button{
+  border:2px solid #5d4533!important;border-radius:14px!important;color:#38291d!important;
+  background:linear-gradient(#ffe49a,#eab85c)!important;box-shadow:0 5px 0 #8b5d31,inset 0 2px 0 #fff3c9!important;
+}
+.primary:hover,.play:hover,#start:hover,#play:hover,.panel button:hover:not(:disabled){filter:brightness(1.08) saturate(1.08);transform:translateY(-2px)}
+.primary:active,.play:active,#start:active,#play:active,.panel button:active:not(:disabled),button.ui-pressed{transform:translateY(4px)!important;box-shadow:0 2px 0 #426c18,inset 0 2px 5px #355b1c55!important}
+button:focus-visible,a:focus-visible{outline:4px solid #fff!important;outline-offset:4px!important}
+button:disabled{filter:grayscale(.6);opacity:.48!important}
+
+/* Round utility controls */
+.icon,.tools button,.buttons button,#help{
+  border:2px solid #d8f4e8aa!important;border-radius:15px!important;color:#fff8da!important;
+  background:linear-gradient(145deg,#37756e,#173f40)!important;
+  box-shadow:0 4px 0 #102d30,0 7px 15px #122a2e55,inset 0 2px 0 #ffffff38!important;
+  text-shadow:0 2px 0 #142e30;transition:transform .13s ease,filter .13s ease!important;
+}
+.icon:hover,.tools button:hover,.buttons button:hover,#help:hover{filter:brightness(1.18);transform:translateY(-2px)}
+
+/* Scores, level choices and progress */
+.scorebar,.stats,.hud .top{filter:drop-shadow(0 6px 12px #17303344)}
+.scorebar>div,.stat,.stats>div{border-radius:13px;padding:.3rem .65rem;background:#173d3d73;border:1px solid #fff3}
+#levels button,[class*=level] button,.level-card{
+  border:2px solid #695036!important;border-radius:14px!important;background:linear-gradient(#f8db88,#d69d43)!important;
+  color:#3d2d20!important;box-shadow:0 4px 0 #75502d,inset 0 2px 0 #fff4c4!important;
+}
+progress,.meter,.progress{border:2px solid #263f37!important;border-radius:999px!important;box-shadow:inset 0 2px 4px #14282088,0 2px 0 #ffffff40;overflow:hidden}
+
+/* Shell games */
+.game-info{background:linear-gradient(145deg,#fff4d7f3,#ead7a9ed)!important;border:3px solid #6e5136!important;border-radius:22px!important;box-shadow:0 7px 0 #62432e,0 20px 42px #1731373f,inset 0 3px 0 #fff!important}
+.game-info #title{color:#4a3426!important;text-shadow:0 2px 0 #fff1c7!important}
+.game-frame{filter:drop-shadow(0 18px 35px #17313735)}
+.overlay{background:radial-gradient(circle at 50% 35%,transparent,#102e3285)!important}
+
+@media(max-width:640px){
+  .panel,.dialog,.intro{border-radius:20px!important;padding:24px 20px!important}
+  .panel h1,.dialog h2,.intro h1{line-height:1!important}
+  .primary,.play,#start,#play,#resume,#again{min-height:50px}
+  .scorebar>div,.stat,.stats>div{padding:.2rem .42rem}
+}
+@media(prefers-reduced-motion:reduce){button,.primary,.play{transition:none!important}}

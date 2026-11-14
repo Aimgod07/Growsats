@@ -1,0 +1,1 @@
+globalThis.GameCatalog=[{"id":"cosmic-pinball","name":"Cosmic Pinball","category":"Sports","tagline":"Keep the universe in play.","help":"Hold the left or right side to raise its flipper. Space raises both. Tap LAUNCH to start. Hit bumpers; don’t lose all three balls.","accent":"#d0b3ff","bg":"#302746","label":"PINBALL","number":18}];globalThis.Games={};

@@ -1,0 +1,27 @@
+body>nav.fixed.bottom-0{display:none!important}
+/* The saved screens live in an iframe and need their own responsive rules. */
+@media(min-width:600px){
+ body{width:100%;max-width:none!important;margin:0!important}
+ body>header>div,body>main{max-width:none!important;margin-inline:auto!important;width:100%!important}
+ body>header>div{padding-inline:clamp(24px,4vw,64px)!important}
+ body>main{padding-inline:clamp(16px,3vw,48px)!important}
+ main>div{max-width:none!important}
+ .grogames-grid,div.grid.grid-cols-2{grid-template-columns:repeat(auto-fill,minmax(175px,1fr))!important;gap:20px!important}
+ .grogames-section{margin:32px 16px!important}
+ .pl-feature{min-height:390px}
+ .pl-feature-content{padding:36px}
+ .pl-feature-content h3{font-size:36px!important}
+ .pl-feature-content p{font-size:14px;max-width:50ch}
+ .pl-feature-art{object-position:center 40%}
+}
+@media(min-width:1024px){
+ body>main{padding-bottom:40px!important}
+ .grogames-grid,div.grid.grid-cols-2{grid-template-columns:repeat(auto-fill,minmax(200px,1fr))!important;gap:24px!important}
+ .pl-feature{min-height:440px}
+ .pl-feature-content h3{font-size:44px!important}
+ .pl-feature-content{padding:48px}
+ .pl-feature-content p{font-size:16px}
+}
+@media(min-width:1024px){body>header>div{height:80px!important}body>main{padding-top:96px!important}.pl-feature{max-height:520px}.grogames-section{margin-block:40px!important}.gro-heading h2{font-size:30px!important}.grogames-info{padding:18px!important}}
+
+@media(min-width:1024px){body>header{display:none!important}body>main{padding-top:16px!important}}

@@ -1,0 +1,10 @@
+import {readFileSync,writeFileSync} from 'node:fs';
+let sql=readFileSync(new URL('./0011_security.sql',import.meta.url),'utf8');
+const previous=readFileSync('C:/Users/choud/Desktop/playloot-backend/migrations/0010_payments.sql','utf8');
+let settle=previous.match(/CREATE TRIGGER payment_settle[\s\S]*?\nEND;/)?.[0];
+if(!settle)throw new Error('Settlement trigger missing');
+const release=" UPDATE payment_withdrawals SET status=CASE NEW.status WHEN 'succeeded' THEN 'paid' WHEN 'failed' THEN 'released' ELSE 'reserved' END,updated_at=datetime('now') WHERE payment_id=NEW.id;";
+if(!settle.includes(release))throw new Error('Settlement format changed');
+settle=settle.replace(release,'').replace(" UPDATE wallets SET cash_cents=cash_cents+NEW.amount_minor",release+"\n UPDATE wallets SET cash_cents=cash_cents+NEW.amount_minor");
+sql+='\nDROP TRIGGER payment_settle;\n'+settle+'\n';
+writeFileSync(new URL('./0011_generated.sql',import.meta.url),sql);

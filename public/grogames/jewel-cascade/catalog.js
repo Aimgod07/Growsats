@@ -1,0 +1,1 @@
+globalThis.GameCatalog=[{"id":"jewel-cascade","name":"Jewel Cascade","category":"Puzzle","tagline":"Make a match. Start a chain reaction.","help":"Tap two adjacent jewels to swap. Match three or more. Reach 1,500 points within 30 moves. Invalid swaps cost no moves.","accent":"#dfacf9","bg":"#393352","label":"MATCH THREE","number":8}];globalThis.Games={};

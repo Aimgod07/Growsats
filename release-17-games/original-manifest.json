@@ -1,0 +1,802 @@
+[
+  {
+    "id": "courtside",
+    "title": "Courtside",
+    "category": "Sports",
+    "orientation": "portrait",
+    "path": "/grogames/courtside/index.html",
+    "cover": "/grogames/covers/cinematic/courtside.webp"
+  },
+  {
+    "id": "featherfall",
+    "title": "Featherfall",
+    "category": "Puzzle",
+    "orientation": "landscape",
+    "path": "/grogames/featherfall/index.html",
+    "cover": "/grogames/covers/cinematic/featherfall.webp"
+  },
+  {
+    "id": "first-touch",
+    "title": "First Touch",
+    "category": "Sports",
+    "orientation": "landscape",
+    "path": "/grogames/first-touch/index.html",
+    "cover": "/grogames/covers/cinematic/first-touch.webp"
+  },
+  {
+    "id": "fruit-frenzy",
+    "title": "Fruit Frenzy",
+    "category": "Arcade",
+    "orientation": "portrait",
+    "path": "/grogames/fruit-frenzy/index.html",
+    "cover": "/grogames/covers/cinematic/fruit-frenzy.webp"
+  },
+  {
+    "id": "groove-grove",
+    "title": "Groove Grove",
+    "category": "Rhythm",
+    "orientation": "portrait",
+    "path": "/grogames/groove-grove/index.html",
+    "cover": "/grogames/covers/cinematic/groove-grove.webp"
+  },
+  {
+    "id": "neon-rage",
+    "title": "Neon Rage",
+    "category": "Racing",
+    "orientation": "portrait",
+    "path": "/grogames/neon-rage/index.html",
+    "cover": "/grogames/covers/cinematic/neon-rage.webp"
+  },
+  {
+    "id": "skyline-sprint",
+    "title": "Skyline Sprint",
+    "category": "Runner",
+    "orientation": "portrait",
+    "path": "/grogames/skyline-sprint/index.html",
+    "cover": "/grogames/covers/cinematic/skyline-sprint.webp"
+  },
+  {
+    "id": "strikepoint",
+    "title": "Strikepoint",
+    "category": "Action",
+    "orientation": "landscape",
+    "path": "/grogames/strikepoint/index.html",
+    "cover": "/grogames/covers/cinematic/strikepoint.webp"
+  },
+  {
+    "id": "tidal-rush",
+    "title": "Tidal Rush",
+    "category": "Adventure",
+    "orientation": "portrait",
+    "path": "/grogames/tidal-rush/index.html",
+    "cover": "/grogames/covers/cinematic/tidal-rush.webp"
+  },
+  {
+    "id": "turbo-avenue",
+    "title": "Turbo Avenue",
+    "category": "Racing",
+    "orientation": "portrait",
+    "path": "/grogames/turbo-avenue/index.html?embed=1",
+    "cover": "/grogames/covers/cinematic/turbo-avenue.webp"
+  },
+  {
+    "id": "moon-rider",
+    "title": "Moon Rider",
+    "category": "Racing",
+    "orientation": "portrait",
+    "path": "/grogames/moon-rider/index.html?embed=1",
+    "cover": "/grogames/covers/cinematic/moon-rider.webp"
+  },
+  {
+    "id": "sky-courier",
+    "title": "Sky Courier",
+    "category": "Action",
+    "orientation": "portrait",
+    "path": "/grogames/sky-courier/index.html?embed=1",
+    "cover": "/grogames/covers/cinematic/sky-courier.webp"
+  },
+  {
+    "id": "orbit-guard",
+    "title": "Orbit Guard",
+    "category": "Action",
+    "orientation": "portrait",
+    "path": "/grogames/orbit-guard/index.html?embed=1",
+    "cover": "/grogames/covers/cinematic/orbit-guard.webp"
+  },
+  {
+    "id": "meteor-drift",
+    "title": "Meteor Drift",
+    "category": "Action",
+    "orientation": "portrait",
+    "path": "/grogames/meteor-drift/index.html?embed=1",
+    "cover": "/grogames/covers/cinematic/meteor-drift.webp"
+  },
+  {
+    "id": "bubble-cove",
+    "title": "Bubble Cove",
+    "category": "Puzzle",
+    "orientation": "portrait",
+    "path": "/grogames/bubble-cove/index.html?embed=1",
+    "cover": "/grogames/covers/cinematic/bubble-cove.webp"
+  },
+  {
+    "id": "prism-break",
+    "title": "Prism Break",
+    "category": "Action",
+    "orientation": "portrait",
+    "path": "/grogames/prism-break/index.html?embed=1",
+    "cover": "/grogames/covers/cinematic/prism-break.webp"
+  },
+  {
+    "id": "jewel-cascade",
+    "title": "Jewel Cascade",
+    "category": "Puzzle",
+    "orientation": "portrait",
+    "path": "/grogames/jewel-cascade/index.html?embed=1",
+    "cover": "/grogames/covers/cinematic/jewel-cascade.webp"
+  },
+  {
+    "id": "pocket-merge",
+    "title": "Pocket Merge",
+    "category": "Puzzle",
+    "orientation": "portrait",
+    "path": "/grogames/pocket-merge/index.html?embed=1",
+    "cover": "/grogames/covers/cinematic/pocket-merge.webp"
+  },
+  {
+    "id": "memory-meadow",
+    "title": "Memory Meadow",
+    "category": "Puzzle",
+    "orientation": "portrait",
+    "path": "/grogames/memory-meadow/index.html?embed=1",
+    "cover": "/grogames/covers/cinematic/memory-meadow.webp"
+  },
+  {
+    "id": "mini-sudoku",
+    "title": "Mini Sudoku",
+    "category": "Puzzle",
+    "orientation": "portrait",
+    "path": "/grogames/mini-sudoku/index.html?embed=1",
+    "cover": "/grogames/covers/cinematic/mini-sudoku.webp"
+  },
+  {
+    "id": "pipe-garden",
+    "title": "Pipe Garden",
+    "category": "Puzzle",
+    "orientation": "portrait",
+    "path": "/grogames/pipe-garden/index.html?embed=1",
+    "cover": "/grogames/covers/cinematic/pipe-garden.webp"
+  },
+  {
+    "id": "garden-snake",
+    "title": "Garden Snake",
+    "category": "Adventure",
+    "orientation": "portrait",
+    "path": "/grogames/garden-snake/index.html?embed=1",
+    "cover": "/grogames/covers/cinematic/garden-snake.webp"
+  },
+  {
+    "id": "cloud-hopper",
+    "title": "Cloud Hopper",
+    "category": "Platformer",
+    "orientation": "portrait",
+    "path": "/grogames/cloud-hopper/index.html?embed=1",
+    "cover": "/grogames/covers/cinematic/cloud-hopper.webp"
+  },
+  {
+    "id": "fruit-flight",
+    "title": "Fruit Flight",
+    "category": "Action",
+    "orientation": "portrait",
+    "path": "/grogames/fruit-flight/index.html?embed=1",
+    "cover": "/grogames/covers/cinematic/fruit-flight.webp"
+  },
+  {
+    "id": "hoop-harbor",
+    "title": "Hoop Harbor",
+    "category": "Sports",
+    "orientation": "portrait",
+    "path": "/grogames/hoop-harbor/index.html?embed=1",
+    "cover": "/grogames/covers/cinematic/hoop-harbor.webp"
+  },
+  {
+    "id": "goal-garden",
+    "title": "Goal Garden",
+    "category": "Sports",
+    "orientation": "portrait",
+    "path": "/grogames/goal-garden/index.html?embed=1",
+    "cover": "/grogames/covers/cinematic/goal-garden.webp"
+  },
+  {
+    "id": "cosmic-pinball",
+    "title": "Cosmic Pinball",
+    "category": "Sports",
+    "orientation": "portrait",
+    "path": "/grogames/cosmic-pinball/index.html?embed=1",
+    "cover": "/grogames/covers/cinematic/cosmic-pinball.webp"
+  },
+  {
+    "id": "tiny-putt",
+    "title": "Tiny Putt",
+    "category": "Sports",
+    "orientation": "portrait",
+    "path": "/grogames/tiny-putt/index.html?embed=1",
+    "cover": "/grogames/covers/cinematic/tiny-putt.webp"
+  },
+  {
+    "id": "curling-club",
+    "title": "Curling Club",
+    "category": "Sports",
+    "orientation": "portrait",
+    "path": "/grogames/curling-club/index.html?embed=1",
+    "cover": "/grogames/covers/cinematic/curling-club.webp"
+  },
+  {
+    "id": "tower-bloom",
+    "title": "Tower Bloom",
+    "category": "Timing",
+    "orientation": "portrait",
+    "path": "/grogames/tower-bloom/index.html?embed=1",
+    "cover": "/grogames/covers/cinematic/tower-bloom.webp"
+  },
+  {
+    "id": "bridge-bloom",
+    "title": "Bridge Bloom",
+    "category": "Timing",
+    "orientation": "portrait",
+    "path": "/grogames/bridge-bloom/index.html?embed=1",
+    "cover": "/grogames/covers/cinematic/bridge-bloom.webp"
+  },
+  {
+    "id": "rhythm-reef",
+    "title": "Rhythm Reef",
+    "category": "Rhythm",
+    "orientation": "portrait",
+    "path": "/grogames/rhythm-reef/index.html?embed=1",
+    "cover": "/grogames/covers/cinematic/rhythm-reef.webp"
+  },
+  {
+    "id": "dungeon-sprout",
+    "title": "Dungeon Sprout",
+    "category": "Adventure",
+    "orientation": "portrait",
+    "path": "/grogames/dungeon-sprout/index.html?embed=1",
+    "cover": "/grogames/covers/cinematic/dungeon-sprout.webp"
+  },
+  {
+    "id": "skate-runner",
+    "title": "Skate Runner",
+    "category": "Runner",
+    "orientation": "landscape",
+    "path": "/grogames/skate-runner.html",
+    "cover": "/grogames/covers/cinematic/skate-runner.webp"
+  },
+  {
+    "id": "neon-racer",
+    "title": "Neon Racer",
+    "category": "Racing",
+    "orientation": "portrait",
+    "path": "/grogames/neon-racer.html",
+    "cover": "/grogames/covers/cinematic/neon-racer.webp"
+  },
+  {
+    "id": "candy-match",
+    "title": "Candy Match",
+    "category": "Puzzle",
+    "orientation": "portrait",
+    "path": "/grogames/candy-match.html",
+    "cover": "/grogames/covers/cinematic/candy-match.webp"
+  },
+  {
+    "id": "archery-3d",
+    "title": "Archery 3D",
+    "category": "Sports",
+    "orientation": "landscape",
+    "path": "/grogames/archery-3d.html",
+    "cover": "/grogames/covers/cinematic/archery-3d.webp"
+  },
+  {
+    "id": "aurora-dodge",
+    "title": "Aurora Dodge",
+    "category": "Action",
+    "orientation": "portrait",
+    "path": "/grogames/aurora-dodge/index.html",
+    "cover": "/grogames/covers/cinematic/aurora-dodge.webp"
+  },
+  {
+    "id": "nova-defender",
+    "title": "Nova Defender",
+    "category": "Action",
+    "orientation": "portrait",
+    "path": "/grogames/nova-defender/index.html",
+    "cover": "/grogames/covers/cinematic/nova-defender.webp"
+  },
+  {
+    "id": "lunar-lander",
+    "title": "Lunar Lander",
+    "category": "Adventure",
+    "orientation": "portrait",
+    "path": "/grogames/lunar-lander/index.html",
+    "cover": "/grogames/covers/cinematic/lunar-lander.webp"
+  },
+  {
+    "id": "comet-catch",
+    "title": "Comet Catch",
+    "category": "Arcade",
+    "orientation": "portrait",
+    "path": "/grogames/comet-catch/index.html",
+    "cover": "/grogames/covers/cinematic/comet-catch.webp"
+  },
+  {
+    "id": "pulse-paddle",
+    "title": "Pulse Paddle",
+    "category": "Sports",
+    "orientation": "portrait",
+    "path": "/grogames/pulse-paddle/index.html",
+    "cover": "/grogames/covers/cinematic/pulse-paddle.webp"
+  },
+  {
+    "id": "crystal-breaker",
+    "title": "Crystal Breaker",
+    "category": "Action",
+    "orientation": "portrait",
+    "path": "/grogames/crystal-breaker/index.html",
+    "cover": "/grogames/covers/cinematic/crystal-breaker.webp"
+  },
+  {
+    "id": "orbit-switch",
+    "title": "Orbit Switch",
+    "category": "Timing",
+    "orientation": "portrait",
+    "path": "/grogames/orbit-switch/index.html",
+    "cover": "/grogames/covers/cinematic/orbit-switch.webp"
+  },
+  {
+    "id": "neon-slalom",
+    "title": "Neon Slalom",
+    "category": "Racing",
+    "orientation": "portrait",
+    "path": "/grogames/neon-slalom/index.html",
+    "cover": "/grogames/covers/cinematic/neon-slalom.webp"
+  },
+  {
+    "id": "sky-vault",
+    "title": "Sky Vault",
+    "category": "Platformer",
+    "orientation": "portrait",
+    "path": "/grogames/sky-vault/index.html",
+    "cover": "/grogames/covers/cinematic/sky-vault.webp"
+  },
+  {
+    "id": "reef-glider",
+    "title": "Reef Glider",
+    "category": "Adventure",
+    "orientation": "portrait",
+    "path": "/grogames/reef-glider/index.html",
+    "cover": "/grogames/covers/cinematic/reef-glider.webp"
+  },
+  {
+    "id": "laser-leap",
+    "title": "Laser Leap",
+    "category": "Runner",
+    "orientation": "portrait",
+    "path": "/grogames/laser-leap/index.html",
+    "cover": "/grogames/covers/cinematic/laser-leap.webp"
+  },
+  {
+    "id": "gem-sweeper",
+    "title": "Gem Sweeper",
+    "category": "Puzzle",
+    "orientation": "portrait",
+    "path": "/grogames/gem-sweeper/index.html",
+    "cover": "/grogames/covers/cinematic/gem-sweeper.webp"
+  },
+  {
+    "id": "prism-lights",
+    "title": "Prism Lights",
+    "category": "Puzzle",
+    "orientation": "portrait",
+    "path": "/grogames/prism-lights/index.html",
+    "cover": "/grogames/covers/cinematic/prism-lights.webp"
+  },
+  {
+    "id": "number-trail",
+    "title": "Number Trail",
+    "category": "Puzzle",
+    "orientation": "portrait",
+    "path": "/grogames/number-trail/index.html",
+    "cover": "/grogames/covers/cinematic/number-trail.webp"
+  },
+  {
+    "id": "echo-crystals",
+    "title": "Echo Crystals",
+    "category": "Memory",
+    "orientation": "portrait",
+    "path": "/grogames/echo-crystals/index.html",
+    "cover": "/grogames/covers/cinematic/echo-crystals.webp"
+  },
+  {
+    "id": "twin-constellations",
+    "title": "Twin Constellations",
+    "category": "Memory",
+    "orientation": "portrait",
+    "path": "/grogames/twin-constellations/index.html",
+    "cover": "/grogames/covers/cinematic/twin-constellations.webp"
+  },
+  {
+    "id": "slide-spectrum",
+    "title": "Slide Spectrum",
+    "category": "Puzzle",
+    "orientation": "portrait",
+    "path": "/grogames/slide-spectrum/index.html",
+    "cover": "/grogames/covers/cinematic/slide-spectrum.webp"
+  },
+  {
+    "id": "color-circuit",
+    "title": "Color Circuit",
+    "category": "Puzzle",
+    "orientation": "portrait",
+    "path": "/grogames/color-circuit/index.html",
+    "cover": "/grogames/covers/cinematic/color-circuit.webp"
+  },
+  {
+    "id": "rune-sum",
+    "title": "Rune Sum",
+    "category": "Puzzle",
+    "orientation": "portrait",
+    "path": "/grogames/rune-sum/index.html",
+    "cover": "/grogames/covers/cinematic/rune-sum.webp"
+  },
+  {
+    "id": "shape-sorter",
+    "title": "Shape Sorter",
+    "category": "Puzzle",
+    "orientation": "portrait",
+    "path": "/grogames/shape-sorter/index.html",
+    "cover": "/grogames/covers/cinematic/shape-sorter.webp"
+  },
+  {
+    "id": "pathfinder",
+    "title": "Pathfinder",
+    "category": "Puzzle",
+    "orientation": "portrait",
+    "path": "/grogames/pathfinder/index.html",
+    "cover": "/grogames/covers/cinematic/pathfinder.webp"
+  },
+  {
+    "id": "star-links",
+    "title": "Star Links",
+    "category": "Puzzle",
+    "orientation": "portrait",
+    "path": "/grogames/star-links/index.html",
+    "cover": "/grogames/covers/cinematic/star-links.webp"
+  },
+  {
+    "id": "zen-archer",
+    "title": "Zen Archer",
+    "category": "Sports",
+    "orientation": "portrait",
+    "path": "/grogames/zen-archer/index.html",
+    "cover": "/grogames/covers/cinematic/zen-archer.webp"
+  },
+  {
+    "id": "gravity-putt",
+    "title": "Gravity Putt",
+    "category": "Sports",
+    "orientation": "portrait",
+    "path": "/grogames/gravity-putt/index.html",
+    "cover": "/grogames/covers/cinematic/gravity-putt.webp"
+  },
+  {
+    "id": "goal-rush",
+    "title": "Goal Rush",
+    "category": "Sports",
+    "orientation": "portrait",
+    "path": "/grogames/goal-rush/index.html",
+    "cover": "/grogames/covers/cinematic/goal-rush.webp"
+  },
+  {
+    "id": "ice-curl",
+    "title": "Ice Curl",
+    "category": "Sports",
+    "orientation": "portrait",
+    "path": "/grogames/ice-curl/index.html",
+    "cover": "/grogames/covers/cinematic/ice-curl.webp"
+  },
+  {
+    "id": "rhythm-rain",
+    "title": "Rhythm Rain",
+    "category": "Rhythm",
+    "orientation": "portrait",
+    "path": "/grogames/rhythm-rain/index.html",
+    "cover": "/grogames/covers/cinematic/rhythm-rain.webp"
+  },
+  {
+    "id": "tower-forge",
+    "title": "Tower Forge",
+    "category": "Timing",
+    "orientation": "portrait",
+    "path": "/grogames/tower-forge/index.html",
+    "cover": "/grogames/covers/cinematic/tower-forge.webp"
+  },
+  {
+    "id": "locksmith",
+    "title": "Locksmith",
+    "category": "Timing",
+    "orientation": "portrait",
+    "path": "/grogames/locksmith/index.html",
+    "cover": "/grogames/covers/cinematic/locksmith.webp"
+  },
+  {
+    "id": "meteor-slice",
+    "title": "Meteor Slice",
+    "category": "Action",
+    "orientation": "portrait",
+    "path": "/grogames/meteor-slice/index.html",
+    "cover": "/grogames/covers/cinematic/meteor-slice.webp"
+  },
+  {
+    "id": "spark-garden",
+    "title": "Spark Garden",
+    "category": "Arcade",
+    "orientation": "portrait",
+    "path": "/grogames/spark-garden/index.html",
+    "cover": "/grogames/covers/cinematic/spark-garden.webp"
+  },
+  {
+    "id": "balance-beacon",
+    "title": "Balance Beacon",
+    "category": "Skill",
+    "orientation": "portrait",
+    "path": "/grogames/balance-beacon/index.html",
+    "cover": "/grogames/covers/cinematic/balance-beacon.webp"
+  },
+  {
+    "id": "territory-dots",
+    "title": "Territory Dots",
+    "category": "Strategy",
+    "orientation": "portrait",
+    "path": "/grogames/territory-dots/index.html",
+    "cover": "/grogames/covers/cinematic/territory-dots.webp"
+  },
+  {
+    "id": "hex-burst",
+    "title": "Hex Burst",
+    "category": "Puzzle",
+    "orientation": "portrait",
+    "path": "/grogames/hex-burst/index.html",
+    "cover": "/grogames/covers/cinematic/hex-burst.webp"
+  },
+  {
+    "id": "binary-bloom",
+    "title": "Binary Bloom",
+    "category": "Puzzle",
+    "orientation": "portrait",
+    "path": "/grogames/binary-bloom/index.html",
+    "cover": "/grogames/covers/cinematic/binary-bloom.webp"
+  },
+  {
+    "id": "code-vault",
+    "title": "Code Vault",
+    "category": "Puzzle",
+    "orientation": "portrait",
+    "path": "/grogames/code-vault/index.html",
+    "cover": "/grogames/covers/cinematic/code-vault.webp"
+  },
+  {
+    "id": "pixel-weaver",
+    "title": "Pixel Weaver",
+    "category": "Puzzle",
+    "orientation": "portrait",
+    "path": "/grogames/pixel-weaver/index.html",
+    "cover": "/grogames/covers/cinematic/pixel-weaver.webp"
+  },
+  {
+    "id": "laser-mirrors",
+    "title": "Laser Mirrors",
+    "category": "Puzzle",
+    "orientation": "portrait",
+    "path": "/grogames/laser-mirrors/index.html",
+    "cover": "/grogames/covers/cinematic/laser-mirrors.webp"
+  },
+  {
+    "id": "river-crossing",
+    "title": "River Crossing",
+    "category": "Strategy",
+    "orientation": "portrait",
+    "path": "/grogames/river-crossing/index.html",
+    "cover": "/grogames/covers/cinematic/river-crossing.webp"
+  },
+  {
+    "id": "hanoi-halo",
+    "title": "Hanoi Halo",
+    "category": "Puzzle",
+    "orientation": "portrait",
+    "path": "/grogames/hanoi-halo/index.html",
+    "cover": "/grogames/covers/cinematic/hanoi-halo.webp"
+  },
+  {
+    "id": "queen-garden",
+    "title": "Queen Garden",
+    "category": "Puzzle",
+    "orientation": "portrait",
+    "path": "/grogames/queen-garden/index.html",
+    "cover": "/grogames/covers/cinematic/queen-garden.webp"
+  },
+  {
+    "id": "knight-quest",
+    "title": "Knight Quest",
+    "category": "Puzzle",
+    "orientation": "portrait",
+    "path": "/grogames/knight-quest/index.html",
+    "cover": "/grogames/covers/cinematic/knight-quest.webp"
+  },
+  {
+    "id": "balance-scales",
+    "title": "Balance Scales",
+    "category": "Puzzle",
+    "orientation": "portrait",
+    "path": "/grogames/balance-scales/index.html",
+    "cover": "/grogames/covers/cinematic/balance-scales.webp"
+  },
+  {
+    "id": "word-orbit",
+    "title": "Word Orbit",
+    "category": "Word",
+    "orientation": "portrait",
+    "path": "/grogames/word-orbit/index.html",
+    "cover": "/grogames/covers/cinematic/word-orbit.webp"
+  },
+  {
+    "id": "anagram-alley",
+    "title": "Anagram Alley",
+    "category": "Word",
+    "orientation": "portrait",
+    "path": "/grogames/anagram-alley/index.html",
+    "cover": "/grogames/covers/cinematic/anagram-alley.webp"
+  },
+  {
+    "id": "odd-one-out",
+    "title": "Odd One Out",
+    "category": "Observation",
+    "orientation": "portrait",
+    "path": "/grogames/odd-one-out/index.html",
+    "cover": "/grogames/covers/cinematic/odd-one-out.webp"
+  },
+  {
+    "id": "color-conflict",
+    "title": "Color Conflict",
+    "category": "Brain",
+    "orientation": "portrait",
+    "path": "/grogames/color-conflict/index.html",
+    "cover": "/grogames/covers/cinematic/color-conflict.webp"
+  },
+  {
+    "id": "quick-equation",
+    "title": "Quick Equation",
+    "category": "Brain",
+    "orientation": "portrait",
+    "path": "/grogames/quick-equation/index.html",
+    "cover": "/grogames/covers/cinematic/quick-equation.webp"
+  },
+  {
+    "id": "fraction-feast",
+    "title": "Fraction Feast",
+    "category": "Brain",
+    "orientation": "portrait",
+    "path": "/grogames/fraction-feast/index.html",
+    "cover": "/grogames/covers/cinematic/fraction-feast.webp"
+  },
+  {
+    "id": "reaction-relay",
+    "title": "Reaction Relay",
+    "category": "Skill",
+    "orientation": "portrait",
+    "path": "/grogames/reaction-relay/index.html",
+    "cover": "/grogames/covers/cinematic/reaction-relay.webp"
+  },
+  {
+    "id": "radar-hunt",
+    "title": "Radar Hunt",
+    "category": "Puzzle",
+    "orientation": "portrait",
+    "path": "/grogames/radar-hunt/index.html",
+    "cover": "/grogames/covers/cinematic/radar-hunt.webp"
+  },
+  {
+    "id": "treasure-compass",
+    "title": "Treasure Compass",
+    "category": "Adventure",
+    "orientation": "portrait",
+    "path": "/grogames/treasure-compass/index.html",
+    "cover": "/grogames/covers/cinematic/treasure-compass.webp"
+  },
+  {
+    "id": "star-route",
+    "title": "Star Route",
+    "category": "Puzzle",
+    "orientation": "portrait",
+    "path": "/grogames/star-route/index.html",
+    "cover": "/grogames/covers/cinematic/star-route.webp"
+  },
+  {
+    "id": "magnet-maze",
+    "title": "Magnet Maze",
+    "category": "Skill",
+    "orientation": "portrait",
+    "path": "/grogames/magnet-maze/index.html",
+    "cover": "/grogames/covers/cinematic/magnet-maze.webp"
+  },
+  {
+    "id": "precision-pilot",
+    "title": "Precision Pilot",
+    "category": "Skill",
+    "orientation": "portrait",
+    "path": "/grogames/precision-pilot/index.html",
+    "cover": "/grogames/covers/cinematic/precision-pilot.webp"
+  },
+  {
+    "id": "color-gates",
+    "title": "Color Gates",
+    "category": "Arcade",
+    "orientation": "portrait",
+    "path": "/grogames/color-gates/index.html",
+    "cover": "/grogames/covers/cinematic/color-gates.webp"
+  },
+  {
+    "id": "orbit-collector",
+    "title": "Orbit Collector",
+    "category": "Arcade",
+    "orientation": "portrait",
+    "path": "/grogames/orbit-collector/index.html",
+    "cover": "/grogames/covers/cinematic/orbit-collector.webp"
+  },
+  {
+    "id": "twin-dash",
+    "title": "Twin Dash",
+    "category": "Runner",
+    "orientation": "portrait",
+    "path": "/grogames/twin-dash/index.html",
+    "cover": "/grogames/covers/cinematic/twin-dash.webp"
+  },
+  {
+    "id": "shield-spin",
+    "title": "Shield Spin",
+    "category": "Action",
+    "orientation": "portrait",
+    "path": "/grogames/shield-spin/index.html",
+    "cover": "/grogames/covers/cinematic/shield-spin.webp"
+  },
+  {
+    "id": "bubble-rise",
+    "title": "Bubble Rise",
+    "category": "Arcade",
+    "orientation": "portrait",
+    "path": "/grogames/bubble-rise/index.html",
+    "cover": "/grogames/covers/cinematic/bubble-rise.webp"
+  },
+  {
+    "id": "asteroid-miner",
+    "title": "Asteroid Miner",
+    "category": "Action",
+    "orientation": "portrait",
+    "path": "/grogames/asteroid-miner/index.html",
+    "cover": "/grogames/covers/cinematic/asteroid-miner.webp"
+  },
+  {
+    "id": "traffic-conductor",
+    "title": "Traffic Conductor",
+    "category": "Strategy",
+    "orientation": "portrait",
+    "path": "/grogames/traffic-conductor/index.html",
+    "cover": "/grogames/covers/cinematic/traffic-conductor.webp"
+  },
+  {
+    "id": "firefly-focus",
+    "title": "Firefly Focus",
+    "category": "Memory",
+    "orientation": "portrait",
+    "path": "/grogames/firefly-focus/index.html",
+    "cover": "/grogames/covers/cinematic/firefly-focus.webp"
+  }
+]

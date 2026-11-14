@@ -1,0 +1,1 @@
+globalThis.GameCatalog=[{"id":"garden-snake","name":"Garden Snake","category":"Adventure","tagline":"A deliciously winding afternoon.","help":"Swipe or use arrows to turn. Eat fruit to grow. Avoid the border and your own tail.","accent":"#d2e990","bg":"#324c3a","label":"SNAKE","number":13}];globalThis.Games={};

@@ -14,6 +14,7 @@ export interface GameWebViewSafeArea {
 
 export interface GameWebViewMountOptions extends GameWebViewRect {
   url: string;
+  title?: string;
 }
 
 export interface GameTimerOptions {
@@ -32,8 +33,13 @@ export interface GameWebViewPlugin {
   lockOrientation(options: { orientation: 'portrait' | 'landscape' }): Promise<void>;
   showTimer(options: GameTimerOptions): Promise<void>;
   hideTimer(): Promise<void>;
+  updateControls(options: { canClaim?: boolean; disabled?: boolean; claimLabel?: string; message?: string }): Promise<void>;
+  addListener(event: 'game:claim' | 'game:close', listener: () => void): Promise<PluginListenerHandle>;
   addListener(event: 'game:ready', listener: () => void): Promise<PluginListenerHandle>;
+  addListener(event: 'game:score', listener: (event: { score: number }) => void): Promise<PluginListenerHandle>;
   addListener(event: 'game:error', listener: () => void): Promise<PluginListenerHandle>;
+  addListener(event: 'timer:tick', listener: (event: { elapsedSeconds: number }) => void): Promise<PluginListenerHandle>;
+  addListener(event: 'game:idle', listener: (event: { timeoutSeconds: number }) => void): Promise<PluginListenerHandle>;
   removeAllListeners(): Promise<void>;
 }
 
@@ -47,15 +53,18 @@ export async function launchGameOverlay(
 ): Promise<PluginListenerHandle | undefined> {
   if (!Capacitor.isNativePlatform()) return;
 
-  await GameWebView.mount({ url, ...rect });
-
+  let timerStarted = false;
   const readyHandle = await GameWebView.addListener('game:ready', () => {
+    if (timerStarted) return;
+    timerStarted = true;
     void GameWebView.showTimer(timerOptions);
   });
 
   GameWebView.addListener('game:error', () => {
     void GameWebView.hideTimer();
   });
+
+  await GameWebView.mount({ url, ...rect });
 
   return readyHandle;
 }

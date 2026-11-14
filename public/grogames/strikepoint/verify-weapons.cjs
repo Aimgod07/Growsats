@@ -1,0 +1,18 @@
+const fs=require('node:fs'),vm=require('node:vm'),path=require('node:path'),assert=require('node:assert/strict');
+const scope={console,Math,Float32Array,Uint16Array,Uint32Array,ArrayBuffer,TextDecoder};scope.window=scope;scope.globalThis=scope;vm.createContext(scope);for(const f of ['assets/three.min.js','maps-data.js','catalog.js','models.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,f),'utf8'),scope);
+const M=scope.StrikeModels,T=scope.THREE;let total=0;
+function validate(group){let meshes=0,triangles=0;group.updateMatrixWorld(true);group.traverse(o=>{if(o.isMesh){meshes++;const p=o.geometry.attributes.position;triangles+=(o.geometry.index?.count||p.count)/3;for(const n of p.array)assert(Number.isFinite(n));}});return{meshes,triangles};}
+for(let type=0;type<4;type++)for(let skin=0;skin<5;skin++){
+ const w=M.gun(type,skin),budget=validate(w.root);assert(w.root.getObjectByName(scope.StrikeCatalog.guns[type].name));assert(w.muzzle.z<-.5);assert(w.sightHeight>.1);assert(budget.triangles<80000);assert(budget.meshes<45);
+ const y=w.magazine.position.y;w.animate(.32,.8,.2);if(type!==2)assert(w.magazine.position.y<y);w.animate(-1,0,2);assert.equal(w.magazine.visible,type!==2);assert.equal(w.magazine.position.y,y);assert.equal(w.bolt.position.z,-.015);
+ if(skin===0)console.log(scope.StrikeCatalog.guns[type].id+': '+budget.meshes+' meshes, '+budget.triangles+' triangles; animated components verified.');total++;
+ const fp=M.firstPerson(0,type,skin);fp.animate(.4,.4,.2);assert(fp.root.children.length>=3);assert.equal(fp.weapon.sightHeight,w.sightHeight);validate(fp.root);fp.animate(-1,0,2);
+}
+// Lightweight WebAudio harness tests voice ownership and timeline offsets, without speakers.
+let started=[],stopped=0;const gain=()=>({gain:{value:1},connect(){return this},disconnect(){}});const ctx={state:'running',sampleRate:44100,createGain:gain,createBuffer:(c,n,s)=>({duration:n/s,getChannelData:()=>new Float32Array(n)}),createBufferSource:()=>({playbackRate:{value:1},connect(){return this},disconnect(){},start(when,offset){started.push(offset)},stop(){stopped++;this.onended?.();}})};
+scope.fetch=async()=>({ok:false});vm.runInContext(fs.readFileSync(path.join(__dirname,'weapon-audio.js'),'utf8'),scope);const bank=new scope.StrikeAudio(ctx,gain());for(let i=0;i<4;i++)for(const k of ['fire','reload'])bank.buffers.set(i+':'+k,{duration:k==='reload'?scope.StrikeCatalog.guns[i].reload:.4});
+for(let i=0;i<4;i++){const d=scope.StrikeCatalog.guns[i].reload;bank.shot(i);bank.reload(i,d,d);assert.equal(started.at(-1),0);bank.stopReload();assert.equal(bank.reloadVoice,null);bank.reload(i,d/2,d);assert.equal(started.at(-1),d/2);bank.stopAll();assert.equal(bank.voices.size,0);}
+assert(stopped>=12);
+// Confirm all eight waveform files are distinct and match the gameplay reload durations.
+const crypto=require('node:crypto'),hashes=new Set();for(const gun of scope.StrikeCatalog.guns)for(const kind of ['fire','reload']){const file=fs.readFileSync(path.join(__dirname,'assets/audio',gun.id+'-'+kind+'.wav'));assert.equal(file.toString('ascii',0,4),'RIFF');assert.equal(file.readUInt32LE(24),44100);let offset=12,dataLength;while(offset+8<=file.length){const len=file.readUInt32LE(offset+4);if(file.toString('ascii',offset,offset+4)==='data'){dataLength=len;break;}offset+=8+len+(len%2);}assert(dataLength>1000);const duration=dataLength/88200;if(kind==='reload')assert(Math.abs(duration-gun.reload)<.001);hashes.add(crypto.createHash('sha256').update(file).digest('hex'));}
+assert.equal(hashes.size,8);console.log(total+' weapon/finish combinations and first-person rigs passed. Eight distinct clips; reload timing, pause cancellation and resume offsets passed.');

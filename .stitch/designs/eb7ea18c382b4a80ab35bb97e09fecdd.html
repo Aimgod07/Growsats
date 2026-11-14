@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;family=Sora:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "surface-variant": "#323440", "on-tertiary": "#472a00", "on-secondary-fixed": "#25005a", "on-secondary-container": "#c9aeff", "surface-container-lowest": "#0c0e18", "surface": "#11131d", "surface-tint": "#4cd7f6", "secondary-container": "#6001d1", "primary": "#4cd7f6", "surface-container-low": "#191b26", "on-surface-variant": "#bcc9cd", "inverse-on-surface": "#2e303b", "primary-container": "#06b6d4", "on-error-container": "#ffdad6", "on-primary": "#003640", "outline": "#869397", "on-surface": "#e1e1f0", "surface-container": "#1d1f2a", "surface-dim": "#11131d", "surface-container-highest": "#323440", "on-primary-container": "#00424f", "secondary-fixed": "#eaddff", "tertiary-fixed-dim": "#ffb95f", "surface-container-high": "#282934", "secondary": "#d2bbff", "error": "#ffb4ab", "secondary-fixed-dim": "#d2bbff", "inverse-primary": "#00687a", "on-secondary-fixed-variant": "#5a00c6", "error-container": "#93000a", "tertiary": "#ffb95f", "primary-fixed-dim": "#4cd7f6", "on-tertiary-container": "#563400", "tertiary-container": "#e79400", "outline-variant": "#3d494c", "primary-fixed": "#acedff", "on-tertiary-fixed-variant": "#653e00", "on-secondary": "#3f008e", "tertiary-fixed": "#ffddb8", "inverse-surface": "#e1e1f0", "on-primary-fixed-variant": "#004e5c", "on-tertiary-fixed": "#2a1700", "on-background": "#e1e1f0", "background": "#11131d", "on-primary-fixed": "#001f26", "on-error": "#690005", "surface-bright": "#373844" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-xs": "0.25rem", "space-xl": "2rem", "space-md": "1rem", "margin-tablet": "2rem", "space-sm": "0.5rem", "margin-desktop": "3rem", "gutter-desktop": "2rem", "space-lg": "1.5rem", "gutter": "1rem", "space-2xl": "3rem", "gutter-tablet": "1.5rem", "margin": "1rem" }, fontFamily: { "label-md": ["Sora"], "body-lg": ["Manrope"], "display": ["Sora"], "body-sm": ["Manrope"], "headline-lg-mobile": ["Sora"], "headline-sm": ["Sora"], "headline-md": ["Sora"], "headline-lg": ["Sora"], "body-md": ["Manrope"], "display-mobile": ["Sora"], "label-lg": ["Sora"], "label-sm": ["Sora"] }, fontSize: { "label-md": ["0.75rem", { lineHeight: "1.25", letterSpacing: "0.06em", fontWeight: "600" }], "body-lg": ["1.125rem", { lineHeight: "1.6", letterSpacing: "0em", fontWeight: "400" }], "display": ["3.5rem", { lineHeight: "1.1", letterSpacing: "-0.03em", fontWeight: "800" }], "body-sm": ["0.8125rem", { lineHeight: "1.4", letterSpacing: "0.01em", fontWeight: "500" }], "headline-lg-mobile": ["1.75rem", { lineHeight: "1.25", letterSpacing: "-0.01em", fontWeight: "700" }], "headline-sm": ["1.125rem", { lineHeight: "1.4", letterSpacing: "0em", fontWeight: "600" }], "headline-md": ["1.5rem", { lineHeight: "1.3", letterSpacing: "-0.01em", fontWeight: "600" }], "headline-lg": ["2.25rem", { lineHeight: "1.2", letterSpacing: "-0.02em", fontWeight: "700" }], "body-md": ["0.9375rem", { lineHeight: "1.5", letterSpacing: "0.01em", fontWeight: "400" }], "display-mobile": ["2.5rem", { lineHeight: "1.15", letterSpacing: "-0.02em", fontWeight: "800" }], "label-lg": ["0.875rem", { lineHeight: "1.3", letterSpacing: "0.04em", fontWeight: "600" }], "label-sm": ["0.6875rem", { lineHeight: "1.2", letterSpacing: "0.08em", fontWeight: "700" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-on-surface min-h-screen flex flex-col selection:bg-primary selection:text-on-primary"><header class="fixed top-0 inset-x-0 z-50 pt-safe bg-surface-container-lowest/85 backdrop-blur-xl shadow-[0_4px_24px_rgba(0,0,0,0.6)]"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-xs"><img alt="Playloot Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VGbvy7DsiZF7uHAzig_K2SMgMDcZSwxPqMEGSNQXgQsVhGnyMas-LvVKlyYDjlUr3UCzR-fCZr2Q0Z167p3jHBOcDq_YsfZiz-UM8NJxCqkH5gzS2O-rdbfiQmNwaRiWtAXuA2jYZhZ85-oaPHKjYmSHSpg_HaoaTVcDoOzPvOV4knTQ7-xhjXT0gWCzkKNB2R0u2qcQatL-avsopOS3BLg3rPpP1_RbGNpPf5jZS4vGiT80c0nhyPBQr8"/><span class="font-label-lg text-label-lg tracking-wider uppercase text-on-surface font-bold hidden xs:inline">Playloot</span></div><div class="flex items-center gap-space-xs"><div class="flex items-center gap-1 px-2 py-1 rounded-lg bg-surface-container-high/80 text-tertiary"><span class="material-symbols-outlined text-[16px]">monetization_on</span><span class="font-label-sm text-label-sm font-bold">24.5K</span><button class="w-4 h-4 flex items-center justify-center rounded-sm bg-tertiary/20 text-tertiary ml-0.5"><span class="material-symbols-outlined text-[12px]">add</span></button></div><div class="flex items-center gap-1 px-2 py-1 rounded-lg bg-surface-container-high/80 text-primary"><span class="material-symbols-outlined text-[16px]">diamond</span><span class="font-label-sm text-label-sm font-bold">350</span><button class="w-4 h-4 flex items-center justify-center rounded-sm bg-primary/20 text-primary ml-0.5"><span class="material-symbols-outlined text-[12px]">add</span></button></div></div><div class="flex items-center gap-space-xs"><button class="w-11 h-11 flex items-center justify-center relative rounded-lg text-on-surface-variant hover:text-on-surface active:scale-95 transition-transform"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-primary ring-2 ring-surface-container-lowest"></span></button><a class="relative flex items-center justify-center rounded-full p-0.5" data-path="profile" href="#"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-1 ring-primary/40" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0L1YB873bn_OHn8r-baH85AXVjtHgXK6SIZE4WtoFizS6Zp89EZ-biIMMOtVV5xgNsJfIIg_J6n7QaK45qpi8sXC2HkPB2pOk7KROuaa5Ml-P3LzBPyihTAX-wgHMFZb4aaaihMIq1chhMT7DNC0zDn8o3Fj0DGahAP0O1q7We48_Y55SixhQyZTfKzBhc4JohXeZyGBki2EviLtjFhJ6xc5Q26nmcW2dalXoHFDUojq3BGRwUsbwfw"/><span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-primary rounded-full ring-2 ring-surface-container-lowest"></span></a></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-24 bg-surface"><div class="flex flex-col w-full pb-8 space-y-5">
+<!-- Live Winners Infinite Ticker -->
+<div class="w-full bg-surface-container-lowest overflow-hidden py-2 px-margin relative">
+<div class="absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-surface-container-lowest to-transparent pointer-events-none z-10"></div>
+<div class="absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-surface-container-lowest to-transparent pointer-events-none z-10"></div>
+<div class="flex items-center gap-2 animate-pulse whitespace-nowrap overflow-x-auto no-scrollbar py-0.5">
+<div class="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-tertiary/15 text-tertiary">
+<span class="material-symbols-outlined text-[16px]">military_tech</span>
+<span class="font-label-sm text-label-sm tracking-wider uppercase">LIVE DROPS</span>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant font-body-sm text-body-sm">
+<span class="inline-flex items-center gap-1.5">
+<strong class="text-on-surface font-semibold">Alex***</strong> won <span class="text-primary font-bold">12,000 Gems</span> in Neon Blitz <span class="text-outline text-label-sm">· 2m ago</span>
+</span>
+<span class="text-outline">✦</span>
+<span class="inline-flex items-center gap-1.5">
+<strong class="text-on-surface font-semibold">Valkyrie_9</strong> unlocked <span class="text-tertiary font-bold">Mythic Chest</span> <span class="text-outline text-label-sm">· 4m ago</span>
+</span>
+<span class="text-outline">✦</span>
+<span class="inline-flex items-center gap-1.5">
+<strong class="text-on-surface font-semibold">K4i_Zen</strong> hit <span class="text-secondary font-bold">50x Multiplier</span> on Cyber Drift <span class="text-outline text-label-sm">· 5m ago</span>
+</span>
+</div>
+</div>
+</div>
+<div class="px-margin flex flex-col space-y-5">
+<!-- Daily Streak & Mystery Box Card -->
+<div class="relative overflow-hidden rounded-xl bg-gradient-to-br from-surface-container-high via-surface-container to-surface-container-low p-4 shadow-xl">
+<div class="absolute -top-12 -right-12 w-36 h-36 bg-tertiary/20 rounded-full blur-2xl pointer-events-none"></div>
+<div class="absolute -bottom-8 -left-8 w-28 h-28 bg-secondary-container/30 rounded-full blur-2xl pointer-events-none"></div>
+<div class="relative z-10 flex items-center justify-between gap-3">
+<div class="flex items-center gap-3 min-w-0">
+<!-- Mystery Box Glow Token -->
+<div class="relative flex-shrink-0 w-14 h-14 rounded-lg bg-surface-container-highest flex items-center justify-center shadow-lg overflow-hidden group">
+<div class="absolute inset-0 bg-gradient-to-tr from-tertiary/30 to-primary/20 animate-pulse"></div>
+<span class="material-symbols-outlined text-[32px] text-tertiary" style="font-variation-settings: 'FILL' 1;">deployed_code</span>
+<span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-tertiary animate-ping"></span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="px-2 py-0.5 rounded-full bg-tertiary/20 text-tertiary font-label-sm text-label-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">local_fire_department</span> Day 5 Streak
+              </span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">Ends in 03:42:19</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface truncate mt-0.5">Mystery Loot Box</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Up to 2,500 Coins &amp; Ultra Avatar Shard</p>
+</div>
+</div>
+<button class="flex-shrink-0 px-4 py-2.5 rounded-lg bg-gradient-to-r from-tertiary to-tertiary-container text-on-tertiary font-label-md text-label-md uppercase tracking-wider font-bold shadow-lg shadow-tertiary/20 active:scale-95 transition-transform flex items-center gap-1.5" id="claim-btn" onclick="triggerClaim()">
+<span class="material-symbols-outlined text-[18px]">redeem</span>
+<span id="claim-text">Claim</span>
+</button>
+</div>
+<!-- Streak Progress Ticks -->
+<div class="grid grid-cols-7 gap-1.5 mt-3 pt-3 bg-surface-container-lowest/50 rounded-lg p-2">
+<div class="flex flex-col items-center gap-1">
+<span class="font-label-sm text-label-sm text-tertiary font-bold">D1</span>
+<span class="w-full h-1.5 rounded-full bg-tertiary"></span>
+</div>
+<div class="flex flex-col items-center gap-1">
+<span class="font-label-sm text-label-sm text-tertiary font-bold">D2</span>
+<span class="w-full h-1.5 rounded-full bg-tertiary"></span>
+</div>
+<div class="flex flex-col items-center gap-1">
+<span class="font-label-sm text-label-sm text-tertiary font-bold">D3</span>
+<span class="w-full h-1.5 rounded-full bg-tertiary"></span>
+</div>
+<div class="flex flex-col items-center gap-1">
+<span class="font-label-sm text-label-sm text-tertiary font-bold">D4</span>
+<span class="w-full h-1.5 rounded-full bg-tertiary"></span>
+</div>
+<div class="flex flex-col items-center gap-1">
+<span class="font-label-sm text-label-sm text-primary font-bold">D5</span>
+<span class="w-full h-1.5 rounded-full bg-primary animate-pulse"></span>
+</div>
+<div class="flex flex-col items-center gap-1 opacity-40">
+<span class="font-label-sm text-label-sm text-on-surface-variant">D6</span>
+<span class="w-full h-1.5 rounded-full bg-surface-variant"></span>
+</div>
+<div class="flex flex-col items-center gap-1 opacity-40">
+<span class="font-label-sm text-label-sm text-secondary font-bold">D7</span>
+<span class="w-full h-1.5 rounded-full bg-secondary-container"></span>
+</div>
+</div>
+</div>
+<!-- Featured Promotions Slider Container -->
+<div class="flex flex-col space-y-2.5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2 h-4 rounded-sm bg-primary"></span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface uppercase tracking-wide">Featured Arena</h2>
+</div>
+<div class="flex items-center gap-1.5">
+<button class="w-5 h-1.5 rounded-full bg-primary transition-all duration-300" id="dot-0" onclick="switchSlide(0)"></button>
+<button class="w-2 h-1.5 rounded-full bg-surface-variant transition-all duration-300" id="dot-1" onclick="switchSlide(1)"></button>
+<button class="w-2 h-1.5 rounded-full bg-surface-variant transition-all duration-300" id="dot-2" onclick="switchSlide(2)"></button>
+</div>
+</div>
+<!-- Slide Items Carousel -->
+<div class="relative w-full overflow-hidden rounded-xl shadow-2xl">
+<div class="flex transition-transform duration-500 ease-out" id="promo-track" style="transform: translateX(0%);">
+<!-- Slide 1 -->
+<div class="w-full flex-shrink-0 relative rounded-xl overflow-hidden aspect-[16/9] bg-surface-container-high flex flex-col justify-end p-4">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="A neon cyber colosseum esport tournament arena with glowing cyan laser banners holographic trophies and dark futuristic geometry" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBJg0OseP8CLd717ATyr85xSLhS-c9J2w12HIwfFKtA4TPgFbxau0_lUYZH9Ovy1RIIpmikNvTeCQ3Vc2D720IVjsjgUQ-c2gX6zxNnbYoB7aF_U6xVaMHSHmRNsPs4w16N1FTXVqwWN2gpQ7DBU8sXZkGoqOvpq7xL9dNaMxIWdDnyKsqpthv1hL98JaUcbtZOuvH6xn5CrcUZd4nL5AII8a9za_5OOrdIuxq9ElQ8ZXmcA3ZJ2os6GA')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/60 to-transparent"></div>
+<div class="relative z-10 flex flex-col gap-1.5">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded-full bg-primary/20 text-primary font-label-sm text-label-sm font-bold tracking-wider uppercase backdrop-blur-md">Tournament</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-lowest/80 text-on-surface-variant font-label-sm text-label-sm">Live in 2h 15m</span>
+</div>
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-extrabold uppercase tracking-tight">CYBER STRIKE</h3>
+<div class="flex items-center justify-between mt-1">
+<div class="flex items-center gap-1.5">
+<span class="text-tertiary font-label-md text-label-md font-bold tracking-wider">$10,000 POOL</span>
+<span class="text-outline text-label-sm">•</span>
+<span class="text-on-surface-variant font-body-sm text-body-sm">Top 100 Paid</span>
+</div>
+<button class="px-3.5 py-1.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-bold uppercase active:scale-95 shadow-md shadow-primary/30">Join Free</button>
+</div>
+</div>
+</div>
+<!-- Slide 2 -->
+<div class="w-full flex-shrink-0 relative rounded-xl overflow-hidden aspect-[16/9] bg-surface-container-high flex flex-col justify-end p-4">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Cyberpunk treasure vault filled with overflowing golden arcade tokens luminous crystal gems and purple ambient electric sparks" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDTLhYzgHb2ZptN6Bo2jwtdFei4dOQDJnzv4SdVC2hC_T3Zie1OcAW0S-4lUNPfiExN7wwj9DRwSQYjzGkGsoDx9mn1pVkCcppw4Fz7pJzgw4ppUaWMgWWN6JraLqGmHK3oC4oR1-_arqe0FqHcI7gPxX0--JMkJYoASVkm-vxlBbmRbA0j1F8j9PNdC3n-nYNZ6oOrUWUS0gPX6bh7fyUuCctX4gZdvU4kbA9Iw-dZccPIW_2sAfmgxQ')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/60 to-transparent"></div>
+<div class="relative z-10 flex flex-col gap-1.5">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-secondary-fixed font-label-sm text-label-sm font-bold tracking-wider uppercase">Weekend Boost</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-lowest/80 text-tertiary font-label-sm text-label-sm font-bold">2X REWARDS</span>
+</div>
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-extrabold uppercase tracking-tight">DOUBLE LOOT DROP</h3>
+<div class="flex items-center justify-between mt-1">
+<p class="text-on-surface-variant font-body-sm text-body-sm">2x XP on Brain &amp; Action genres</p>
+<button class="px-3.5 py-1.5 rounded-lg bg-secondary text-on-secondary font-label-md text-label-md font-bold uppercase active:scale-95">Explore</button>
+</div>
+</div>
+</div>
+<!-- Slide 3 -->
+<div class="w-full flex-shrink-0 relative rounded-xl overflow-hidden aspect-[16/9] bg-surface-container-high flex flex-col justify-end p-4">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="High-octane futuristic supersonic neon racecar zooming across an elevated dark glass highway with motion blur trails" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDb90nWcQGFhOmeZNbhuzxdDuaxJRhtfmbu2SpeA418RBo3fO4PFi7THHJT5GNQXP6HVfEcpo2kYJtF5-vxt1NeeeiWwntlVy4MB8Raw3VBa_DsCveMg06bt08_oy3XWgn0qOzWxlIHCuQrBlP01GwehAmeKkSU3b1cq6tSi-v0Bq7a9pd-Px8U28VvZMQn0ZzFsiT_o9rsLmSviIcU7VG9TbuO9PPHa9ca1qRf2LHfyMvKg2PcuLjWpA')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/60 to-transparent"></div>
+<div class="relative z-10 flex flex-col gap-1.5">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded-full bg-primary-container text-on-primary-container font-label-sm text-label-sm font-bold tracking-wider uppercase">New Release</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-lowest/80 text-on-surface-variant font-label-sm text-label-sm">No Download</span>
+</div>
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-extrabold uppercase tracking-tight">NEON RACER X</h3>
+<div class="flex items-center justify-between mt-1">
+<p class="text-on-surface-variant font-body-sm text-body-sm">Fast 60FPS Cloud Arcade</p>
+<button class="px-3.5 py-1.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-bold uppercase active:scale-95">Play Now</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Continue Playing Mini Bar -->
+<div class="relative rounded-xl bg-surface-container-high p-3 flex items-center justify-between gap-3 shadow-md overflow-hidden">
+<div class="absolute left-0 inset-y-0 w-1.5 bg-primary"></div>
+<div class="flex items-center gap-3 min-w-0 pl-1">
+<div class="relative w-12 h-12 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container-highest">
+<div class="w-full h-full bg-cover bg-center" data-alt="Futuristic neon runner jumping over obstacles in a dark cyberpunk city alley with laser rails" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDXO0P2QdtEIVvXbwMl0A3mwW8wq9ojc8DCRw5lrElULVGS1VsQ-dodyR72_DYT_AQNAbYN16qA8m0HLCYJcoesAv3EKAz2DZdRoiDsDOsf3B_3K2p3-owdDFuhxJ66cxbFUs8hgo_xUk-8RmgJ8G5ZnmupZ-PqgPtjmhse6GPVT0tkojc3nG_c6yo1zvkpVdJ7RzpmAqFxadAOLjaa5mVYt6sQWiYbvXTTyw5XHw3IppVzZhlsPLbSTA')"></div>
+<span class="absolute bottom-0 inset-x-0 bg-surface-container-lowest/80 text-center font-label-sm text-[9px] text-primary">LVL 14</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wide">Continue</span>
+<span class="text-outline text-label-sm">•</span>
+<span class="text-tertiary font-label-sm text-label-sm font-semibold">Checkpoint Saved</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface truncate">Hyper Dash 2088</h4>
+<!-- Mini Progress Bar -->
+<div class="w-28 h-1.5 rounded-full bg-surface-container-lowest mt-1 overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary to-secondary rounded-full" style="width: 72%;"></div>
+</div>
+</div>
+</div>
+<button class="flex-shrink-0 w-10 h-10 rounded-lg bg-primary/15 text-primary flex items-center justify-center active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+<!-- Quick Category Filter Pills (Horizontal Scroll) -->
+<div class="flex flex-col space-y-2">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Arcade Categories</span>
+<span class="font-label-sm text-label-sm text-primary">Filter (6)</span>
+</div>
+<div class="flex items-center gap-2 overflow-x-auto no-scrollbar -mx-margin px-margin py-1">
+<button class="flex-shrink-0 px-3.5 py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-bold flex items-center gap-1.5 shadow-md shadow-primary/20">
+<span>🔥</span> Hot &amp; Trending
+        </button>
+<button class="flex-shrink-0 px-3.5 py-2 rounded-lg bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-md text-label-md font-semibold flex items-center gap-1.5 active:bg-surface-container-highest transition-colors">
+<span>⚡</span> Instant Action
+        </button>
+<button class="flex-shrink-0 px-3.5 py-2 rounded-lg bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-md text-label-md font-semibold flex items-center gap-1.5 active:bg-surface-container-highest transition-colors">
+<span>🧠</span> Brain &amp; Puzzle
+        </button>
+<button class="flex-shrink-0 px-3.5 py-2 rounded-lg bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-md text-label-md font-semibold flex items-center gap-1.5 active:bg-surface-container-highest transition-colors">
+<span>🏎️</span> Speed &amp; Racing
+        </button>
+<button class="flex-shrink-0 px-3.5 py-2 rounded-lg bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-md text-label-md font-semibold flex items-center gap-1.5 active:bg-surface-container-highest transition-colors">
+<span>🎯</span> Battle Royale
+        </button>
+<button class="flex-shrink-0 px-3.5 py-2 rounded-lg bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-md text-label-md font-semibold flex items-center gap-1.5 active:bg-surface-container-highest transition-colors">
+<span>🎰</span> Jackpots
+        </button>
+</div>
+</div>
+<!-- Multi-Game Catalog Grid -->
+<div class="flex flex-col space-y-3 pt-1">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2 h-4 rounded-sm bg-secondary"></span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface uppercase tracking-wide">Top Battlegrounds</h2>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">64 Games Online</span>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<!-- Game Card 1 -->
+<div class="group relative rounded-xl bg-surface-container overflow-hidden flex flex-col shadow-lg active:scale-[0.98] transition-all">
+<div class="relative w-full aspect-[4/3] overflow-hidden bg-surface-container-highest">
+<div class="w-full h-full bg-cover bg-center group-hover:scale-105 transition-transform duration-500" data-alt="A cybernetic ninja with dual energized cyan katana swords fighting robotic drones in rain-slicked dark alley" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBYBJyfhdVDrLkQK6WK_rQJcoj1FNVuFx8O9KIWwSPX_hcnMiZQycMX2ZwlqRGAdbHpobgUhiXSwE7Hr3raCuAITf3QVoeUewYKtZlOWGwzCAhP-vFqh8UXGPaYp6AA2Z7_2aVXhILG0jG32IcPWR1dfrtmEjYrBFMoDUbHVekaJTnVWC761_9IyvKCQCujupuYb5C82wblqKjLgdY2pfjdkBLWZ9aKvFrsQwUUoySzHQ9nQGS-7h8nlw')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container via-transparent to-black/30"></div>
+<span class="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-surface-container-lowest/80 text-primary font-label-sm text-label-sm font-bold flex items-center gap-1 backdrop-blur-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-ping"></span> 48.2k
+            </span>
+<span class="absolute top-2 right-2 px-2 py-0.5 rounded-md bg-tertiary/20 text-tertiary font-label-sm text-label-sm font-bold backdrop-blur-sm">
+              50K Pot
+            </span>
+</div>
+<div class="p-3 flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Action Arcade</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold truncate">Neon Cyberblade</h3>
+<div class="flex items-center justify-between mt-1 text-on-surface-variant font-body-sm text-body-sm">
+<span class="flex items-center gap-1 text-tertiary">
+<span class="material-symbols-outlined text-[16px]">monetization_on</span> 500 Entry
+              </span>
+<span class="material-symbols-outlined text-primary text-[20px]">play_circle</span>
+</div>
+</div>
+</div>
+<!-- Game Card 2 -->
+<div class="group relative rounded-xl bg-surface-container overflow-hidden flex flex-col shadow-lg active:scale-[0.98] transition-all">
+<div class="relative w-full aspect-[4/3] overflow-hidden bg-surface-container-highest">
+<div class="w-full h-full bg-cover bg-center group-hover:scale-105 transition-transform duration-500" data-alt="Cosmic space bubbles with glowing nebula cores floating in deep astral galaxy environment colorful orb puzzle aesthetics" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAmsnmaf0xH2FvC0UM2CK_8TcFEMECt4bO3My4HVYg4Mn03Idmlh8gE8uoE-eaktnzzWenF1HvPtirAvLMIfCWenSQCooY8UTgNC1_vJ6_1Ag2HW7VqG5RBBq6GeLj2aU6m6fDhFp2HGpIiu9lKC3y3wmXvpSulHEsnvw4tzhk-_8p8pgz3eXcn2bPyzeQhfZ95djHLev6zYTGlimoLy_D09VLxVzxF7LSNwYsmzHyjP39lg5_PwLb0LQ')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container via-transparent to-black/30"></div>
+<span class="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-surface-container-lowest/80 text-secondary font-label-sm text-label-sm font-bold flex items-center gap-1 backdrop-blur-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> 32k
+            </span>
+<span class="absolute top-2 right-2 px-2 py-0.5 rounded-md bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-bold backdrop-blur-sm">
+              1v1 PvP
+            </span>
+</div>
+<div class="p-3 flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Brain &amp; Match</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold truncate">Cosmic Bubble Pop</h3>
+<div class="flex items-center justify-between mt-1 text-on-surface-variant font-body-sm text-body-sm">
+<span class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-[16px]">diamond</span> 25 Gems
+              </span>
+<span class="material-symbols-outlined text-secondary text-[20px]">play_circle</span>
+</div>
+</div>
+</div>
+<!-- Game Card 3 -->
+<div class="group relative rounded-xl bg-surface-container overflow-hidden flex flex-col shadow-lg active:scale-[0.98] transition-all">
+<div class="relative w-full aspect-[4/3] overflow-hidden bg-surface-container-highest">
+<div class="w-full h-full bg-cover bg-center group-hover:scale-105 transition-transform duration-500" data-alt="Drifting sports hovercar skidding across glowing violet asphalt with neon tire smoke in an orbital cityscape" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCVb5DUbM91GRaLct_kgr50bMqR3EqisqSfxhvYWQcXUP5Lgowqe2btqtdD7PtcikL9MUhSn6AtiTN46yejsn7vco9kh70w8AHRizgOWO6QfDWcQdec9gXrNjKhMBzTBu05y6ooK-eIQ10R8mqgQEyitcRU-Z6NE9NV7freXOD8tBl7Uku4XwnuGdYM_YQZYwoFINNKG_WFB4WCfatjlmtQi_FiTBpmCxlAODDUUDxI5Bysc3LAwKap1g')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container via-transparent to-black/30"></div>
+<span class="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-surface-container-lowest/80 text-primary font-label-sm text-label-sm font-bold flex items-center gap-1 backdrop-blur-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> 19.5k
+            </span>
+<span class="absolute top-2 right-2 px-2 py-0.5 rounded-md bg-primary/20 text-primary font-label-sm text-label-sm font-bold backdrop-blur-sm">
+              Live Tourney
+            </span>
+</div>
+<div class="p-3 flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Speedway</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold truncate">Apex Drift 2088</h3>
+<div class="flex items-center justify-between mt-1 text-on-surface-variant font-body-sm text-body-sm">
+<span class="flex items-center gap-1 text-tertiary">
+<span class="material-symbols-outlined text-[16px]">trophy</span> 1st: 10K
+              </span>
+<span class="material-symbols-outlined text-primary text-[20px]">play_circle</span>
+</div>
+</div>
+</div>
+<!-- Game Card 4 -->
+<div class="group relative rounded-xl bg-surface-container overflow-hidden flex flex-col shadow-lg active:scale-[0.98] transition-all">
+<div class="relative w-full aspect-[4/3] overflow-hidden bg-surface-container-highest">
+<div class="w-full h-full bg-cover bg-center group-hover:scale-105 transition-transform duration-500" data-alt="Cyber fantasy paladin knight holding a crystalline shield confronting a massive dragon made of blue plasma and dark stones" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAYygwQbqiL8USQCeNQhtdcLpYwMPJbe0mvd1rzPtbr9j6Q-QlSHOz0NTtF7sWtjLzDzN4wnSieOP9sKQ6TL6b90TPwkRcsLUaXNZCb0AOv2u2z5KD_FHOGEoaXyoS_ZYUFXvkIcJirZD2OdpXpnj5H880Jv12KUf1a49DuJThcGZ1cGssznVSmAq8e3cEcsQw0pc22AluH-rORp3VtfwNqUtWnXBCUNUhoObBahcguEyYtXNB33H5SMw')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container via-transparent to-black/30"></div>
+<span class="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-surface-container-lowest/80 text-tertiary font-label-sm text-label-sm font-bold flex items-center gap-1 backdrop-blur-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse"></span> 64k
+            </span>
+<span class="absolute top-2 right-2 px-2 py-0.5 rounded-md bg-error-container text-on-error-container font-label-sm text-label-sm font-bold backdrop-blur-sm">
+              Boss Raid
+            </span>
+</div>
+<div class="p-3 flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">RPG Dungeon</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold truncate">Loot Knight RPG</h3>
+<div class="flex items-center justify-between mt-1 text-on-surface-variant font-body-sm text-body-sm">
+<span class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">shield</span> Co-op
+              </span>
+<span class="material-symbols-outlined text-tertiary text-[20px]">play_circle</span>
+</div>
+</div>
+</div>
+<!-- Game Card 5 -->
+<div class="group relative rounded-xl bg-surface-container overflow-hidden flex flex-col shadow-lg active:scale-[0.98] transition-all">
+<div class="relative w-full aspect-[4/3] overflow-hidden bg-surface-container-highest">
+<div class="w-full h-full bg-cover bg-center group-hover:scale-105 transition-transform duration-500" data-alt="Stylized glowing pixel art dungeon crawler hero with lightning spells striking shadow skeletons inside a dark crypt" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBZVZJ_5shk1oOmUMTnBIbntO0dkxPjAwSOI5JLaaGvc909KJXBtOIuSlaysuDfX2g7K4T4mcP4pnAxir-Jci9oyIhg481xqe7gzhNPLYC32ARy5TYElQnP9KKnJO6sQTA4uY-KF7SaaIi4I1NngWSaCvcYrR5pASTCtrN5KEAB1U_TwrwvcRM55DXxSEk_0PdszpYSKZcE4tQYM_JPCznUW_zzjm7Imvrt7ISrJzgH4foRmeDHqyrofQ')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container via-transparent to-black/30"></div>
+<span class="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-surface-container-lowest/80 text-on-surface font-label-sm text-label-sm font-bold backdrop-blur-sm">
+              28k
+            </span>
+</div>
+<div class="p-3 flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Retro Arcade</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold truncate">Pixel Dungeon Slash</h3>
+<div class="flex items-center justify-between mt-1 text-on-surface-variant font-body-sm text-body-sm">
+<span class="flex items-center gap-1 text-tertiary">
+<span class="material-symbols-outlined text-[16px]">monetization_on</span> 100 Entry
+              </span>
+<span class="material-symbols-outlined text-primary text-[20px]">play_circle</span>
+</div>
+</div>
+</div>
+<!-- Game Card 6 -->
+<div class="group relative rounded-xl bg-surface-container overflow-hidden flex flex-col shadow-lg active:scale-[0.98] transition-all">
+<div class="relative w-full aspect-[4/3] overflow-hidden bg-surface-container-highest">
+<div class="w-full h-full bg-cover bg-center group-hover:scale-105 transition-transform duration-500" data-alt="Futuristic 3D holographic chess board with luminescent electric cyan pieces emitting lightning arcs in zero gravity space" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBSl6o1Mfn_AN-gCYFcIYpSsqSdDijmGgzGhYJu5qHkR7BJHySLWDIbXY-1YvvdGLWid1yrRsxcqGeuIsNZifo7esy_LSRVyf5ZP2B53XfNlKQMf8KKFXxNaIfDHYUgz1F6jG4n8-YOHjHuRTIXTU1R87JnqCCmlFWZ_uHIML_4mdN9ClO3NqBsbFSq0WPr6qSbNklETACbc810KCLZ6KH3Bj_D0NzdLJ4n4AofbtEMtFpu3hCPOUs5bQ')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container via-transparent to-black/30"></div>
+<span class="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-surface-container-lowest/80 text-on-surface font-label-sm text-label-sm font-bold backdrop-blur-sm">
+              12k
+            </span>
+</div>
+<div class="p-3 flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Tactics</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold truncate">Quantum Chess Blitz</h3>
+<div class="flex items-center justify-between mt-1 text-on-surface-variant font-body-sm text-body-sm">
+<span class="flex items-center gap-1 text-secondary">
+<span class="material-symbols-outlined text-[16px]">timer</span> 3 Min Blitz
+              </span>
+<span class="material-symbols-outlined text-secondary text-[20px]">play_circle</span>
+</div>
+</div>
+</div>
+</div>
+<button class="mt-3 w-full min-h-11 rounded-lg border border-primary/40 bg-primary/10 px-4 py-2.5 text-sm font-bold text-primary flex items-center justify-center gap-2 active:scale-[0.98] transition-transform" data-path="all-games" type="button">
+  View all
+  <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span>
+</button>
+</div>
+<!-- Quick Play Banner CTA -->
+<div class="w-full rounded-xl bg-gradient-to-r from-secondary-container via-surface-container-high to-surface-container p-4 flex items-center justify-between shadow-xl">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-secondary/20 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[24px]">casino</span>
+</div>
+<div class="flex flex-col">
+<h4 class="font-headline-sm text-headline-sm text-on-surface">Lucky Spin Vault</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">1 Free Daily Spin Available</p>
+</div>
+</div>
+<button class="px-3.5 py-2 rounded-lg bg-secondary text-on-secondary font-label-md text-label-md font-bold uppercase active:scale-95 shadow-md shadow-secondary/30">
+        Spin
+      </button>
+</div>
+</div>
+</div>
+<script>
+  // Simple Carousel Slide Controller
+  let currentSlide = 0;
+  const totalSlides = 3;
+  const track = document.getElementById('promo-track');
+  const dots = [
+    document.getElementById('dot-0'),
+    document.getElementById('dot-1'),
+    document.getElementById('dot-2')
+  ];
+
+  function switchSlide(index) {
+    currentSlide = index;
+    if (track) {
+      track.style.transform = `translateX(-${currentSlide * 100}%)`;
+    }
+    dots.forEach((dot, idx) => {
+      if (idx === currentSlide) {
+        dot.className = "w-5 h-1.5 rounded-full bg-primary transition-all duration-300";
+      } else {
+        dot.className = "w-2 h-1.5 rounded-full bg-surface-variant transition-all duration-300";
+      }
+    });
+  }
+
+  // The app supplies a touch and keyboard controlled carousel.
+
+  // Micro-interaction for Mystery Box Claim
+  function triggerClaim() {
+    const btn = document.getElementById('claim-btn');
+    const label = document.getElementById('claim-text');
+    if (!btn || !label) return;
+    
+    label.innerText = 'OPENED!';
+    btn.classList.remove('from-tertiary', 'to-tertiary-container', 'text-on-tertiary');
+    btn.classList.add('bg-surface-variant', 'text-on-surface-variant', 'cursor-default');
+    btn.disabled = true;
+  }
+</script></main><nav class="fixed bottom-0 inset-x-0 z-50 pb-safe bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_-8px_32px_rgba(0,0,0,0.7)]" data-active-classes="text-primary font-bold drop-shadow-[0_0_12px_rgba(76,215,246,0.6)]"><div class="flex justify-around items-center h-20 px-margin"><a aria-current="page" class="flex flex-col items-center justify-center gap-1 w-16 h-14 transition-all text-primary font-bold drop-shadow-[0_0_12px_rgba(76,215,246,0.6)]" data-path="home" href="#"><span class="material-symbols-outlined text-[24px]">sports_esports</span><span class="font-label-sm text-label-sm">Arcade</span></a><a class="flex flex-col items-center justify-center gap-1 w-16 h-14 text-on-surface-variant transition-all" data-path="leaderboard" href="#"><span class="material-symbols-outlined text-[24px]">leaderboard</span><span class="font-label-sm text-label-sm">Ranks</span></a><a class="flex flex-col items-center justify-center gap-1 w-16 h-14 text-on-surface-variant transition-all" data-path="rewards" href="#"><span class="material-symbols-outlined text-[24px]">featured_seasonal_and_gifts</span><span class="font-label-sm text-label-sm">Loot</span></a><a class="flex flex-col items-center justify-center gap-1 w-16 h-14 text-on-surface-variant transition-all" data-path="profile" href="#"><span class="material-symbols-outlined text-[24px]">badge</span><span class="font-label-sm text-label-sm">Profile</span></a></div></nav></body></html>

@@ -1,0 +1,32 @@
+const fs=require('node:fs');
+const path=require('node:path');
+const backend='C:/Users/choud/Desktop/playloot-backend';
+const pms='C:/Users/choud/Desktop/playloot-pms';
+const stage=path.join(__dirname,'../feature-release/broadcasts');
+function edit(file,old,value){let s=fs.readFileSync(file,'utf8');if(!s.includes(old))throw Error('Missing anchor: '+file+' '+old.slice(0,60));fs.writeFileSync(file,s.replace(old,value));}
+fs.copyFileSync(path.join(stage,'broadcasts.js'),path.join(backend,'src/routes/broadcasts.js'));
+fs.copyFileSync(path.join(stage,'0014_broadcasts.sql'),path.join(backend,'migrations/0014_broadcasts.sql'));
+fs.copyFileSync(path.join(stage,'BroadcastStudio.jsx'),path.join(pms,'src/BroadcastStudio.jsx'));
+const index=path.join(backend,'src/index.js');
+edit(index,"import {remindersAdmin", "import {broadcastsAdmin,nativePushPlayer,processBroadcasts} from './routes/broadcasts.js';\nimport {remindersAdmin");
+edit(index,'async function router(request, env) {','async function router(request, env, ctx) {');
+edit(index,'if (path === "/api/pms/reminders")',"if (path === '/api/pms/broadcasts') return broadcastsAdmin(request,env,ctx);\n    if (path === \"/api/pms/reminders\")");
+edit(index,'if (path === "/api/reminders")',"if (path === '/api/push/native') return nativePushPlayer(request,env,session);\n  if (path === \"/api/reminders\")");
+edit(index,'ctx.waitUntil(sendReminders(env));','ctx.waitUntil(sendReminders(env));ctx.waitUntil(processBroadcasts(env));');
+edit(index,'async fetch(request, env) {','async fetch(request, env, ctx) {');
+edit(index,'router(bounded.request, env)','router(bounded.request, env, ctx)');
+const hub=path.join(backend,'src/routes/hub.js');
+edit(hub,'SELECT id, text, read_at AS readAt','SELECT id, text, path, read_at AS readAt');
+edit(hub,'text: row.text, read:','text: row.text, path: row.path, read:');
+edit(path.join(backend,'src/routes/reminders.js'),"redirect:'error'","redirect:'manual'");
+const cfg=path.join(backend,'src/routes/pms.js');
+edit(cfg,'const encoded = JSON.stringify(config);',`const gro = config.screens?.arcade?.groGames;
+  if (gro && (typeof gro.enabled !== 'boolean' || !Number.isInteger(gro.limit) || gro.limit < 0 || gro.limit > 1000)) return fail('Gro Games limit must be a whole number from 0 to 1000.',400);
+  const encoded = JSON.stringify(config);`);
+edit(path.join(pms,'src/NotificationsStudio.jsx'),"import {useEffect,useState} from 'react';","import {useEffect,useState} from 'react';\nimport BroadcastStudio from './BroadcastStudio';");
+edit(path.join(pms,'src/NotificationsStudio.jsx'),'return <>','return <><BroadcastStudio auth={auth}/>');
+const app=path.join(pms,'src/App.jsx');
+edit(app,"['catalog','Categories & games',Boxes]","['groGames','Gro Games',Gamepad2],['catalog','Categories & games',Boxes]");
+edit(app,"{section==='catalog'&&",`{section==='groGames'&&<Card title="Gro Games grid" desc="Controls only the original Gro Games section on Arcade. Use 0 to show all games. Publish changes to apply."><Toggle label="Show Gro Games" checked={arcade.groGames?.enabled!==false} onChange={v=>update(['screens','arcade','groGames'],{enabled:v,limit:arcade.groGames?.limit??0})}/><Field label="Number of cards (0 = all)" type="number" min="0" max="1000" step="1" value={arcade.groGames?.limit??0} onChange={e=>update(['screens','arcade','groGames'],{enabled:arcade.groGames?.enabled!==false,limit:Math.max(0,Math.min(1000,Math.floor(Number(e.target.value)||0)))})}/></Card>}
+ {section==='catalog'&&`);
+console.log('Installed broadcast backend, migration, and PMS controls.');

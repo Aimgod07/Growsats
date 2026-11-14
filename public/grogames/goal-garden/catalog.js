@@ -1,0 +1,1 @@
+globalThis.GameCatalog=[{"id":"goal-garden","name":"Goal Garden","category":"Sports","tagline":"Pick a corner. Make it count.","help":"Tap inside the goal to shoot. Aim away from the moving goalkeeper. Ten shots per match; corners earn bonus points.","accent":"#b4e59f","bg":"#285247","label":"FOOTBALL","number":17}];globalThis.Games={};

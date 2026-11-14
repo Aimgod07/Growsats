@@ -1,0 +1,1 @@
+globalThis.GameCatalog=[{"id":"bubble-cove","name":"Bubble Cove","category":"Puzzle","tagline":"A little color goes a long way.","help":"Tap to aim and launch. Match three connected bubbles of the same color. Clear the reef before bubbles reach the launch zone.","accent":"#9ee7df","bg":"#23505c","label":"BUBBLE SHOOTER","number":6}];globalThis.Games={};

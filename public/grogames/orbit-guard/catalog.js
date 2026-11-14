@@ -1,0 +1,1 @@
+globalThis.GameCatalog=[{"id":"orbit-guard","name":"Orbit Guard","category":"Action","tagline":"One little planet worth protecting.","help":"Drag around the planet to rotate your shield. Catch incoming meteors with the shield. Survive 60 seconds.","accent":"#a9e69b","bg":"#1c3538","label":"PLANET DEFENSE","number":4}];globalThis.Games={};

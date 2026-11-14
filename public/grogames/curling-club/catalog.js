@@ -1,0 +1,1 @@
+globalThis.GameCatalog=[{"id":"curling-club","name":"Curling Club","category":"Sports","tagline":"A softer touch wins the day.","help":"Drag back from your stone, release to slide it toward the target. Keep stones inside the rings. Five stones per round.","accent":"#b8e5f1","bg":"#324b65","label":"PRECISION SPORTS","number":20}];globalThis.Games={};

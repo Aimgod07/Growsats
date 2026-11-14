@@ -1,0 +1,87 @@
+{
+  "projectId": "13371920696951170900",
+  "title": "Playloot Gaming Platform UI",
+  "deviceType": "MOBILE",
+  "lastSyncTime": "2026-10-03T01:02:49.7535452+05:30",
+  "designSystem": "Cyber-Luxe Arcade",
+  "screens": {
+    "feda3a79914346578ba59c110a5701a8": {
+      "label": "Playloot Logo",
+      "sourceScreen": "projects/13371920696951170900/screens/feda3a79914346578ba59c110a5701a8",
+      "dimensions": { "width": 240, "height": 60 },
+      "canvasPosition": { "x": 1024, "y": 0 }
+    },
+    "efb816459997440a85b495e3fcd88b65": {
+      "label": "Playloot - Avatar, Skills & Stats",
+      "sourceScreen": "projects/13371920696951170900/screens/efb816459997440a85b495e3fcd88b65",
+      "dimensions": { "width": 780, "height": 2416 },
+      "canvasPosition": { "x": 1938, "y": 2119 }
+    },
+    "0c330acf70324cdea289b0eea92980be": {
+      "label": "Playloot - Leaderboard & Tournaments",
+      "sourceScreen": "projects/13371920696951170900/screens/0c330acf70324cdea289b0eea92980be",
+      "dimensions": { "width": 780, "height": 3332 },
+      "canvasPosition": { "x": 3992, "y": 0 }
+    },
+    "d53eeb83d1044d75a188012dd6a3b3ce": {
+      "label": "Playloot - Gamer Profile & Stats",
+      "sourceScreen": "projects/13371920696951170900/screens/d53eeb83d1044d75a188012dd6a3b3ce",
+      "dimensions": { "width": 780, "height": 3726 },
+      "canvasPosition": { "x": 3538, "y": 0 }
+    },
+    "9726165075344329161": {
+      "label": "Lootplay (Copy).jpg",
+      "sourceScreen": "projects/13371920696951170900/screens/9726165075344329161",
+      "dimensions": { "width": 3586, "height": 2605 },
+      "canvasPosition": { "x": 0, "y": 2119 }
+    },
+    "12cecfe6a7d14e00a14eebaa383633c9": {
+      "label": "Playloot - Withdraw & Loot Cashout",
+      "sourceScreen": "projects/13371920696951170900/screens/12cecfe6a7d14e00a14eebaa383633c9",
+      "dimensions": { "width": 780, "height": 2250 },
+      "canvasPosition": { "x": 576, "y": 2119 }
+    },
+    "b72bc0d919684bb39939ae5b5da5e77d": {
+      "label": "Playloot - Gamer Profile & Settings",
+      "sourceScreen": "projects/13371920696951170900/screens/b72bc0d919684bb39939ae5b5da5e77d",
+      "dimensions": { "width": 780, "height": 2416 },
+      "canvasPosition": { "x": 1030, "y": 2119 }
+    },
+    "a9adaa0ab5294263b057871b4de1c01c": {
+      "label": "Playloot - Global Leaderboards & Tiers",
+      "sourceScreen": "projects/13371920696951170900/screens/a9adaa0ab5294263b057871b4de1c01c",
+      "dimensions": { "width": 780, "height": 2574 },
+      "canvasPosition": { "x": 1484, "y": 2119 }
+    },
+    "cb8c5613b7264d10a0076d00592dfa76": {
+      "label": "Playloot - Login & Welcome",
+      "sourceScreen": "projects/13371920696951170900/screens/cb8c5613b7264d10a0076d00592dfa76",
+      "dimensions": { "width": 780, "height": 2210 },
+      "canvasPosition": { "x": 2176, "y": 0 }
+    },
+    "19555cbc3dd64abc9bf60ff2bef0b297": {
+      "label": "Playloot - Avatar Customizer",
+      "sourceScreen": "projects/13371920696951170900/screens/19555cbc3dd64abc9bf60ff2bef0b297",
+      "dimensions": { "width": 780, "height": 2472 },
+      "canvasPosition": { "x": 3084, "y": 0 }
+    },
+    "eae98fd2d578495198c2854cf587c5cd": {
+      "label": "3D stylized gaming avatar",
+      "sourceScreen": "projects/13371920696951170900/screens/eae98fd2d578495198c2854cf587c5cd",
+      "dimensions": { "width": 1024, "height": 1024 },
+      "canvasPosition": { "x": 1600, "y": 0 }
+    },
+    "eb7ea18c382b4a80ab35bb97e09fecdd": {
+      "label": "Playloot - Arcade Home & Games Lobby",
+      "sourceScreen": "projects/13371920696951170900/screens/eb7ea18c382b4a80ab35bb97e09fecdd",
+      "dimensions": { "width": 780, "height": 3394 },
+      "canvasPosition": { "x": 2630, "y": 0 }
+    },
+    "eda47e580549442bb1c1500c596cbf26": {
+      "label": "Playloot - All Games Discovery & Catalog",
+      "sourceScreen": "projects/13371920696951170900/screens/eda47e580549442bb1c1500c596cbf26",
+      "dimensions": { "width": 2560, "height": 2272 },
+      "canvasPosition": { "x": 4446, "y": 0 }
+    }
+  }
+}

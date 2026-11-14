@@ -1,0 +1,1 @@
+globalThis.GameCatalog=[{"id":"sky-courier","name":"Sky Courier","category":"Action","tagline":"Tiny plane. Very big sky.","help":"Drag your plane. It fires automatically. Dodge incoming shots and clear five waves.","accent":"#79d8f2","bg":"#1b4155","label":"AIR COMBAT","number":3}];globalThis.Games={};

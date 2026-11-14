@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Skate Runner</title>
+<style>
+  html,body{margin:0;height:100%;background:#0b1020;overflow:hidden;touch-action:none}
+  body{position:relative}
+  canvas{display:block;position:absolute;inset:0;width:100%!important;height:100%!important;margin:0!important}
+</style>
+<script src="./vendor/phaser-3.80.1.min.js"></script>
+<link rel="stylesheet" href="/grogames/visuals/studio.css"><script src="/grogames/visuals/studio.js"></script><link rel="stylesheet" href="ui-polish.css"><script defer src="ui-polish.js"></script></head>
+<body>
+<script>
+/* ================= CONFIG (tune here) ================= */
+const W = 960, H = 540, GROUND = 440, SKATER_X = 200;
+const GRAVITY = 2200;        // px/s^2
+const JUMP_V = 800;          // full-hold jump velocity
+const LOW_V = 560;           // velocity kept when button released early (short hop)
+const BASE_SPEED = 360;      // px/s scroll speed
+const MAX_SPEED = 720;
+const SPEED_RAMP = 6;        // px/s gained per second
+const COIN_POINTS = 10;
+const SCORE_MODE = "coins";  // "coins" | "coins+distance"  (distance: +1 per 10px)
+const DEV_FALLBACK = false;
+
+/* ================= BRIDGE (URL params + postMessage) ================= */
+const Bridge = (() => {
+  const q = new URLSearchParams(location.search);
+  const clean = v => (v && /^[A-Za-z0-9_-]{1,64}$/.test(v)) ? v : null;
+  let gameId = clean(q.get("gameId")), playerId = clean(q.get("playerId"));
+  let parentOrigin = null;
+  try { parentOrigin = q.get("parentOrigin") ? new URL(q.get("parentOrigin")).origin
+        : (document.referrer ? new URL(document.referrer).origin : null); } catch (e) {}
+  const submitUrl = q.get("submitUrl");
+  let dev = false, error = null;
+  if (DEV_FALLBACK && !q.get("gameId") && !q.get("playerId")) {
+    dev = true; gameId = "DEMO_GAME"; playerId = "DEMO_PLAYER";   // DEV MODE
+  } else if (!gameId || !playerId) {
+    error = "Missing or invalid gameId / playerId in URL.\nUse ?gameId=G1&playerId=P1&parentOrigin=https://yourapp.com";
+  }
+  const target = parentOrigin || (dev ? "*" : null);
+  const openedAt=Date.now();
+  let lastInput=Date.now();
+  ['pointerdown','keydown'].forEach(name=>window.addEventListener(name,event=>{if(event.isTrusted)lastInput=Date.now();}));
+  setInterval(()=>{
+    if(window.parent===window || !target || document.hidden)return;
+    if(Date.now()-openedAt>120000 && Date.now()-lastInput>15000){window.parent.postMessage({type:'playloot:idle'},target);return;}
+    window.parent.postMessage({type:'playloot:activity'},target);
+  },5000);
+  function send(type, data = {}) {
+    const msg = Object.assign({ type, gameId, playerId }, data);
+    if (type === 'GAME_OVER') {
+      const scoreMessage = {type:'playloot:score',score:data.score,gameId,playerId,runId:data.runId};
+      if (window.parent !== window && target) window.parent.postMessage(scoreMessage,target);
+      console.log('PLAYLOOT_SCORE:' + JSON.stringify(scoreMessage));
+    }
+    if (window.parent !== window) {
+      if (target) window.parent.postMessage(msg, target);
+      else console.warn("No parentOrigin; message not sent:", type);
+    }
+    if (dev) console.log("[bridge]", msg);
+    return msg;
+  }
+  async function submit(payload) {            // optional backend mode
+    if (!submitUrl) return;
+    for (let i = 0; i < 2; i++) {
+      try {
+        const r = await fetch(submitUrl, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+        if (r.ok) return;
+      } catch (e) {}
+    }
+  }
+  const handlers = {};
+  window.addEventListener("message", e => {
+    if (!(dev || (parentOrigin && e.origin === parentOrigin))) return;
+    const t = e.data && e.data.type;
+    if (handlers[t]) handlers[t]();
+  });
+  return { get gameId(){return gameId}, get playerId(){return playerId}, dev, error, send, submit, on:(t,f)=>handlers[t]=f };
+})();
+
+/* ================= AUDIO (Web Audio, no files) ================= */
+const Sfx = {
+  ctx: null, muted: false,
+  unlock(){ if(!this.ctx){ try{ this.ctx = new (window.AudioContext||window.webkitAudioContext)(); }catch(e){} } if(this.ctx&&this.ctx.state==="suspended") this.ctx.resume(); },
+  beep(f1, f2, dur, type="square", vol=0.08){
+    if(this.muted||!this.ctx) return;
+    const c=this.ctx, o=c.createOscillator(), g=c.createGain(), t=c.currentTime;
+    o.type=type; o.frequency.setValueAtTime(f1,t); o.frequency.exponentialRampToValueAtTime(f2,t+dur);
+    g.gain.setValueAtTime(vol,t); g.gain.exponentialRampToValueAtTime(0.001,t+dur);
+    o.connect(g).connect(c.destination); o.start(t); o.stop(t+dur);
+  },
+  jump(){ this.beep(300,600,0.15); }, coin(){ this.beep(900,1500,0.12,"triangle",0.1); }, crash(){ this.beep(200,40,0.4,"sawtooth",0.12); }
+};
+
+/* ================= SCENES ================= */
+class BootScene extends Phaser.Scene {
+  constructor(){ super("Boot"); }
+  create(){
+    if (Bridge.error) {
+      this.add.text(W/2,H/2,Bridge.error,{fontFamily:"Arial",fontSize:"26px",color:"#ff6b6b",align:"center"}).setOrigin(.5);
+      return;
+    }
+    this.makeTextures();
+    Bridge.send("GAME_READY");
+    this.scene.start("Start");
+  }
+  gfx(key,w,h,draw){ const g=this.make.graphics({x:0,y:0,add:false}); draw(g); g.generateTexture(key,w,h); g.destroy(); }
+  makeTextures(){
+    // sky gradient
+    const sky=this.textures.createCanvas("sky",8,H), c=sky.getContext(), gr=c.createLinearGradient(0,0,0,H);
+    gr.addColorStop(0,"#ff9a5a"); gr.addColorStop(.55,"#ffd27a"); gr.addColorStop(1,"#7ad3ff");
+    c.fillStyle=gr; c.fillRect(0,0,8,H); sky.refresh();
+    // parallax cities (tileable: buildings stay inside 960px)
+    const city=(key,color,minH,maxH,minW,maxW)=>this.gfx(key,W,300,g=>{
+      g.fillStyle(color); let x=0;
+      while(x<W){ const w=Phaser.Math.Between(minW,maxW), h=Phaser.Math.Between(minH,maxH);
+        g.fillRect(x,300-h,Math.min(w,W-x),h); x+=w; }
+    });
+    city("far",0x6b5b95,80,220,50,110); city("near",0x2c2a4a,60,160,60,130);
+    // road
+    this.gfx("road",W,100,g=>{
+      g.fillStyle(0x3a3a44); g.fillRect(0,0,W,100);
+      g.fillStyle(0x8a8a96); g.fillRect(0,0,W,8);
+      g.fillStyle(0xffd23f); for(let x=0;x<W;x+=120) g.fillRect(x,56,60,6);
+    });
+    // skater + board (feet at bottom of skater, wheels at bottom of board)
+    this.gfx("skater",36,56,g=>{
+      g.fillStyle(0x1f3c88); g.fillRect(10,34,16,22);
+      g.fillStyle(0xff7a1a); g.fillRect(8,14,20,22);
+      g.fillStyle(0xf2c9a0); g.fillRect(26,18,8,6); g.fillCircle(18,8,8);
+      g.fillStyle(0xd62828); g.fillRect(8,2,20,5); g.fillRect(18,2,18,3);
+    });
+    this.gfx("board",76,16,g=>{
+      g.fillStyle(0xe63946); g.fillRoundedRect(0,2,76,6,3);
+      g.fillStyle(0xffffff); g.fillCircle(14,12,4); g.fillCircle(62,12,4);
+    });
+    this.gfx("coin",24,24,g=>{
+      g.fillStyle(0xffc300); g.fillCircle(12,12,11); g.lineStyle(2,0xb8860b); g.strokeCircle(12,12,11);
+      g.fillStyle(0xffe066); g.fillCircle(12,12,6);
+    });
+    this.gfx("spark",8,8,g=>{ g.fillStyle(0xffe066); g.fillCircle(4,4,4); });
+    this.gfx("block",48,60,g=>{
+      g.fillStyle(0xa0642d); g.fillRect(0,0,48,60);
+      g.lineStyle(4,0x6b3f18); g.strokeRect(2,2,44,56);
+      g.lineBetween(2,2,46,58); g.lineBetween(46,2,2,58);
+    });
+  }
+}
+
+class StartScene extends Phaser.Scene {
+  constructor(){ super("Start"); }
+  create(){
+    this.add.image(0,0,"sky").setOrigin(0).setDisplaySize(W,H);
+    this.add.image(0,GROUND-300,"far").setOrigin(0);
+    this.add.image(0,GROUND-300,"near").setOrigin(0);
+    this.add.image(0,GROUND,"road").setOrigin(0);
+    this.add.text(W/2,150,"SKATE RUNNER",{fontFamily:"Arial Black, Arial",fontSize:"72px",color:"#fff",stroke:"#1b1b3a",strokeThickness:10}).setOrigin(.5);
+    const t=this.add.text(W/2,280,"Tap or press SPACE to start",{fontFamily:"Arial",fontSize:"30px",color:"#fff",stroke:"#1b1b3a",strokeThickness:5}).setOrigin(.5);
+    this.add.text(W/2,330,"Hold to jump higher · collect coins · avoid crates",{fontFamily:"Arial",fontSize:"20px",color:"#fff",stroke:"#1b1b3a",strokeThickness:4}).setOrigin(.5);
+    this.tweens.add({targets:t,alpha:.3,duration:600,yoyo:true,repeat:-1});
+    const go=()=>{ Sfx.unlock(); this.scene.start("Game"); };
+    this.input.keyboard.once("keydown-SPACE",go); this.input.keyboard.once("keydown-UP",go);
+    this.input.once("pointerdown",go);
+  }
+}
+
+class GameScene extends Phaser.Scene {
+  constructor(){ super("Game"); }
+  create(){
+    this.speed=BASE_SPEED; this.dist=0; this.coins=0; this.dead=false; this.elapsed=0;
+    this.nextAt=500; this.vy=0; this.y=GROUND; this.held=false; this.buffer=0; this.lastUpdateSent=0;
+    this.runId=(crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random());
+    this.blocks=[]; this.coinObjs=[];
+
+    this.add.image(0,0,"sky").setOrigin(0).setDisplaySize(W,H);
+    this.far=this.add.tileSprite(0,GROUND-300,W,300,"far").setOrigin(0);
+    this.near=this.add.tileSprite(0,GROUND-300,W,300,"near").setOrigin(0);
+    this.road=this.add.tileSprite(0,GROUND,W,100,"road").setOrigin(0);
+
+    this.board=this.add.image(0,0,"board").setOrigin(.5,1);
+    this.body_=this.add.image(0,-12,"skater").setOrigin(.5,1);
+    this.skater=this.add.container(SKATER_X,GROUND,[this.board,this.body_]);
+    this.skater.setDepth(5);
+
+    this.sparks=this.add.particles(0,0,"spark",{speed:{min:80,max:240},lifespan:420,scale:{start:1,end:0},emitting:false}).setDepth(8);
+
+    // HUD
+    const st={fontFamily:"Arial Black, Arial",fontSize:"30px",color:"#fff",stroke:"#1b1b3a",strokeThickness:5};
+    this.scoreTxt=this.add.text(20,14,"Score: 0",st).setDepth(10);
+    this.add.image(34,72,"coin").setDepth(10);
+    this.coinTxt=this.add.text(54,56,"0",st).setDepth(10);
+    this.muteBtn=this.add.text(W-20,14,Sfx.muted?"🔇":"🔊",{fontSize:"32px"}).setOrigin(1,0).setDepth(10).setInteractive({useHandCursor:true});
+    this.muteBtn.on("pointerdown",()=>{ Sfx.muted=!Sfx.muted; this.muteBtn.setText(Sfx.muted?"🔇":"🔊"); });
+    this.pauseTxt=this.add.text(W/2,H/2,"PAUSED\nclick or press a key",{fontFamily:"Arial Black",fontSize:"44px",color:"#fff",stroke:"#000",strokeThickness:6,align:"center"}).setOrigin(.5).setDepth(20).setVisible(false);
+
+    // input
+    const press=()=>{ this.held=true; this.buffer=0.12; };
+    const release=()=>{ this.held=false; if(this.vy<-LOW_V) this.vy=-LOW_V; };
+    this.input.keyboard.addCapture("SPACE,UP,DOWN");
+    ["SPACE","UP"].forEach(k=>{ this.input.keyboard.on("keydown-"+k,e=>{ if(!e.repeat) press(); }); this.input.keyboard.on("keyup-"+k,release); });
+    this.input.on("pointerdown",(p,over)=>{ if(!over.length) press(); });
+    this.input.on("pointerup",release);
+
+    this.events.once("shutdown",()=>{ this.input.keyboard.removeAllListeners(); });
+    Bridge.send("GAME_STARTED",{runId:this.runId});
+  }
+
+  getBlock(x,h){
+    let b=this.blocks.find(o=>!o.active);
+    if(!b){ b=this.add.image(0,GROUND,"block").setOrigin(0,1); this.blocks.push(b); }
+    b.setActive(true).setVisible(true).setPosition(x,GROUND).setCrop(0,60-h,48,h); b.bh=h;
+    b.y=GROUND+(60-h); // crop trims the top, shift so visible part sits on the road
+    return b;
+  }
+  getCoin(x,y){
+    let c=this.coinObjs.find(o=>!o.active);
+    if(!c){ c=this.add.image(0,0,"coin"); this.coinObjs.push(c); }
+    return c.setActive(true).setVisible(true).setPosition(x,y).setScale(1);
+  }
+
+  spawnPattern(){
+    const x=W+60, r=Math.random(); let width;
+    if(r<.30){ this.getBlock(x,Phaser.Math.Between(44,56)); width=48; }
+    else if(r<.50){ // block with a coin arc over it
+      this.getBlock(x+66,Phaser.Math.Between(44,56));
+      for(let i=0;i<5;i++) this.getCoin(x+i*45+12,GROUND-60-Math.sin(i/4*Math.PI)*55);
+      width=190;
+    }
+    else if(r<.60){ // wide block pair (needs a held jump)
+      this.getBlock(x,50); this.getBlock(x+48,50); width=96;
+    }
+    else if(r<.80){ const n=Phaser.Math.Between(5,8); for(let i=0;i<n;i++) this.getCoin(x+i*40,GROUND-24); width=n*40; }
+    else { const n=Phaser.Math.Between(4,6); for(let i=0;i<n;i++) this.getCoin(x+i*40,GROUND-95); width=n*40; }
+    // fair gap grows with speed so every pattern stays clearable
+    const gap=Math.max(260+this.speed*.55, Phaser.Math.Between(300,520)*(this.speed/BASE_SPEED)*.8);
+    this.nextAt=this.dist+width+gap;
+  }
+
+  score(){ return this.coins*COIN_POINTS+(SCORE_MODE==="coins+distance"?Math.floor(this.dist/10):0); }
+
+  update(time,delta){
+    if(this.dead) return;
+    const d=Math.min(delta/1000,.05);
+    this.elapsed+=delta;
+    this.speed=Math.min(MAX_SPEED,BASE_SPEED+SPEED_RAMP*this.elapsed/1000);
+    const dx=this.speed*d; this.dist+=dx;
+    this.far.tilePositionX+=dx*.15; this.near.tilePositionX+=dx*.4; this.road.tilePositionX+=dx;
+
+    // jump physics
+    this.buffer=Math.max(0,this.buffer-d);
+    const grounded=this.y>=GROUND;
+    if(grounded && this.buffer>0){ this.vy=-JUMP_V; this.buffer=0; Sfx.jump();
+      if(!this.held) this.vy=-LOW_V; }
+    this.vy+=GRAVITY*d; this.y+=this.vy*d;
+    if(this.y>=GROUND){ this.y=GROUND; this.vy=0; }
+    this.skater.y=this.y;
+    const air=this.y<GROUND;
+    this.skater.rotation=air?Phaser.Math.Clamp(this.vy/2500,-.25,.3):0;
+    this.body_.y=-12+(air?0:Math.sin(time/60)*1.5);
+
+    // spawning
+    if(this.dist>=this.nextAt) this.spawnPattern();
+
+    // blocks
+    for(const b of this.blocks){ if(!b.active) continue;
+      b.x-=dx; if(b.x<-100){ b.setActive(false).setVisible(false); continue; }
+      const overlapX=SKATER_X+14>b.x+4 && SKATER_X-14<b.x+48-4;
+      if(overlapX && this.y>GROUND-b.bh+6){ this.crash(); return; }
+    }
+    // coins
+    for(const c of this.coinObjs){ if(!c.active) continue;
+      c.x-=dx; c.scaleX=Math.abs(Math.sin(time/150+c.x*.02))*.8+.2;
+      if(c.x<-50){ c.setActive(false).setVisible(false); continue; }
+      const ex=c.x-SKATER_X, ey=c.y-(this.y-38);
+      if(ex*ex+ey*ey<36*36){ this.collect(c); }
+    }
+
+    this.scoreTxt.setText("Score: "+this.score());
+    this.coinTxt.setText(String(this.coins));
+    if(time-this.lastUpdateSent>1000){ this.lastUpdateSent=time; Bridge.send("SCORE_UPDATE",{runId:this.runId,score:this.score()}); }
+  }
+
+  collect(c){
+    c.setActive(false).setVisible(false); this.coins++; Sfx.coin();
+    this.sparks.explode(8,c.x,c.y);
+    const p=this.add.text(c.x,c.y,"+"+COIN_POINTS,{fontFamily:"Arial Black",fontSize:"24px",color:"#ffe066",stroke:"#000",strokeThickness:4}).setOrigin(.5).setDepth(9);
+    this.tweens.add({targets:p,y:p.y-40,alpha:0,duration:500,onComplete:()=>p.destroy()});
+  }
+
+  crash(){
+    this.dead=true; Sfx.crash();
+    this.cameras.main.shake(300,.015);
+    this.tweens.add({targets:this.skater,rotation:-6,y:GROUND-30,duration:500,ease:"Quad.easeOut"});
+    const result={runId:this.runId,score:this.score(),coins:this.coins,distance:Math.floor(this.dist/10),
+                  durationMs:Math.round(this.elapsed),timestamp:Date.now()};
+    const msg=Bridge.send("GAME_OVER",result);
+    Bridge.submit(msg);
+    this.time.delayedCall(900,()=>this.scene.start("GameOver",result));
+  }
+}
+
+class GameOverScene extends Phaser.Scene {
+  constructor(){ super("GameOver"); }
+  create(res){
+    const best=Math.max(this.registry.get("best")||0,res.score); this.registry.set("best",best);
+    this.add.rectangle(0,0,W,H,0x0b1020,.85).setOrigin(0);
+    const st=(s,c="#fff")=>({fontFamily:"Arial Black, Arial",fontSize:s,color:c,stroke:"#000",strokeThickness:6});
+    this.add.text(W/2,120,"GAME OVER",st("64px","#ff6b6b")).setOrigin(.5);
+    this.add.text(W/2,215,"Score: "+res.score,st("52px")).setOrigin(.5);
+    this.add.text(W/2,280,`Coins: ${res.coins}   ·   Best: ${best}`,st("28px","#ffe066")).setOrigin(.5);
+    const btn=this.add.text(W/2,390,"▶  PLAY AGAIN",{fontFamily:"Arial Black",fontSize:"36px",color:"#0b1020",backgroundColor:"#ffd23f",padding:{x:28,y:14}}).setOrigin(.5).setInteractive({useHandCursor:true});
+    const again=()=>this.scene.start("Game");
+    this.time.delayedCall(400,()=>{ btn.on("pointerdown",again); this.input.keyboard.once("keydown-SPACE",again); });
+  }
+}
+
+/* ================= BOOT ================= */
+const game = new Phaser.Game({
+  type: Phaser.AUTO, width: W, height: H, backgroundColor: "#0b1020",
+  scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH },
+  scene: [BootScene, StartScene, GameScene, GameOverScene],
+  input: { keyboard: { capture: [32, 38, 40] } }
+});
+
+// keyboard focus inside iframe + block page scroll
+window.addEventListener("pointerdown",()=>window.focus());
+window.addEventListener("keydown",e=>{ if(["Space","ArrowUp","ArrowDown"].includes(e.code)) e.preventDefault(); },{passive:false});
+window.addEventListener("resize",()=>game.scale.refresh());
+window.addEventListener("orientationchange",()=>setTimeout(()=>game.scale.refresh(),200));
+
+// pause / resume
+let pausedBy=null;
+function pauseGame(by){ const s=game.scene.getScene("Game"); if(s&&game.scene.isActive("Game")){ game.scene.pause("Game"); s.pauseTxt.setVisible(true); pausedBy=by; } }
+function resumeGame(){ const s=game.scene.getScene("Game"); if(pausedBy){ game.scene.resume("Game"); s.pauseTxt.setVisible(false); pausedBy=null; } }
+document.addEventListener("visibilitychange",()=>{ if(document.hidden) pauseGame("visibility"); });
+["pointerdown","keydown"].forEach(ev=>window.addEventListener(ev,()=>{ if(pausedBy==="visibility") resumeGame(); }));
+Bridge.on("PAUSE",()=>pauseGame("parent"));
+Bridge.on("RESUME",resumeGame);
+Bridge.on("RESTART",()=>{ pausedBy=null; game.scene.stop("Game"); game.scene.stop("GameOver"); game.scene.stop("Start"); game.scene.start("Game"); });
+</script>
+</body>
+</html>

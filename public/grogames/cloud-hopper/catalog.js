@@ -1,0 +1,1 @@
+globalThis.GameCatalog=[{"id":"cloud-hopper","name":"Cloud Hopper","category":"Platformer","tagline":"The sky is just the beginning.","help":"Drag left or right to guide the bouncing fox. Land on platforms and climb. Falling below the screen ends the run.","accent":"#ffca94","bg":"#3c617a","label":"ENDLESS CLIMB","number":14}];globalThis.Games={};

@@ -1,0 +1,1 @@
+globalThis.GameCatalog=[{"id":"turbo-avenue","name":"Turbo Avenue","category":"Racing","tagline":"A midnight drive. A split-second gap.","help":"Drag to steer. Dodge traffic and collect golden fuel cells. Three collisions end the run.","accent":"#ff815b","bg":"#17283f","label":"STEER & SURVIVE","number":1}];globalThis.Games={};

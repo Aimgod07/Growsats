@@ -1,0 +1,55 @@
+// Curated MadKidGames titles shown in the arcade FEATURED ARENA carousel.
+// Cover images (thumb_2.jpg) are used as the slide artwork; `embed` is the
+// playable /full/ URL opened in the GameWebViewOverlay.
+export const FEATURED_GAMES = [
+  {
+    id: "shadow-fight-2",
+    title: "Shadow Fight 2",
+    embed: "https://www.madkidgames.com/full/shadow-fight-2",
+    image: "https://www.madkidgames.com/games/shadow-fight-2/thumb_2.jpg",
+    badge: "Action",
+    orientation: "landscape",
+    tags: "action, shadow, fight, fighting",
+    blurb: "Dark martial-arts battles — timing, weapons & boss fights.",
+  },
+  {
+    id: "last-day-on-earth-survival",
+    title: "Last Day on Earth Survival",
+    embed: "https://www.madkidgames.com/full/last-day-on-earth-survival",
+    image: "https://www.madkidgames.com/games/last-day-on-earth-survival/thumb_2.jpg",
+    badge: "Survival",
+    orientation: "landscape",
+    tags: "survival, zombie, crafting, base-building",
+    blurb: "Gather, craft & defend your base in a zombie apocalypse.",
+  },
+  {
+    id: "free-kick-football-3d-soccer",
+    title: "Free Kick Football 3D Soccer",
+    embed: "https://www.madkidgames.com/full/free-kick-football-3d-soccer",
+    image: "https://www.madkidgames.com/games/free-kick-football-3d-soccer/thumb_2.jpg",
+    badge: "Sports",
+    orientation: "landscape",
+    tags: "3d, sports, football, soccer, free-kick",
+    blurb: "Curve free kicks past the wall in realistic 3D stadiums.",
+  },
+  {
+    id: "subway-surfers",
+    title: "Subway Surfers",
+    embed: "https://www.madkidgames.com/full/subway-surfers",
+    image: "https://www.madkidgames.com/games/subway-surfers/thumb_2.jpg",
+    badge: "Runner",
+    orientation: "landscape",
+    tags: "3d, runner, casual, arcade",
+    blurb: "Dodge trains, grab coins & chase your best endless run.",
+  },
+  {
+    id: "seashine",
+    title: "Seashine",
+    embed: "https://www.madkidgames.com/full/seashine",
+    image: "https://www.madkidgames.com/games/seashine/thumb_2.jpg",
+    badge: "Adventure",
+    orientation: "landscape",
+    tags: "sea-adventure, casual, survival",
+    blurb: "Guide a glowing jellyfish through dark ocean caves.",
+  },
+];

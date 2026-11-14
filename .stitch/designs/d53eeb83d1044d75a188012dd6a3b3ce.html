@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;family=Sora:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "surface-variant": "#323440", "on-tertiary": "#472a00", "on-secondary-fixed": "#25005a", "on-secondary-container": "#c9aeff", "surface-container-lowest": "#0c0e18", "surface": "#11131d", "surface-tint": "#4cd7f6", "secondary-container": "#6001d1", "primary": "#4cd7f6", "surface-container-low": "#191b26", "on-surface-variant": "#bcc9cd", "inverse-on-surface": "#2e303b", "primary-container": "#06b6d4", "on-error-container": "#ffdad6", "on-primary": "#003640", "outline": "#869397", "on-surface": "#e1e1f0", "surface-container": "#1d1f2a", "surface-dim": "#11131d", "surface-container-highest": "#323440", "on-primary-container": "#00424f", "secondary-fixed": "#eaddff", "tertiary-fixed-dim": "#ffb95f", "surface-container-high": "#282934", "secondary": "#d2bbff", "error": "#ffb4ab", "secondary-fixed-dim": "#d2bbff", "inverse-primary": "#00687a", "on-secondary-fixed-variant": "#5a00c6", "error-container": "#93000a", "tertiary": "#ffb95f", "primary-fixed-dim": "#4cd7f6", "on-tertiary-container": "#563400", "tertiary-container": "#e79400", "outline-variant": "#3d494c", "primary-fixed": "#acedff", "on-tertiary-fixed-variant": "#653e00", "on-secondary": "#3f008e", "tertiary-fixed": "#ffddb8", "inverse-surface": "#e1e1f0", "on-primary-fixed-variant": "#004e5c", "on-tertiary-fixed": "#2a1700", "on-background": "#e1e1f0", "background": "#11131d", "on-primary-fixed": "#001f26", "on-error": "#690005", "surface-bright": "#373844" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-xs": "0.25rem", "space-xl": "2rem", "space-md": "1rem", "margin-tablet": "2rem", "space-sm": "0.5rem", "margin-desktop": "3rem", "gutter-desktop": "2rem", "space-lg": "1.5rem", "gutter": "1rem", "space-2xl": "3rem", "gutter-tablet": "1.5rem", "margin": "1rem" }, fontFamily: { "label-md": ["Sora"], "body-lg": ["Manrope"], "display": ["Sora"], "body-sm": ["Manrope"], "headline-lg-mobile": ["Sora"], "headline-sm": ["Sora"], "headline-md": ["Sora"], "headline-lg": ["Sora"], "body-md": ["Manrope"], "display-mobile": ["Sora"], "label-lg": ["Sora"], "label-sm": ["Sora"] }, fontSize: { "label-md": ["0.75rem", { lineHeight: "1.25", letterSpacing: "0.06em", fontWeight: "600" }], "body-lg": ["1.125rem", { lineHeight: "1.6", letterSpacing: "0em", fontWeight: "400" }], "display": ["3.5rem", { lineHeight: "1.1", letterSpacing: "-0.03em", fontWeight: "800" }], "body-sm": ["0.8125rem", { lineHeight: "1.4", letterSpacing: "0.01em", fontWeight: "500" }], "headline-lg-mobile": ["1.75rem", { lineHeight: "1.25", letterSpacing: "-0.01em", fontWeight: "700" }], "headline-sm": ["1.125rem", { lineHeight: "1.4", letterSpacing: "0em", fontWeight: "600" }], "headline-md": ["1.5rem", { lineHeight: "1.3", letterSpacing: "-0.01em", fontWeight: "600" }], "headline-lg": ["2.25rem", { lineHeight: "1.2", letterSpacing: "-0.02em", fontWeight: "700" }], "body-md": ["0.9375rem", { lineHeight: "1.5", letterSpacing: "0.01em", fontWeight: "400" }], "display-mobile": ["2.5rem", { lineHeight: "1.15", letterSpacing: "-0.02em", fontWeight: "800" }], "label-lg": ["0.875rem", { lineHeight: "1.3", letterSpacing: "0.04em", fontWeight: "600" }], "label-sm": ["0.6875rem", { lineHeight: "1.2", letterSpacing: "0.08em", fontWeight: "700" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-on-surface min-h-screen flex flex-col selection:bg-primary selection:text-on-primary"><header class="fixed top-0 inset-x-0 z-50 pt-safe bg-surface-container-lowest/85 backdrop-blur-xl shadow-[0_4px_24px_rgba(0,0,0,0.6)]"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-xs"><img alt="Playloot Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VGbvy7DsiZF7uHAzig_K2SMgMDcZSwxPqMEGSNQXgQsVhGnyMas-LvVKlyYDjlUr3UCzR-fCZr2Q0Z167p3jHBOcDq_YsfZiz-UM8NJxCqkH5gzS2O-rdbfiQmNwaRiWtAXuA2jYZhZ85-oaPHKjYmSHSpg_HaoaTVcDoOzPvOV4knTQ7-xhjXT0gWCzkKNB2R0u2qcQatL-avsopOS3BLg3rPpP1_RbGNpPf5jZS4vGiT80c0nhyPBQr8"/><span class="font-label-lg text-label-lg tracking-wider uppercase text-on-surface font-bold hidden xs:inline">Playloot</span></div><div class="flex items-center gap-space-xs"><div class="flex items-center gap-1 px-2 py-1 rounded-lg bg-surface-container-high/80 text-tertiary"><span class="material-symbols-outlined text-[16px]">monetization_on</span><span class="font-label-sm text-label-sm font-bold">24.5K</span><button class="w-4 h-4 flex items-center justify-center rounded-sm bg-tertiary/20 text-tertiary ml-0.5"><span class="material-symbols-outlined text-[12px]">add</span></button></div><div class="flex items-center gap-1 px-2 py-1 rounded-lg bg-surface-container-high/80 text-primary"><span class="material-symbols-outlined text-[16px]">diamond</span><span class="font-label-sm text-label-sm font-bold">350</span><button class="w-4 h-4 flex items-center justify-center rounded-sm bg-primary/20 text-primary ml-0.5"><span class="material-symbols-outlined text-[12px]">add</span></button></div></div><div class="flex items-center gap-space-xs"><button class="w-11 h-11 flex items-center justify-center relative rounded-lg text-on-surface-variant hover:text-on-surface active:scale-95 transition-transform"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-primary ring-2 ring-surface-container-lowest"></span></button><a class="relative flex items-center justify-center rounded-full p-0.5" data-path="profile" href="#"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-1 ring-primary/40" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0L1YB873bn_OHn8r-baH85AXVjtHgXK6SIZE4WtoFizS6Zp89EZ-biIMMOtVV5xgNsJfIIg_J6n7QaK45qpi8sXC2HkPB2pOk7KROuaa5Ml-P3LzBPyihTAX-wgHMFZb4aaaihMIq1chhMT7DNC0zDn8o3Fj0DGahAP0O1q7We48_Y55SixhQyZTfKzBhc4JohXeZyGBki2EviLtjFhJ6xc5Q26nmcW2dalXoHFDUojq3BGRwUsbwfw"/><span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-primary rounded-full ring-2 ring-surface-container-lowest"></span></a></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-24 bg-surface"><div class="flex flex-col w-full pb-8">
+<!-- USER IDENTITY HERO BANNER -->
+<section class="relative w-full overflow-hidden bg-surface-container-lowest">
+<!-- Cyber Geometric Mesh Canvas Banner -->
+<div class="relative w-full h-36 overflow-hidden">
+<div class="w-full h-full bg-cover bg-center opacity-60" data-alt="Futuristic cyberpunk esports arena tournament background with glowing geometric laser mesh, electric cyan grids, ultraviolet atmospheric haze, holographic banners, razor sharp sci-fi architecture, cinematic lighting, 8k render." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDy-6G5txPiDI8byAwsm8P5vUoRW-f4QNWxlulBcVC2Hf6DFPLDkbUqDFRA2C3d-duScJ4w3tNe-PHTV1vlRyKB3y_dYohD3JN0qKF1DwiSUraxq5lpr2HyeVIk_Gy-ls_yCA7uv53_sbZvumBdLw_cuJFGmWYSwgnamrTeTGEYx14FGi7G8RN73H-_k8H4ReuedvY1gV5W6bT8uuTr3cT5B7GiGRu9Thj8VopbCwktBceQJvEynr7K-Q')">
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/40 to-transparent"></div>
+<!-- Top Action Controls -->
+<div class="absolute top-3 right-3 flex items-center gap-space-xs z-10">
+<button class="w-9 h-9 rounded-xl bg-surface-container-high/80 backdrop-blur-md text-on-surface flex items-center justify-center active:scale-95 transition-transform shadow-md" id="shareBtn">
+<span class="material-symbols-outlined text-[18px]">share</span>
+</button>
+<button class="w-9 h-9 rounded-xl bg-surface-container-high/80 backdrop-blur-md text-on-surface flex items-center justify-center active:scale-95 transition-transform shadow-md">
+<span class="material-symbols-outlined text-[18px]">settings</span>
+</button>
+</div>
+</div>
+<!-- Identity Plate (Overlapping Banner) -->
+<div class="px-margin relative -mt-12 flex flex-col gap-space-md z-10">
+<div class="flex items-end justify-between">
+<!-- Avatar with Prestige Framing -->
+<div class="relative">
+<div class="w-24 h-24 rounded-2xl p-1 bg-gradient-to-br from-primary via-secondary to-primary-container shadow-[0_0_24px_-4px_rgba(76,215,246,0.6)]">
+<div class="w-full h-full rounded-[14px] overflow-hidden bg-surface-container-lowest">
+<img class="w-full h-full object-cover" data-alt="Futuristic cybernetic avatar portrait of an elite competitive esports gamer wearing sleek augmented reality cyber visor with luminous cyan glow, obsidian tech hoodie, neon violet ambient reflections, cinematic high definition digital render." src="https://lh3.googleusercontent.com/aida-public/AB6AXuByzcJ1pY-ZfjMN8Y9knb0UvMSfz4E9LKh-WBk4Dxv23QGQdb0iGQHDEuCivomQF-fR2sUFX7F8eHo9Lrig2Qaeb44uI5yr15Czxg36_o2w9APXnhL0lX84yT5PgKPjXlQTdlDLHw1T9VjYTW7v2i5MCN3-Cg5ckdHSRk3zMUDzgZMJe62wUaXHjo167qSCC0CMieO-E0iozNYKTJPi08LkyXRp-V7o0pncLezVbBddXeVKL2VDXu34_A"/>
+</div>
+</div>
+<!-- Level Tech Badge -->
+<div class="absolute -bottom-2 -right-2 px-2 py-0.5 rounded-lg bg-surface-container-lowest text-primary shadow-[0_2px_8px_rgba(0,0,0,0.8)] flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px] text-primary">bolt</span>
+<span class="font-label-sm text-label-sm font-bold tracking-wider">LVL 42</span>
+</div>
+</div>
+<!-- Edit Profile Trigger -->
+<button class="px-3.5 py-1.5 rounded-xl bg-surface-container-high text-on-surface flex items-center gap-1.5 active:scale-95 transition-transform shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-primary">edit</span>
+<span class="font-label-sm text-label-sm">Edit Profile</span>
+</button>
+</div>
+<!-- Gamer Tags & Status Details -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2 flex-wrap">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-extrabold tracking-tight">
+            Vortex_Gamer99
+          </h1>
+<span class="px-2 py-0.5 rounded bg-secondary-container/60 text-secondary font-label-sm text-label-sm font-bold tracking-wide">
+            [NEON_ELITE]
+          </span>
+</div>
+<div class="flex items-center gap-3">
+<!-- VIP Tier Pill -->
+<div class="flex items-center gap-1 px-2.5 py-0.5 rounded-lg bg-surface-container-highest text-primary">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+<span class="font-label-sm text-label-sm font-bold tracking-wider uppercase">Platinum VIP</span>
+</div>
+<div class="flex items-center gap-1.5 text-on-surface-variant font-body-sm text-body-sm">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span>Online • Competing</span>
+</div>
+</div>
+</div>
+</div>
+<div class="h-4"></div>
+</section>
+<!-- MAIN SCROLLABLE CONTENT -->
+<div class="flex flex-col gap-space-lg px-margin mt-space-md">
+<!-- ECONOMY & CURRENCY SUMMARY -->
+<section class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant font-bold">Loot Vault</span>
+<span class="font-label-sm text-label-sm text-primary flex items-center gap-0.5">Verified Balance</span>
+</div>
+<div class="grid grid-cols-1 gap-2.5">
+<!-- Loot Coins & Gems Split Card -->
+<div class="grid grid-cols-2 gap-2.5">
+<!-- Loot Coins Card -->
+<div class="relative overflow-hidden rounded-xl bg-surface-container-low p-3.5 flex flex-col justify-between shadow-md">
+<div class="flex items-center justify-between mb-2">
+<div class="w-8 h-8 rounded-lg bg-tertiary/15 text-tertiary flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">monetization_on</span>
+</div>
+<span class="font-label-sm text-label-sm text-tertiary uppercase font-bold tracking-wider">Coins</span>
+</div>
+<div>
+<p class="font-headline-md text-headline-md text-on-surface font-black tracking-tight">24,500</p>
+<button class="mt-1 inline-flex items-center gap-1 font-label-sm text-label-sm text-tertiary hover:underline">
+<span>Redeem Rewards</span>
+<span class="material-symbols-outlined text-[12px]">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Gems Card -->
+<div class="relative overflow-hidden rounded-xl bg-surface-container-low p-3.5 flex flex-col justify-between shadow-md">
+<div class="flex items-center justify-between mb-2">
+<div class="w-8 h-8 rounded-lg bg-primary/15 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">diamond</span>
+</div>
+<button class="w-6 h-6 rounded-lg bg-primary text-on-primary flex items-center justify-center active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[14px]">add</span>
+</button>
+</div>
+<div>
+<p class="font-headline-md text-headline-md text-on-surface font-black tracking-tight">350</p>
+<p class="mt-1 font-label-sm text-label-sm text-primary font-medium">Premium Store</p>
+</div>
+</div>
+</div>
+<!-- Total Earnings Value Banner -->
+<div class="rounded-xl bg-gradient-to-r from-surface-container via-surface-container-high to-surface-container p-3.5 flex items-center justify-between shadow-md">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-secondary-container text-on-secondary-container flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[22px]">payments</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Career Cash Prize Pool</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight">$1,280.00 <span class="font-label-sm text-label-sm text-primary font-normal">USD</span></span>
+</div>
+</div>
+<span class="px-2.5 py-1 rounded-lg bg-surface-container-lowest text-tertiary font-label-sm text-label-sm font-bold tracking-wider">PAID OUT</span>
+</div>
+</div>
+</section>
+<!-- CAREER BATTLE STATS (2x2 GRID) -->
+<section class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant font-bold">Battle Telemetry</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Season 9</span>
+</div>
+<div class="grid grid-cols-2 gap-2.5">
+<!-- Win Rate -->
+<div class="rounded-xl bg-surface-container-low p-3.5 flex flex-col justify-between shadow-md relative overflow-hidden">
+<div class="flex items-center justify-between">
+<div class="w-7 h-7 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]">pie_chart</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-bold">420 Matches</span>
+</div>
+<div class="mt-3">
+<p class="font-headline-md text-headline-md text-on-surface font-extrabold tracking-tight">68.4%</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Career Win Rate</p>
+</div>
+<!-- Mini SVG Sparkline -->
+<div class="w-full h-1 bg-surface-container-highest rounded-full mt-2 overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 68.4%;"></div>
+</div>
+</div>
+<!-- Games Played -->
+<div class="rounded-xl bg-surface-container-low p-3.5 flex flex-col justify-between shadow-md relative overflow-hidden">
+<div class="flex items-center justify-between">
+<div class="w-7 h-7 rounded-lg bg-secondary/15 text-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]">sports_esports</span>
+</div>
+<span class="font-label-sm text-label-sm text-secondary font-bold">Total Runs</span>
+</div>
+<div class="mt-3">
+<p class="font-headline-md text-headline-md text-on-surface font-extrabold tracking-tight">1,248</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Games Completed</p>
+</div>
+<div class="w-full h-1 bg-surface-container-highest rounded-full mt-2 overflow-hidden">
+<div class="h-full bg-secondary rounded-full" style="width: 92%;"></div>
+</div>
+</div>
+<!-- Tournament Trophies -->
+<div class="rounded-xl bg-surface-container-low p-3.5 flex flex-col justify-between shadow-md relative overflow-hidden">
+<div class="flex items-center justify-between">
+<div class="w-7 h-7 rounded-lg bg-tertiary/15 text-tertiary flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">emoji_events</span>
+</div>
+<span class="font-label-sm text-label-sm text-tertiary font-bold">Elite Tier</span>
+</div>
+<div class="mt-3">
+<p class="font-headline-md text-headline-md text-on-surface font-extrabold tracking-tight">18</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Gold Cups Won</p>
+</div>
+<div class="w-full h-1 bg-surface-container-highest rounded-full mt-2 overflow-hidden">
+<div class="h-full bg-tertiary rounded-full" style="width: 75%;"></div>
+</div>
+</div>
+<!-- Global Rank -->
+<div class="rounded-xl bg-surface-container-low p-3.5 flex flex-col justify-between shadow-md relative overflow-hidden">
+<div class="flex items-center justify-between">
+<div class="w-7 h-7 rounded-lg bg-primary-container/20 text-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]">military_tech</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-bold">Top 0.5%</span>
+</div>
+<div class="mt-3">
+<p class="font-headline-md text-headline-md text-on-surface font-extrabold tracking-tight">#142</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Global Leaderboard</p>
+</div>
+<div class="w-full h-1 bg-surface-container-highest rounded-full mt-2 overflow-hidden">
+<div class="h-full bg-primary-container rounded-full" style="width: 98%;"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- BADGES & ACHIEVEMENTS SHOWCASE (HORIZONTAL CAROUSEL) -->
+<section class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant font-bold">Prestige Badges</span>
+<span class="px-1.5 py-0.2 rounded bg-surface-container-high text-primary font-label-sm text-label-sm font-semibold">24/30</span>
+</div>
+<button class="font-label-sm text-label-sm text-primary font-semibold hover:underline">View All</button>
+</div>
+<div class="flex gap-3 overflow-x-auto pb-2 -mx-margin px-margin scrollbar-none">
+<!-- Badge 1 -->
+<div class="flex-shrink-0 w-28 rounded-xl bg-surface-container-low p-3 flex flex-col items-center text-center shadow-md relative">
+<div class="w-12 h-12 rounded-xl bg-error/15 text-error flex items-center justify-center mb-2 shadow-sm">
+<span class="material-symbols-outlined text-[24px]">colorize</span>
+</div>
+<span class="font-label-sm text-label-sm font-bold text-on-surface truncate w-full">First Blood</span>
+<span class="font-body-sm text-[10px] text-on-surface-variant mt-0.5">100 Instakills</span>
+<span class="mt-2 text-[9px] font-bold px-1.5 py-0.5 rounded bg-surface-container-highest text-error uppercase">Unlocked</span>
+</div>
+<!-- Badge 2 -->
+<div class="flex-shrink-0 w-28 rounded-xl bg-surface-container-low p-3 flex flex-col items-center text-center shadow-md relative">
+<div class="w-12 h-12 rounded-xl bg-tertiary/15 text-tertiary flex items-center justify-center mb-2 shadow-sm">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<span class="font-label-sm text-label-sm font-bold text-on-surface truncate w-full">Century Win</span>
+<span class="font-body-sm text-[10px] text-on-surface-variant mt-0.5">100 Victories</span>
+<span class="mt-2 text-[9px] font-bold px-1.5 py-0.5 rounded bg-surface-container-highest text-tertiary uppercase">Unlocked</span>
+</div>
+<!-- Badge 3 -->
+<div class="flex-shrink-0 w-28 rounded-xl bg-surface-container-low p-3 flex flex-col items-center text-center shadow-md relative">
+<div class="w-12 h-12 rounded-xl bg-primary/15 text-primary flex items-center justify-center mb-2 shadow-sm">
+<span class="material-symbols-outlined text-[24px]">speed</span>
+</div>
+<span class="font-label-sm text-label-sm font-bold text-on-surface truncate w-full">Speed Demon</span>
+<span class="font-body-sm text-[10px] text-on-surface-variant mt-0.5">&lt;60s Clear</span>
+<span class="mt-2 text-[9px] font-bold px-1.5 py-0.5 rounded bg-surface-container-highest text-primary uppercase">Unlocked</span>
+</div>
+<!-- Badge 4 -->
+<div class="flex-shrink-0 w-28 rounded-xl bg-surface-container-low p-3 flex flex-col items-center text-center shadow-md relative">
+<div class="w-12 h-12 rounded-xl bg-secondary/15 text-secondary flex items-center justify-center mb-2 shadow-sm">
+<span class="material-symbols-outlined text-[24px]">inventory_2</span>
+</div>
+<span class="font-label-sm text-label-sm font-bold text-on-surface truncate w-full">Loot Hoarder</span>
+<span class="font-body-sm text-[10px] text-on-surface-variant mt-0.5">50k Coins Hit</span>
+<span class="mt-2 text-[9px] font-bold px-1.5 py-0.5 rounded bg-surface-container-highest text-secondary uppercase">Unlocked</span>
+</div>
+<!-- Badge 5 -->
+<div class="flex-shrink-0 w-28 rounded-xl bg-surface-container-low p-3 flex flex-col items-center text-center shadow-md relative">
+<div class="w-12 h-12 rounded-xl bg-tertiary-container/30 text-tertiary flex items-center justify-center mb-2 shadow-sm">
+<span class="material-symbols-outlined text-[24px]">military_tech</span>
+</div>
+<span class="font-label-sm text-label-sm font-bold text-on-surface truncate w-full">Tourney Champ</span>
+<span class="font-body-sm text-[10px] text-on-surface-variant mt-0.5">Grand Finals #1</span>
+<span class="mt-2 text-[9px] font-bold px-1.5 py-0.5 rounded bg-surface-container-highest text-tertiary uppercase">Unlocked</span>
+</div>
+</div>
+</section>
+<!-- FAVORITE & MOST PLAYED GAMES -->
+<section class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant font-bold">Game Masteries</span>
+<span class="font-label-sm text-label-sm text-primary">2 Active Titles</span>
+</div>
+<div class="flex flex-col gap-2.5">
+<!-- Game 1: Neon Cyberblade -->
+<div class="rounded-xl bg-surface-container-low p-3.5 flex flex-col gap-3 shadow-md">
+<div class="flex items-center gap-3">
+<div class="w-14 h-14 rounded-xl overflow-hidden flex-shrink-0 bg-surface-container-highest">
+<img class="w-full h-full object-cover" data-alt="Intense high-energy neon cyberpunk action game thumbnail featuring glowing katana blades, synthetic android ninja in deep midnight rain, electric cyan laser trails, futuristic arcade aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuArjhGzc0tA2c5CeYijYyKQYCihrsMmD7KWymOi_e0hHPuGLsyNWhpgwiHY8vyyCho2iQ37_iqkM-4AT6mLw_U3_5SMoQQfwAFD1Uj822iikes3rkgUtHJkuT9fIwrlVRJMdltWQpyBG5wEq7MljGEl_O_RW5lU7qEUYqbhkN7RLDiVWHI6zzcYVq_uR-iX9UIq7RNH0re7exUeNQnsNQtNY6HRGbXk5XIywKys9wKXtey0zrLsoi-WjQ"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-bold truncate">Neon Cyberblade</h2>
+<span class="px-2 py-0.5 rounded bg-tertiary/15 text-tertiary font-label-sm text-label-sm font-bold">Master III</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">742 Hours Logged • 312 Matches Won</p>
+</div>
+</div>
+<!-- XP Bar -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between font-label-sm text-label-sm">
+<span class="text-on-surface-variant">Mastery Progression</span>
+<span class="text-primary font-bold">89% XP (8,900 / 10,000)</span>
+</div>
+<div class="w-full h-2 rounded-full bg-surface-container-highest overflow-hidden">
+<div class="h-full rounded-full bg-gradient-to-r from-primary-container to-primary" style="width: 89%;"></div>
+</div>
+</div>
+</div>
+<!-- Game 2: Apex Drift 2088 -->
+<div class="rounded-xl bg-surface-container-low p-3.5 flex flex-col gap-3 shadow-md">
+<div class="flex items-center gap-3">
+<div class="w-14 h-14 rounded-xl overflow-hidden flex-shrink-0 bg-surface-container-highest">
+<img class="w-full h-full object-cover" data-alt="Futuristic anti-gravity neon racing hovercar drifting through a nocturnal megacity skyway with purple neon lights, supersonic motion blur, ultra high speed cyber racing competition." src="https://lh3.googleusercontent.com/aida-public/AB6AXuARC9NQhYFiFZVHY9ukorltn2YmEtzQYjPadWx6Kc06cz5_-GlMU1lAxKuHZEI8R8s40vI9YxOroGzXhKAX5UfcVMtgovi_8nnyUjf_ugVcTItIaTGTXMq3X69F9K7BXYnXzYOtpphHX7M0Fpym2PveVpKZpRoLFlD1kY-aS7NjpOhhIalUhp8JzKuTYDKBQc_YzjBkFUwTX77XFfvO4qkIdZINDV031jcSTSe66YmAwHNT5MnMECGqlw"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-bold truncate">Apex Drift 2088</h2>
+<span class="px-2 py-0.5 rounded bg-secondary-container/60 text-secondary font-label-sm text-label-sm font-bold">Diamond II</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">380 Hours Logged • 108 Podiums</p>
+</div>
+</div>
+<!-- XP Bar -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between font-label-sm text-label-sm">
+<span class="text-on-surface-variant">Mastery Progression</span>
+<span class="text-secondary font-bold">54% XP (5,400 / 10,000)</span>
+</div>
+<div class="w-full h-2 rounded-full bg-surface-container-highest overflow-hidden">
+<div class="h-full rounded-full bg-gradient-to-r from-secondary-container to-secondary" style="width: 54%;"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- RECENT MATCH HISTORY -->
+<section class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant font-bold">Recent Engagements</span>
+<button class="font-label-sm text-label-sm text-primary font-semibold hover:underline">Full Log</button>
+</div>
+<div class="flex flex-col gap-2">
+<!-- Match 1: VICTORY -->
+<div class="rounded-xl bg-surface-container-low p-3 flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-3">
+<!-- Outcome Emblem -->
+<div class="w-10 h-10 rounded-xl bg-primary/15 text-primary flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[20px]">shield</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm text-primary font-bold uppercase">VICTORY</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">• Ranked</span>
+</div>
+<span class="font-headline-sm text-[14px] text-on-surface font-semibold truncate">Neon Cyberblade</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant">14 mins ago</span>
+</div>
+</div>
+<!-- Coins Gained Pill -->
+<div class="flex flex-col items-end gap-0.5">
+<span class="px-2 py-1 rounded-lg bg-surface-container-highest text-tertiary font-label-sm text-label-sm font-bold flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">monetization_on</span>
+              +450
+            </span>
+<span class="font-label-sm text-[10px] text-primary">+85 XP</span>
+</div>
+</div>
+<!-- Match 2: VICTORY -->
+<div class="rounded-xl bg-surface-container-low p-3 flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary/15 text-primary flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[20px]">military_tech</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm text-primary font-bold uppercase">VICTORY</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">• Tournament</span>
+</div>
+<span class="font-headline-sm text-[14px] text-on-surface font-semibold truncate">Apex Drift 2088</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant">2 hours ago</span>
+</div>
+</div>
+<div class="flex flex-col items-end gap-0.5">
+<span class="px-2 py-1 rounded-lg bg-surface-container-highest text-tertiary font-label-sm text-label-sm font-bold flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">monetization_on</span>
+              +1,200
+            </span>
+<span class="font-label-sm text-[10px] text-primary">+250 XP</span>
+</div>
+</div>
+<!-- Match 3: DEFEAT -->
+<div class="rounded-xl bg-surface-container-low p-3 flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-error/15 text-error flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm text-error font-bold uppercase">DEFEAT</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">• 1v1 Arena</span>
+</div>
+<span class="font-headline-sm text-[14px] text-on-surface font-semibold truncate">Neon Cyberblade</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant">5 hours ago</span>
+</div>
+</div>
+<div class="flex flex-col items-end gap-0.5">
+<span class="px-2 py-1 rounded-lg bg-surface-container-highest text-on-surface-variant font-label-sm text-label-sm font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">monetization_on</span>
+              +25
+            </span>
+<span class="font-label-sm text-[10px] text-on-surface-variant">+15 XP</span>
+</div>
+</div>
+</div>
+</section>
+<!-- FOOTER PLAYMAKER PASSPORT CARD -->
+<div class="rounded-2xl bg-gradient-to-br from-surface-container to-surface-container-high p-4 flex items-center justify-between shadow-lg">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[24px]">qr_code_2</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface font-bold">Gamer ID Passport</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant">UID: #9928-VX-PLAYLOOT</span>
+</div>
+</div>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-lowest text-primary font-label-sm text-label-sm font-bold active:scale-95 transition-transform flex items-center gap-1" id="copyIdBtn">
+<span class="material-symbols-outlined text-[14px]">content_copy</span>
+<span>Copy</span>
+</button>
+</div>
+</div>
+</div>
+<script>
+  // Simple micro-interactions for gamer delight
+  const shareBtn = document.getElementById('shareBtn');
+  if (shareBtn) {
+    shareBtn.addEventListener('click', () => {
+      const orig = shareBtn.innerHTML;
+      shareBtn.innerHTML = '<span class="material-symbols-outlined text-[18px] text-primary">done</span>';
+      setTimeout(() => {
+        shareBtn.innerHTML = orig;
+      }, 1500);
+    });
+  }
+
+  const copyIdBtn = document.getElementById('copyIdBtn');
+  if (copyIdBtn) {
+    copyIdBtn.addEventListener('click', () => {
+      const textSpan = copyIdBtn.querySelector('span:last-child');
+      if (textSpan) {
+        const originalText = textSpan.textContent;
+        textSpan.textContent = 'Copied!';
+        setTimeout(() => {
+          textSpan.textContent = originalText;
+        }, 1500);
+      }
+    });
+  }
+</script></main><nav class="fixed bottom-0 inset-x-0 z-50 pb-safe bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_-8px_32px_rgba(0,0,0,0.7)]" data-active-classes="text-primary font-bold drop-shadow-[0_0_12px_rgba(76,215,246,0.6)]"><div class="flex justify-around items-center h-20 px-margin"><a class="flex flex-col items-center justify-center gap-1 w-16 h-14 text-on-surface-variant transition-all" data-path="home" href="#"><span class="material-symbols-outlined text-[24px]">sports_esports</span><span class="font-label-sm text-label-sm">Arcade</span></a><a class="flex flex-col items-center justify-center gap-1 w-16 h-14 text-on-surface-variant transition-all" data-path="leaderboard" href="#"><span class="material-symbols-outlined text-[24px]">leaderboard</span><span class="font-label-sm text-label-sm">Ranks</span></a><a class="flex flex-col items-center justify-center gap-1 w-16 h-14 text-on-surface-variant transition-all" data-path="rewards" href="#"><span class="material-symbols-outlined text-[24px]">featured_seasonal_and_gifts</span><span class="font-label-sm text-label-sm">Loot</span></a><a aria-current="page" class="flex flex-col items-center justify-center gap-1 w-16 h-14 transition-all text-primary font-bold drop-shadow-[0_0_12px_rgba(76,215,246,0.6)]" data-path="profile" href="#"><span class="material-symbols-outlined text-[24px]">badge</span><span class="font-label-sm text-label-sm">Profile</span></a></div></nav></body></html>

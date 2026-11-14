@@ -1,0 +1,8 @@
+{
+  "projectId": "playloot-push-20261024",
+  "projectNumber": "780956025568",
+  "androidPackage": "com.grosats.Growgames",
+  "sender": "playloot-push@playloot-push-20261024.iam.gserviceaccount.com",
+  "credentialLocation": "Cloudflare Worker secret FCM_SERVICE_ACCOUNT",
+  "validated": true
+}

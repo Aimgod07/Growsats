@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;family=Sora:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "surface-variant": "#323440", "on-tertiary": "#472a00", "on-secondary-fixed": "#25005a", "on-secondary-container": "#c9aeff", "surface-container-lowest": "#0c0e18", "surface": "#11131d", "surface-tint": "#4cd7f6", "secondary-container": "#6001d1", "primary": "#4cd7f6", "surface-container-low": "#191b26", "on-surface-variant": "#bcc9cd", "inverse-on-surface": "#2e303b", "primary-container": "#06b6d4", "on-error-container": "#ffdad6", "on-primary": "#003640", "outline": "#869397", "on-surface": "#e1e1f0", "surface-container": "#1d1f2a", "surface-dim": "#11131d", "surface-container-highest": "#323440", "on-primary-container": "#00424f", "secondary-fixed": "#eaddff", "tertiary-fixed-dim": "#ffb95f", "surface-container-high": "#282934", "secondary": "#d2bbff", "error": "#ffb4ab", "secondary-fixed-dim": "#d2bbff", "inverse-primary": "#00687a", "on-secondary-fixed-variant": "#5a00c6", "error-container": "#93000a", "tertiary": "#ffb95f", "primary-fixed-dim": "#4cd7f6", "on-tertiary-container": "#563400", "tertiary-container": "#e79400", "outline-variant": "#3d494c", "primary-fixed": "#acedff", "on-tertiary-fixed-variant": "#653e00", "on-secondary": "#3f008e", "tertiary-fixed": "#ffddb8", "inverse-surface": "#e1e1f0", "on-primary-fixed-variant": "#004e5c", "on-tertiary-fixed": "#2a1700", "on-background": "#e1e1f0", "background": "#11131d", "on-primary-fixed": "#001f26", "on-error": "#690005", "surface-bright": "#373844" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-xs": "0.25rem", "space-xl": "2rem", "space-md": "1rem", "margin-tablet": "2rem", "space-sm": "0.5rem", "margin-desktop": "3rem", "gutter-desktop": "2rem", "space-lg": "1.5rem", "gutter": "1rem", "space-2xl": "3rem", "gutter-tablet": "1.5rem", "margin": "1rem" }, fontFamily: { "label-md": ["Sora"], "body-lg": ["Manrope"], "display": ["Sora"], "body-sm": ["Manrope"], "headline-lg-mobile": ["Sora"], "headline-sm": ["Sora"], "headline-md": ["Sora"], "headline-lg": ["Sora"], "body-md": ["Manrope"], "display-mobile": ["Sora"], "label-lg": ["Sora"], "label-sm": ["Sora"] }, fontSize: { "label-md": ["0.75rem", { lineHeight: "1.25", letterSpacing: "0.06em", fontWeight: "600" }], "body-lg": ["1.125rem", { lineHeight: "1.6", letterSpacing: "0em", fontWeight: "400" }], "display": ["3.5rem", { lineHeight: "1.1", letterSpacing: "-0.03em", fontWeight: "800" }], "body-sm": ["0.8125rem", { lineHeight: "1.4", letterSpacing: "0.01em", fontWeight: "500" }], "headline-lg-mobile": ["1.75rem", { lineHeight: "1.25", letterSpacing: "-0.01em", fontWeight: "700" }], "headline-sm": ["1.125rem", { lineHeight: "1.4", letterSpacing: "0em", fontWeight: "600" }], "headline-md": ["1.5rem", { lineHeight: "1.3", letterSpacing: "-0.01em", fontWeight: "600" }], "headline-lg": ["2.25rem", { lineHeight: "1.2", letterSpacing: "-0.02em", fontWeight: "700" }], "body-md": ["0.9375rem", { lineHeight: "1.5", letterSpacing: "0.01em", fontWeight: "400" }], "display-mobile": ["2.5rem", { lineHeight: "1.15", letterSpacing: "-0.02em", fontWeight: "800" }], "label-lg": ["0.875rem", { lineHeight: "1.3", letterSpacing: "0.04em", fontWeight: "600" }], "label-sm": ["0.6875rem", { lineHeight: "1.2", letterSpacing: "0.08em", fontWeight: "700" }] } } } };</script></head><body class="bg-surface font-body-md text-on-surface min-h-screen flex flex-col selection:bg-primary selection:text-on-primary"><header class="fixed top-0 inset-x-0 z-50 pt-safe bg-surface-container-lowest/85 backdrop-blur-xl shadow-[0_4px_24px_rgba(0,0,0,0.6)]"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-xs"><button class="w-11 h-11 flex items-center justify-center rounded-lg text-on-surface hover:text-primary active:scale-95 transition-transform" onclick="history.back()"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><img alt="Playloot Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VGbvy7DsiZF7uHAzig_K2SMgMDcZSwxPqMEGSNQXgQsVhGnyMas-LvVKlyYDjlUr3UCzR-fCZr2Q0Z167p3jHBOcDq_YsfZiz-UM8NJxCqkH5gzS2O-rdbfiQmNwaRiWtAXuA2jYZhZ85-oaPHKjYmSHSpg_HaoaTVcDoOzPvOV4knTQ7-xhjXT0gWCzkKNB2R0u2qcQatL-avsopOS3BLg3rPpP1_RbGNpPf5jZS4vGiT80c0nhyPBQr8"/><h1 class="font-headline-sm text-headline-sm tracking-tight text-on-surface truncate">Avatar Customizer</h1></div><div class="flex items-center gap-space-xs"><div class="flex items-center gap-1 px-2 py-1 rounded-lg bg-surface-container-high/80 text-primary"><span class="font-label-sm text-label-sm font-bold text-primary">$</span><span class="font-label-sm text-label-sm font-bold">128.50</span></div><a class="relative flex items-center justify-center rounded-full p-0.5" data-path="gamer-profile" href="#"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-1 ring-primary/40" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0L1YB873bn_OHn8r-baH85AXVjtHgXK6SIZE4WtoFizS6Zp89EZ-biIMMOtVV5xgNsJfIIg_J6n7QaK45qpi8sXC2HkPB2pOk7KROuaa5Ml-P3LzBPyihTAX-wgHMFZb4aaaihMIq1chhMT7DNC0zDn8o3Fj0DGahAP0O1q7We48_Y55SixhQyZTfKzBhc4JohXeZyGBki2EviLtjFhJ6xc5Q26nmcW2dalXoHFDUojq3BGRwUsbwfw"/></a></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-safe bg-surface"><div class="flex flex-col w-full text-on-surface">
+<div class="w-full px-margin py-space-sm flex flex-col gap-space-lg">
+<!-- Header Control & Switch Mode Toggle -->
+<div class="w-full flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary">Operative Spec</span>
+<h2 class="font-headline-md text-headline-md tracking-tight text-on-surface">Avatar &amp; Loadout</h2>
+</div>
+<!-- Mode View Toggle (3D Model / 2D Hologram) -->
+<div class="p-1 rounded-xl bg-surface-container-lowest flex items-center shadow-inner">
+<button class="px-3 py-1.5 rounded-lg font-label-sm text-label-sm transition-all duration-200 bg-surface-container-high text-primary shadow-sm flex items-center gap-1.5" id="btn-view-3d" onclick="switchView('3d')">
+<span class="material-symbols-outlined text-[16px]">view_in_ar</span>
+<span>3D</span>
+</button>
+<button class="px-3 py-1.5 rounded-lg font-label-sm text-label-sm transition-all duration-200 text-on-surface-variant hover:text-on-surface flex items-center gap-1.5" id="btn-view-holo" onclick="switchView('holo')">
+<span class="material-symbols-outlined text-[16px]">blur_on</span>
+<span>Holo</span>
+</button>
+</div>
+</div>
+<!-- Large Avatar Showcase Stage -->
+<div class="relative w-full rounded-2xl bg-surface-container-lowest overflow-hidden shadow-2xl flex flex-col items-center">
+<!-- Cyber Ambient Laser Scrims -->
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-transparent to-primary/10 pointer-events-none z-10"></div>
+<div class="absolute -top-16 -right-16 w-52 h-52 rounded-full bg-secondary-container/25 blur-3xl pointer-events-none"></div>
+<div class="absolute -bottom-10 -left-10 w-48 h-48 rounded-full bg-primary/20 blur-2xl pointer-events-none"></div>
+<!-- Top Overlay Badges -->
+<div class="absolute top-3 inset-x-3 z-20 flex items-center justify-between">
+<div class="px-2.5 py-1 rounded-lg bg-surface-container-high/90 backdrop-blur-md flex items-center gap-1.5 shadow-md">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="font-label-sm text-label-sm text-primary">Equipped · Mythic Sentinel</span>
+</div>
+<div class="px-2.5 py-1 rounded-lg bg-surface-container-high/90 backdrop-blur-md flex items-center gap-1 shadow-md">
+<span class="font-label-sm text-label-sm text-tertiary">LVL</span>
+<span class="font-headline-sm text-headline-sm text-on-surface leading-none">24</span>
+</div>
+</div>
+<!-- Hero Character Canvas Showcase -->
+<div class="relative w-full aspect-square max-h-[360px] flex items-center justify-center overflow-hidden">
+<img alt="Cyber Valkyrie Operative" class="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105 select-none" id="avatar-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0L1YB873bn_OHn8r-baH85AXVjtHgXK6SIZE4WtoFizS6Zp89EZ-biIMMOtVV5xgNsJfIIg_J6n7QaK45qpi8sXC2HkPB2pOk7KROuaa5Ml-P3LzBPyihTAX-wgHMFZb4aaaihMIq1chhMT7DNC0zDn8o3Fj0DGahAP0O1q7We48_Y55SixhQyZTfKzBhc4JohXeZyGBki2EviLtjFhJ6xc5Q26nmcW2dalXoHFDUojq3BGRwUsbwfw"/>
+<!-- Holo Scanline HUD Effect (Toggled via JS) -->
+<div class="hidden absolute inset-0 bg-[linear-gradient(rgba(76,215,246,0.06)_1px,transparent_1px)] bg-[size:100%_4px] pointer-events-none" id="holo-fx"></div>
+</div>
+<!-- Stage Bottom Pedestal Lighting & Name Plate -->
+<div class="w-full z-20 px-space-md pb-space-md pt-2 flex items-center justify-between bg-surface-container-low/95 backdrop-blur-xl">
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">Cyber Valkyrie</span>
+<span class="material-symbols-outlined text-primary text-[18px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Class: Vanguard Infiltrator • Series 04</span>
+</div>
+<!-- Cosmetic Rarity Rating -->
+<div class="flex flex-col items-end">
+<div class="flex items-center text-tertiary text-[14px]">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star_half</span>
+</div>
+<span class="font-label-sm text-label-sm text-tertiary">TIER 5 COSMETIC</span>
+</div>
+</div>
+</div>
+<!-- Quick Action Dual Pills (Wireframe Match) -->
+<div class="grid grid-cols-2 gap-space-sm w-full">
+<button class="w-full py-2.5 px-3 rounded-xl bg-surface-container hover:bg-surface-container-high active:scale-95 transition-all duration-150 flex items-center justify-center gap-2 shadow-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">swap_horiz</span>
+<span class="font-label-md text-label-md text-on-surface">Switch Avatar</span>
+</button>
+<button class="w-full py-2.5 px-3 rounded-xl bg-surface-container hover:bg-surface-container-high active:scale-95 transition-all duration-150 flex items-center justify-center gap-2 shadow-sm">
+<span class="material-symbols-outlined text-secondary text-[20px]">styler</span>
+<span class="font-label-md text-label-md text-on-surface">Unlock Skins <span class="text-secondary">(14/32)</span></span>
+</button>
+</div>
+<!-- Skills & Active Perks Section -->
+<div class="w-full flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[18px]">bolt</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Skills &amp; Modular Perks</h3>
+</div>
+<span class="font-label-sm text-label-sm text-primary">3 / 5 SLOTS ACTIVE</span>
+</div>
+<!-- 6 Node Circular Skill Carousel / Grid -->
+<div class="w-full grid grid-cols-6 gap-2">
+<!-- Node 1: Coin Surge (Active) -->
+<button class="group flex flex-col items-center gap-1.5 focus:outline-none" onclick="inspectSkill('Coin Surge', '+15% Gold Loot drop on match wins', 'Active Slot 1')">
+<div class="relative w-11 h-11 rounded-full bg-surface-container-high flex items-center justify-center shadow-lg transition-transform active:scale-90 group-hover:bg-surface-bright">
+<span class="material-symbols-outlined text-tertiary text-[20px]" style="font-variation-settings: 'FILL' 1;">monetization_on</span>
+<span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-primary flex items-center justify-center text-[8px] text-on-primary font-bold">✓</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface text-center truncate w-full">+15% Coin</span>
+</button>
+<!-- Node 2: Tourney XP (Active) -->
+<button class="group flex flex-col items-center gap-1.5 focus:outline-none" onclick="inspectSkill('Tourney XP', '+10% XP multiplier on all ranked events', 'Active Slot 2')">
+<div class="relative w-11 h-11 rounded-full bg-surface-container-high flex items-center justify-center shadow-lg transition-transform active:scale-90 group-hover:bg-surface-bright">
+<span class="material-symbols-outlined text-primary text-[20px]" style="font-variation-settings: 'FILL' 1;">military_tech</span>
+<span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-primary flex items-center justify-center text-[8px] text-on-primary font-bold">✓</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface text-center truncate w-full">+10% XP</span>
+</button>
+<!-- Node 3: Crit Multiplier (Active) -->
+<button class="group flex flex-col items-center gap-1.5 focus:outline-none" onclick="inspectSkill('Crit Overdrive', 'x1.5 Multiplier on hyper-speed combo chains', 'Active Slot 3')">
+<div class="relative w-11 h-11 rounded-full bg-surface-container-high flex items-center justify-center shadow-lg transition-transform active:scale-90 group-hover:bg-surface-bright">
+<span class="material-symbols-outlined text-secondary text-[20px]" style="font-variation-settings: 'FILL' 1;">offline_bolt</span>
+<span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-primary flex items-center justify-center text-[8px] text-on-primary font-bold">✓</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface text-center truncate w-full">Crit x1.5</span>
+</button>
+<!-- Node 4: Quick Reflex Boost (Unlocked) -->
+<button class="group flex flex-col items-center gap-1.5 focus:outline-none" onclick="inspectSkill('Reflex Trigger', 'Reduces ping latency compensation penalty by 18ms', 'Ready to Equip')">
+<div class="relative w-11 h-11 rounded-full bg-surface-container-low flex items-center justify-center shadow-md transition-transform active:scale-90 group-hover:bg-surface-container-high">
+<span class="material-symbols-outlined text-on-surface text-[20px]">speed</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant text-center truncate w-full">Reflex</span>
+</button>
+<!-- Node 5: Shield Overdrive (Unlocked) -->
+<button class="group flex flex-col items-center gap-1.5 focus:outline-none" onclick="inspectSkill('Shield Barrier', 'Grants 12% passive resistance in deathmatch rounds', 'Ready to Equip')">
+<div class="relative w-11 h-11 rounded-full bg-surface-container-low flex items-center justify-center shadow-md transition-transform active:scale-90 group-hover:bg-surface-container-high">
+<span class="material-symbols-outlined text-on-surface text-[20px]">shield</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant text-center truncate w-full">Shield</span>
+</button>
+<!-- Node 6: Locked Node (Lv 30) -->
+<button class="group flex flex-col items-center gap-1.5 focus:outline-none opacity-60" onclick="inspectSkill('Locked Perk', 'Unlocks permanently when reaching Master Rank (Level 30)', 'Locked')">
+<div class="relative w-11 h-11 rounded-full bg-surface-container-lowest flex items-center justify-center shadow-inner">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">lock</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant text-center truncate w-full">Lv 30</span>
+</button>
+</div>
+<!-- Skill Readout Feedback Banner -->
+<div class="w-full px-space-md py-2.5 rounded-xl bg-surface-container-low flex items-center justify-between" id="skill-detail-card">
+<div class="flex items-center gap-2 min-w-0">
+<div class="w-7 h-7 rounded-lg bg-surface-container-high flex items-center justify-center flex-shrink-0 text-primary">
+<span class="material-symbols-outlined text-[18px]" id="skill-icon">info</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface truncate" id="skill-title">Coin Surge (+15%)</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate" id="skill-desc">+15% Gold Loot drop on match wins</span>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded font-label-sm text-label-sm bg-primary/20 text-primary flex-shrink-0" id="skill-status">Active</span>
+</div>
+</div>
+<!-- Stats & Attribute Progression Module -->
+<div class="w-full flex flex-col gap-space-sm p-space-md rounded-2xl bg-surface-container-low shadow-lg">
+<div class="flex items-center justify-between mb-1">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-secondary text-[18px]">equalizer</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Combat &amp; Loot Attributes</h3>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">PWR 3,190</span>
+</div>
+<!-- Stat 1: Agility & Reaction Speed -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[16px]">sprint</span>
+<span class="font-label-md text-label-md text-on-surface">Agility &amp; Reaction Speed</span>
+</div>
+<div class="flex items-center gap-1 font-label-sm text-label-sm">
+<span class="text-on-surface font-bold">880</span>
+<span class="text-on-surface-variant">/ 1000</span>
+<span class="text-primary ml-1">(88%)</span>
+</div>
+</div>
+<div class="w-full h-2 rounded-full bg-surface-container-lowest overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary-container to-primary rounded-full transition-all duration-500 shadow-sm" style="width: 88%;"></div>
+</div>
+</div>
+<!-- Stat 2: Combat Precision -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-secondary text-[16px]">my_location</span>
+<span class="font-label-md text-label-md text-on-surface">Combat Precision</span>
+</div>
+<div class="flex items-center gap-1 font-label-sm text-label-sm">
+<span class="text-on-surface font-bold">920</span>
+<span class="text-on-surface-variant">/ 1000</span>
+<span class="text-secondary ml-1">(92%)</span>
+</div>
+</div>
+<div class="w-full h-2 rounded-full bg-surface-container-lowest overflow-hidden">
+<div class="h-full bg-gradient-to-r from-secondary-container to-secondary rounded-full transition-all duration-500 shadow-sm" style="width: 92%;"></div>
+</div>
+</div>
+<!-- Stat 3: Loot Multiplier -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-tertiary text-[16px]">stars</span>
+<span class="font-label-md text-label-md text-on-surface">Loot Multiplier</span>
+</div>
+<div class="flex items-center gap-1 font-label-sm text-label-sm">
+<span class="text-on-surface font-bold">740</span>
+<span class="text-on-surface-variant">/ 1000</span>
+<span class="text-tertiary ml-1">(74%)</span>
+</div>
+</div>
+<div class="w-full h-2 rounded-full bg-surface-container-lowest overflow-hidden">
+<div class="h-full bg-gradient-to-r from-tertiary-container to-tertiary rounded-full transition-all duration-500 shadow-sm" style="width: 74%;"></div>
+</div>
+</div>
+<!-- Stat 4: Endurance & Shielding -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[16px]">security</span>
+<span class="font-label-md text-label-md text-on-surface">Endurance &amp; Shielding</span>
+</div>
+<div class="flex items-center gap-1 font-label-sm text-label-sm">
+<span class="text-on-surface font-bold">650</span>
+<span class="text-on-surface-variant">/ 1000</span>
+<span class="text-primary ml-1">(65%)</span>
+</div>
+</div>
+<div class="w-full h-2 rounded-full bg-surface-container-lowest overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary/60 to-primary rounded-full transition-all duration-500 shadow-sm" style="width: 65%;"></div>
+</div>
+</div>
+</div>
+<!-- Bottom Action Controls -->
+<div class="w-full pt-space-xs pb-space-lg flex items-center gap-space-sm">
+<button class="w-1/3 py-3 px-3 rounded-xl bg-surface-container hover:bg-surface-container-high active:scale-95 transition-all duration-200 flex items-center justify-center gap-1.5 shadow-md" onclick="resetModifiers()">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">restart_alt</span>
+<span class="font-label-md text-label-md text-on-surface">Reset Mods</span>
+</button>
+<button class="w-2/3 py-3 px-4 rounded-xl bg-gradient-to-r from-primary-container via-primary to-secondary text-on-primary-container active:scale-95 transition-all duration-200 font-label-lg text-label-lg font-bold flex items-center justify-center gap-2 shadow-[0_0_24px_rgba(6,182,212,0.4)]" id="save-btn" onclick="saveLoadout()">
+<span class="material-symbols-outlined text-[20px]">save</span>
+<span id="save-label">Save Loadout</span>
+</button>
+</div>
+</div>
+</div>
+<script>
+  function switchView(mode) {
+    const btn3d = document.getElementById('btn-view-3d');
+    const btnHolo = document.getElementById('btn-view-holo');
+    const holoFx = document.getElementById('holo-fx');
+    const avatarImg = document.getElementById('avatar-img');
+
+    if (mode === 'holo') {
+      btnHolo.className = 'px-3 py-1.5 rounded-lg font-label-sm text-label-sm transition-all duration-200 bg-surface-container-high text-primary shadow-sm flex items-center gap-1.5';
+      btn3d.className = 'px-3 py-1.5 rounded-lg font-label-sm text-label-sm transition-all duration-200 text-on-surface-variant hover:text-on-surface flex items-center gap-1.5';
+      holoFx.classList.remove('hidden');
+      avatarImg.style.filter = 'drop-shadow(0 0 16px rgba(76,215,246,0.6)) contrast(1.15) hue-rotate(15deg)';
+    } else {
+      btn3d.className = 'px-3 py-1.5 rounded-lg font-label-sm text-label-sm transition-all duration-200 bg-surface-container-high text-primary shadow-sm flex items-center gap-1.5';
+      btnHolo.className = 'px-3 py-1.5 rounded-lg font-label-sm text-label-sm transition-all duration-200 text-on-surface-variant hover:text-on-surface flex items-center gap-1.5';
+      holoFx.classList.add('hidden');
+      avatarImg.style.filter = 'none';
+    }
+  }
+
+  function inspectSkill(title, desc, status) {
+    const titleEl = document.getElementById('skill-title');
+    const descEl = document.getElementById('skill-desc');
+    const statusEl = document.getElementById('skill-status');
+    const cardEl = document.getElementById('skill-detail-card');
+
+    titleEl.textContent = title;
+    descEl.textContent = desc;
+    statusEl.textContent = status;
+
+    if (status.includes('Active')) {
+      statusEl.className = 'px-2 py-0.5 rounded font-label-sm text-label-sm bg-primary/20 text-primary flex-shrink-0';
+    } else if (status.includes('Ready')) {
+      statusEl.className = 'px-2 py-0.5 rounded font-label-sm text-label-sm bg-secondary/20 text-secondary flex-shrink-0';
+    } else {
+      statusEl.className = 'px-2 py-0.5 rounded font-label-sm text-label-sm bg-surface-variant text-on-surface-variant flex-shrink-0';
+    }
+
+    cardEl.classList.add('bg-surface-container-high');
+    setTimeout(() => {
+      cardEl.classList.remove('bg-surface-container-high');
+    }, 250);
+  }
+
+  function saveLoadout() {
+    const label = document.getElementById('save-label');
+    const btn = document.getElementById('save-btn');
+    label.textContent = 'Syncing...';
+    setTimeout(() => {
+      label.textContent = 'Loadout Saved!';
+      btn.classList.add('shadow-[0_0_32px_rgba(76,215,246,0.8)]');
+      setTimeout(() => {
+        label.textContent = 'Save Loadout';
+        btn.classList.remove('shadow-[0_0_32px_rgba(76,215,246,0.8)]');
+      }, 1600);
+    }, 600);
+  }
+
+  function resetModifiers() {
+    inspectSkill('Coin Surge', '+15% Gold Loot drop on match wins', 'Active Slot 1');
+  }
+</script></main></body></html>

@@ -1,0 +1,4 @@
+/*  SPA fallback: this app uses client-side routes (/Home, /profile,
+    /all-games, /tournaments, ...). Without this, refreshing or deep-linking
+    any of them returns a 404 from Pages instead of index.html.  */
+/*    /index.html   200

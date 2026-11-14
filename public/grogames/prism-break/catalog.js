@@ -1,0 +1,1 @@
+globalThis.GameCatalog=[{"id":"prism-break","name":"Prism Break","category":"Action","tagline":"Light up every last prism.","help":"Drag the paddle. Tap to launch the ball. Break every crystal. You have three balls.","accent":"#ef9ecf","bg":"#392c57","label":"BRICK BREAKER","number":7}];globalThis.Games={};

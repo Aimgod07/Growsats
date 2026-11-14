@@ -1,0 +1,1 @@
+globalThis.GameCatalog=[{"id":"bridge-bloom","name":"Bridge Bloom","category":"Timing","tagline":"A brave little fox. One careful step.","help":"Hold to grow a bridge, then release. It must reach the next platform without going past it. Reach the center for bonus points.","accent":"#a9dec9","bg":"#334b56","label":"BRIDGE BUILDER","number":22}];globalThis.Games={};

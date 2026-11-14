@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;family=Sora:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "surface-variant": "#323440", "on-tertiary": "#472a00", "on-secondary-fixed": "#25005a", "on-secondary-container": "#c9aeff", "surface-container-lowest": "#0c0e18", "surface": "#11131d", "surface-tint": "#4cd7f6", "secondary-container": "#6001d1", "primary": "#4cd7f6", "surface-container-low": "#191b26", "on-surface-variant": "#bcc9cd", "inverse-on-surface": "#2e303b", "primary-container": "#06b6d4", "on-error-container": "#ffdad6", "on-primary": "#003640", "outline": "#869397", "on-surface": "#e1e1f0", "surface-container": "#1d1f2a", "surface-dim": "#11131d", "surface-container-highest": "#323440", "on-primary-container": "#00424f", "secondary-fixed": "#eaddff", "tertiary-fixed-dim": "#ffb95f", "surface-container-high": "#282934", "secondary": "#d2bbff", "error": "#ffb4ab", "secondary-fixed-dim": "#d2bbff", "inverse-primary": "#00687a", "on-secondary-fixed-variant": "#5a00c6", "error-container": "#93000a", "tertiary": "#ffb95f", "primary-fixed-dim": "#4cd7f6", "on-tertiary-container": "#563400", "tertiary-container": "#e79400", "outline-variant": "#3d494c", "primary-fixed": "#acedff", "on-tertiary-fixed-variant": "#653e00", "on-secondary": "#3f008e", "tertiary-fixed": "#ffddb8", "inverse-surface": "#e1e1f0", "on-primary-fixed-variant": "#004e5c", "on-tertiary-fixed": "#2a1700", "on-background": "#e1e1f0", "background": "#11131d", "on-primary-fixed": "#001f26", "on-error": "#690005", "surface-bright": "#373844" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-xs": "0.25rem", "space-xl": "2rem", "space-md": "1rem", "margin-tablet": "2rem", "space-sm": "0.5rem", "margin-desktop": "3rem", "gutter-desktop": "2rem", "space-lg": "1.5rem", "gutter": "1rem", "space-2xl": "3rem", "gutter-tablet": "1.5rem", "margin": "1rem" }, fontFamily: { "label-md": ["Sora"], "body-lg": ["Manrope"], "display": ["Sora"], "body-sm": ["Manrope"], "headline-lg-mobile": ["Sora"], "headline-sm": ["Sora"], "headline-md": ["Sora"], "headline-lg": ["Sora"], "body-md": ["Manrope"], "display-mobile": ["Sora"], "label-lg": ["Sora"], "label-sm": ["Sora"] }, fontSize: { "label-md": ["0.75rem", { lineHeight: "1.25", letterSpacing: "0.06em", fontWeight: "600" }], "body-lg": ["1.125rem", { lineHeight: "1.6", letterSpacing: "0em", fontWeight: "400" }], "display": ["3.5rem", { lineHeight: "1.1", letterSpacing: "-0.03em", fontWeight: "800" }], "body-sm": ["0.8125rem", { lineHeight: "1.4", letterSpacing: "0.01em", fontWeight: "500" }], "headline-lg-mobile": ["1.75rem", { lineHeight: "1.25", letterSpacing: "-0.01em", fontWeight: "700" }], "headline-sm": ["1.125rem", { lineHeight: "1.4", letterSpacing: "0em", fontWeight: "600" }], "headline-md": ["1.5rem", { lineHeight: "1.3", letterSpacing: "-0.01em", fontWeight: "600" }], "headline-lg": ["2.25rem", { lineHeight: "1.2", letterSpacing: "-0.02em", fontWeight: "700" }], "body-md": ["0.9375rem", { lineHeight: "1.5", letterSpacing: "0.01em", fontWeight: "400" }], "display-mobile": ["2.5rem", { lineHeight: "1.15", letterSpacing: "-0.02em", fontWeight: "800" }], "label-lg": ["0.875rem", { lineHeight: "1.3", letterSpacing: "0.04em", fontWeight: "600" }], "label-sm": ["0.6875rem", { lineHeight: "1.2", letterSpacing: "0.08em", fontWeight: "700" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-on-surface min-h-screen flex flex-col selection:bg-primary selection:text-on-primary"><header class="fixed top-0 inset-x-0 z-50 pt-safe bg-surface-container-lowest/85 backdrop-blur-xl shadow-[0_4px_24px_rgba(0,0,0,0.6)]"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-xs"><img alt="Playloot Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VGbvy7DsiZF7uHAzig_K2SMgMDcZSwxPqMEGSNQXgQsVhGnyMas-LvVKlyYDjlUr3UCzR-fCZr2Q0Z167p3jHBOcDq_YsfZiz-UM8NJxCqkH5gzS2O-rdbfiQmNwaRiWtAXuA2jYZhZ85-oaPHKjYmSHSpg_HaoaTVcDoOzPvOV4knTQ7-xhjXT0gWCzkKNB2R0u2qcQatL-avsopOS3BLg3rPpP1_RbGNpPf5jZS4vGiT80c0nhyPBQr8"/><span class="font-label-lg text-label-lg tracking-wider uppercase text-on-surface font-bold hidden xs:inline">Playloot</span></div><div class="flex items-center gap-space-xs"><div class="flex items-center gap-1 px-2 py-1 rounded-lg bg-surface-container-high/80 text-tertiary"><span class="material-symbols-outlined text-[16px]">monetization_on</span><span class="font-label-sm text-label-sm font-bold">24.5K</span><button class="w-4 h-4 flex items-center justify-center rounded-sm bg-tertiary/20 text-tertiary ml-0.5"><span class="material-symbols-outlined text-[12px]">add</span></button></div><div class="flex items-center gap-1 px-2 py-1 rounded-lg bg-surface-container-high/80 text-primary"><span class="material-symbols-outlined text-[16px]">diamond</span><span class="font-label-sm text-label-sm font-bold">350</span><button class="w-4 h-4 flex items-center justify-center rounded-sm bg-primary/20 text-primary ml-0.5"><span class="material-symbols-outlined text-[12px]">add</span></button></div></div><div class="flex items-center gap-space-xs"><button class="w-11 h-11 flex items-center justify-center relative rounded-lg text-on-surface-variant hover:text-on-surface active:scale-95 transition-transform"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-primary ring-2 ring-surface-container-lowest"></span></button><a class="relative flex items-center justify-center rounded-full p-0.5" data-path="profile" href="#"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-1 ring-primary/40" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0L1YB873bn_OHn8r-baH85AXVjtHgXK6SIZE4WtoFizS6Zp89EZ-biIMMOtVV5xgNsJfIIg_J6n7QaK45qpi8sXC2HkPB2pOk7KROuaa5Ml-P3LzBPyihTAX-wgHMFZb4aaaihMIq1chhMT7DNC0zDn8o3Fj0DGahAP0O1q7We48_Y55SixhQyZTfKzBhc4JohXeZyGBki2EviLtjFhJ6xc5Q26nmcW2dalXoHFDUojq3BGRwUsbwfw"/><span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-primary rounded-full ring-2 ring-surface-container-lowest"></span></a></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-24 bg-surface"><div class="flex flex-col w-full px-margin pb-12 gap-y-space-md">
+<!-- Dynamic Arena Header -->
+<div class="flex flex-col gap-y-space-sm pt-space-xs">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="font-label-sm text-label-sm tracking-wider uppercase text-primary font-bold">Arena Hall of Fame</span>
+</div>
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-surface-container text-tertiary">
+<span class="material-symbols-outlined text-[16px]">sensors</span>
+<span class="font-label-sm text-label-sm font-bold tracking-wider">LIVE TELEMETRY</span>
+</div>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-extrabold tracking-tight">Global Leaderboard</h1>
+</div>
+<!-- Game Selector Pill Dropdown -->
+<div class="relative w-full">
+<button class="w-full flex items-center justify-between px-4 py-3 rounded-xl bg-surface-container text-on-surface shadow-md active:scale-[0.99] transition-transform" id="game-dropdown-btn">
+<div class="flex items-center gap-2.5 min-w-0">
+<div class="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">videogame_asset</span>
+</div>
+<span class="font-label-lg text-label-lg font-bold truncate" id="selected-game">All Games (Cross-Arcade)</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary">Switch</span>
+<span class="material-symbols-outlined text-[20px]">expand_more</span>
+</div>
+</button>
+<div class="hidden absolute top-full left-0 right-0 mt-2 z-30 rounded-xl bg-surface-container-high p-2 shadow-2xl flex-col gap-1 backdrop-blur-xl" id="game-dropdown-menu">
+<button class="game-opt w-full flex items-center justify-between px-3 py-2 rounded-lg bg-surface-container-highest text-primary font-label-md text-label-md" data-game="All Games (Cross-Arcade)">
+<span class="flex items-center gap-2"><span class="material-symbols-outlined text-[18px]">select_all</span>All Games (Cross-Arcade)</span>
+<span class="material-symbols-outlined text-[18px]">check</span>
+</button>
+<button class="game-opt w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-surface-container text-on-surface font-label-md text-label-md text-left" data-game="Neon Cyberblade">
+<span class="flex items-center gap-2"><span class="material-symbols-outlined text-[18px]">swords</span>Neon Cyberblade</span>
+</button>
+<button class="game-opt w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-surface-container text-on-surface font-label-md text-label-md text-left" data-game="Apex Drift 3088">
+<span class="flex items-center gap-2"><span class="material-symbols-outlined text-[18px]">sports_score</span>Apex Drift 3088</span>
+</button>
+<button class="game-opt w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-surface-container text-on-surface font-label-md text-label-md text-left" data-game="Quantum Siege">
+<span class="flex items-center gap-2"><span class="material-symbols-outlined text-[18px]">token</span>Quantum Siege</span>
+</button>
+</div>
+</div>
+<!-- Timeframe Filter Tabs -->
+<div class="flex items-center p-1 rounded-xl bg-surface-container-low w-full gap-1">
+<button class="time-tab flex-1 py-2 rounded-lg text-center font-label-md text-label-md transition-all text-on-surface-variant hover:text-on-surface" data-time="daily">Daily</button>
+<button class="time-tab flex-1 py-2 rounded-lg text-center font-label-md text-label-md transition-all bg-primary-container text-on-primary-container font-bold shadow-md" data-time="weekly">Weekly</button>
+<button class="time-tab flex-1 py-2 rounded-lg text-center font-label-md text-label-md transition-all text-on-surface-variant hover:text-on-surface" data-time="all-time">All-Time</button>
+<button class="time-tab flex-1 py-2 rounded-lg text-center font-label-md text-label-md transition-all text-on-surface-variant hover:text-on-surface flex items-center justify-center gap-1" data-time="tournaments">
+<span class="material-symbols-outlined text-[14px] text-tertiary">bolt</span>Tourneys
+    </button>
+</div>
+<!-- Prize Pool Callout Banner -->
+<div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-surface-container-high via-surface-container to-surface-container-high p-4 shadow-xl">
+<div class="absolute -right-8 -top-8 w-32 h-32 bg-primary/10 rounded-full blur-2xl pointer-events-none"></div>
+<div class="absolute -left-8 -bottom-8 w-32 h-32 bg-secondary/10 rounded-full blur-2xl pointer-events-none"></div>
+<div class="relative z-10 flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="px-2.5 py-0.5 rounded-full bg-tertiary-container/30 text-tertiary font-label-sm text-label-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">stars</span> SEASON 12 ACTIVE
+        </span>
+<div class="flex items-center gap-1 font-label-sm text-label-sm text-on-surface-variant bg-surface-container-lowest/80 px-2 py-0.5 rounded-md">
+<span class="material-symbols-outlined text-[14px] text-primary">schedule</span>
+<span class="font-bold text-on-surface" id="countdown">1d 14h 32m 08s</span>
+</div>
+</div>
+<div class="flex items-baseline justify-between pt-1">
+<div>
+<span class="font-body-sm text-body-sm text-on-surface-variant block">Cumulative Pool Guaranteed</span>
+<span class="font-display-mobile text-display-mobile text-tertiary font-extrabold tracking-tight">$25,000 USD</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-label-sm text-label-sm text-primary font-bold">+ 1.5M GEMS</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Top 100 Rewarded</span>
+</div>
+</div>
+<!-- Mini Sparkline Meter -->
+<div class="w-full bg-surface-container-lowest rounded-full h-1.5 mt-1 overflow-hidden">
+<div class="bg-gradient-to-r from-primary to-tertiary h-full rounded-full" style="width: 72%"></div>
+</div>
+</div>
+</div>
+<!-- Esports Podium Section (Top 3) -->
+<div class="flex flex-col gap-y-space-xs pt-space-xs">
+<div class="flex items-center justify-between px-1">
+<span class="font-label-sm text-label-sm uppercase font-bold tracking-wider text-on-surface-variant">Apex Champions</span>
+<span class="font-label-sm text-label-sm text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">military_tech</span> Verified Tier
+      </span>
+</div>
+<!-- 3-Column Podium Matrix -->
+<div class="grid grid-cols-3 gap-2 items-end pt-8">
+<!-- Rank #2: Silver / Cyan (Left) -->
+<div class="flex flex-col items-center">
+<div class="relative mb-2">
+<div class="w-16 h-16 rounded-2xl overflow-hidden shadow-lg bg-surface-container-highest p-0.5">
+<img class="w-full h-full object-cover rounded-[14px]" data-alt="High-detail esports avatar with futuristic cybernetic helmet glowing in cyan neon tints, cinematic rim lighting, 3d render" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpwi4LAn9VXUi9WFVmKYkD4xG-AUG_OxQgYBXZMSJCjSLZaET_2olBhxMohvBKWELjWXsFR_gA4b61OIxVPlkyzgdX0b15Lq07u2nVPelxV10XpsbrGPdFdiEbP4D2640pOCbwQhH5kTuBDNkiDTNi19-PcXfH-12F9JI83IQDk8kdqZUVrPAhnDkY-EZaEE8T4YchXi2jeqUyA-h6jQMni1D4cq9rSWOwA3wOeIKsjXb7Vim7myr12A"/>
+</div>
+<div class="absolute -top-3 -right-2 w-6 h-6 rounded-full bg-surface-container-lowest flex items-center justify-center text-primary shadow">
+<span class="material-symbols-outlined text-[18px]">workspace_premium</span>
+</div>
+<div class="absolute -bottom-2 inset-x-0 flex justify-center">
+<span class="px-2 py-0.5 rounded-full bg-primary-container text-on-primary-container font-label-sm text-label-sm font-black shadow">#2</span>
+</div>
+</div>
+<div class="w-full rounded-t-xl bg-surface-container-high/90 p-2.5 flex flex-col items-center text-center shadow-lg">
+<span class="font-label-md text-label-md font-bold text-on-surface truncate w-full mt-1">NovaStrike</span>
+<span class="font-label-sm text-label-sm text-primary font-extrabold mt-0.5">842.1K</span>
+<span class="font-body-sm text-[10px] text-on-surface-variant">PTS</span>
+<div class="mt-2 w-full pt-1.5 bg-surface-container rounded-lg px-1 py-1">
+<span class="font-label-sm text-[10px] text-primary font-bold block truncate">$2,500</span>
+<span class="font-body-sm text-[9px] text-on-surface-variant truncate block">+25k Gems</span>
+</div>
+</div>
+</div>
+<!-- Rank #1: Gold / Amber (Center Elevated) -->
+<div class="flex flex-col items-center -mt-6">
+<div class="relative mb-2">
+<!-- Crown Icon Floating -->
+<div class="absolute -top-7 inset-x-0 flex justify-center animate-bounce">
+<span class="material-symbols-outlined text-[26px] text-tertiary drop-shadow-[0_0_8px_rgba(245,158,11,0.8)]">crown</span>
+</div>
+<div class="w-20 h-20 rounded-2xl overflow-hidden shadow-2xl bg-tertiary/20 p-1">
+<img class="w-full h-full object-cover rounded-[12px]" data-alt="Fierce competitive cyber warrior portrait bathed in brilliant gold and obsidian reflections with tactical visor, 3D character splash art" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnvQXXf_bgZYGQeiKyHh0ROS3EUt_fE_nOXDOVdSX2sWD0xnAgToM-54MqeDbImgCQkfbh6FU2iDcfjLE7GrPYu6WC9otMpLyTtgAPzgewXowhSwsFVDXyxd804ZR3e3d7CluOfmioPHLcAH699XfWBueUjVi6u2jLvjw53H1YAPvKKuf3CKjQK--rqj1RJie0b6n11R1-2geKN-HDMVJTaBVJISihpAJkrdtrmMeOlhqBs8GBthGC5w"/>
+</div>
+<div class="absolute -bottom-2 inset-x-0 flex justify-center">
+<span class="px-3 py-0.5 rounded-full bg-tertiary text-on-tertiary font-label-md text-label-md font-black shadow-lg">#1</span>
+</div>
+</div>
+<div class="w-full rounded-t-xl bg-gradient-to-b from-surface-container-highest to-surface-container p-3 flex flex-col items-center text-center shadow-2xl">
+<span class="font-label-lg text-label-lg font-black text-on-surface truncate w-full mt-1">ApexPredator_X</span>
+<span class="font-headline-sm text-headline-sm text-tertiary font-black mt-0.5">984.2K</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant -mt-0.5">PTS</span>
+<div class="mt-2.5 w-full pt-1.5 bg-surface-container-lowest/80 rounded-lg px-1 py-1.5 shadow-inner">
+<span class="font-label-md text-label-md text-tertiary font-black block truncate">$5,000</span>
+<span class="font-label-sm text-[10px] text-primary-fixed-dim block truncate">+50k Gems</span>
+</div>
+</div>
+</div>
+<!-- Rank #3: Bronze / Amethyst (Right) -->
+<div class="flex flex-col items-center">
+<div class="relative mb-2">
+<div class="w-16 h-16 rounded-2xl overflow-hidden shadow-lg bg-secondary/20 p-0.5">
+<img class="w-full h-full object-cover rounded-[14px]" data-alt="Futuristic female esports protagonist with purple holographic headgear and sharp neon purple lighting against dark slate background, octane render" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxVOMqyF-iNoPg6V03dWKLSB3H4J1uqglxfhF8PmXL5BKujFlnCfvDx5BZbZt4Z6eRSIsPpje1uleT-4a5NW8DtKGp1cWF7Qf5nLgE-vXELrcYFUSiuRePltpQmAjZjjWHT4stLlzj-niBIas4NqC6RiPfYZXirI-YAb8vDej1g0RigwXaTphyy_kDQRyEAZEkpyHYTzWxoxCRaG4YEHU9lTasMGWDqXcJhN-OLEa9gF47GL5NxhNhsw"/>
+</div>
+<div class="absolute -top-3 -right-2 w-6 h-6 rounded-full bg-surface-container-lowest flex items-center justify-center text-secondary shadow">
+<span class="material-symbols-outlined text-[18px]">military_tech</span>
+</div>
+<div class="absolute -bottom-2 inset-x-0 flex justify-center">
+<span class="px-2 py-0.5 rounded-full bg-secondary text-on-secondary font-label-sm text-label-sm font-black shadow">#3</span>
+</div>
+</div>
+<div class="w-full rounded-t-xl bg-surface-container-high/90 p-2.5 flex flex-col items-center text-center shadow-lg">
+<span class="font-label-md text-label-md font-bold text-on-surface truncate w-full mt-1">Valkyrie_9</span>
+<span class="font-label-sm text-label-sm text-secondary font-extrabold mt-0.5">791.4K</span>
+<span class="font-body-sm text-[10px] text-on-surface-variant">PTS</span>
+<div class="mt-2 w-full pt-1.5 bg-surface-container rounded-lg px-1 py-1">
+<span class="font-label-sm text-[10px] text-secondary font-bold block truncate">$1,000</span>
+<span class="font-body-sm text-[9px] text-on-surface-variant truncate block">+10k Gems</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Pinned "My Current Rank" Module -->
+<div class="sticky top-16 z-20 w-full rounded-2xl bg-gradient-to-r from-surface-container-high via-surface-container-highest to-surface-container-high p-3.5 shadow-2xl backdrop-blur-xl">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-2">
+<div class="flex items-center justify-center px-2 py-1 rounded-lg bg-primary/20 text-primary">
+<span class="font-label-md text-label-md font-black">#142</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="font-label-md text-label-md font-bold text-on-surface">Vortex_Gamer99</span>
+<span class="px-1.5 py-0.2 rounded bg-surface-variant text-[10px] font-label-sm text-primary uppercase font-bold">YOU</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Diamond II Division</span>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-headline-sm text-headline-sm font-extrabold text-primary">312,450</span>
+<span class="font-label-sm text-[11px] text-tertiary font-semibold">Top 1.2% Globally</span>
+</div>
+</div>
+<!-- Progress to Next Tier -->
+<div class="flex flex-col gap-1 pt-1.5">
+<div class="flex items-center justify-between font-label-sm text-[11px]">
+<span class="text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-primary">trending_up</span> Next Tier: Masters
+        </span>
+<span class="text-on-surface font-bold">12,500 PTS needed</span>
+</div>
+<div class="w-full bg-surface-container-lowest h-2 rounded-full overflow-hidden p-0.5">
+<div class="bg-gradient-to-r from-primary to-secondary-container h-full rounded-full" style="width: 82%"></div>
+</div>
+</div>
+</div>
+<!-- Scrollable Ranked List (Ranks 4 - 10+) -->
+<div class="flex flex-col gap-y-2 pt-1">
+<div class="flex items-center justify-between px-2 text-on-surface-variant font-label-sm text-label-sm">
+<span>RANK &amp; CONTENDER</span>
+<span>SCORE &amp; REWARD</span>
+</div>
+<!-- Row #4 -->
+<div class="flex items-center justify-between p-3 rounded-xl bg-surface-container hover:bg-surface-container-high transition-colors shadow-sm">
+<div class="flex items-center gap-3 min-w-0">
+<div class="flex flex-col items-center justify-center w-8">
+<span class="font-label-md text-label-md font-bold text-on-surface">#4</span>
+<span class="text-[10px] font-bold text-primary flex items-center -mt-0.5">▲ 2</span>
+</div>
+<div class="relative w-11 h-11 rounded-xl overflow-hidden bg-surface-variant shrink-0">
+<img class="w-full h-full object-cover" data-alt="Esports profile avatar of an elite cyborg sniper with purple visor and glossy dark metallic textures, esports logo format" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBr8t3N1WDYxsuTiBlrjIgYeE2qI_h2KxymMloh9Jyf2q9EZVDTldgIn6dguXOF3InV3Ewdyfq6elIMxQ-XDOr5T8NQXXdMMcTeu0fi3reQEcSnmcx3Vvt2lnCx4NGNXQOdJxf5m6Z5e19TTtykq5W32ELkBhlQlgIBD5VAfFRRCxybrteVrXUeik3uv4bDnmikh0WfbjZzYHUzU_ZxVk_m5vCde77a3-C1w1ZyekH3JMX38hjgYNAMOQ"/>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5 truncate">
+<span class="font-label-md text-label-md font-bold text-on-surface truncate">ShadowKitsune</span>
+<span class="px-1.5 py-0.2 rounded bg-surface-container-highest text-[10px] text-secondary font-bold">MASTER</span>
+</div>
+<span class="font-body-sm text-[12px] text-on-surface-variant truncate">Apex Drift • 94% Winrate</span>
+</div>
+</div>
+<div class="flex flex-col items-end shrink-0 pl-2">
+<span class="font-label-md text-label-md font-extrabold text-on-surface">742,900</span>
+<span class="font-label-sm text-[11px] text-tertiary font-bold">$750 Cash</span>
+</div>
+</div>
+<!-- Row #5 -->
+<div class="flex items-center justify-between p-3 rounded-xl bg-surface-container hover:bg-surface-container-high transition-colors shadow-sm">
+<div class="flex items-center gap-3 min-w-0">
+<div class="flex flex-col items-center justify-center w-8">
+<span class="font-label-md text-label-md font-bold text-on-surface">#5</span>
+<span class="text-[10px] font-bold text-on-surface-variant flex items-center -mt-0.5">— 0</span>
+</div>
+<div class="relative w-11 h-11 rounded-xl overflow-hidden bg-surface-variant shrink-0">
+<img class="w-full h-full object-cover" data-alt="Stylized neon cyberpunk gamer avatar with spiked blue hair, luminescent face tattoo, high tech streetwear aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHSokPWW_2K_S3XwoGR3bxBjN6lUhPjXI7BhpGaNVIxecC83AbvzjjZ6W6shQJ0kGRup_L06yoWJXF0Tg3K5YIk91r_0VUoPmJ2BgDPaM5GVcHLWMXZQQIcfBzW_trgYFQyPNm5X67DFm-nKwlJQZP546oWS-pkv4HWWzij0_go9PM4dtvcwcg1J2FQak27KkVwwIv4jOlcJd6bMvNtvu8jcBJtkUMv3VKT6AEM6f9WpNn7v6K67uXlQ"/>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5 truncate">
+<span class="font-label-md text-label-md font-bold text-on-surface truncate">ZeroGravity_</span>
+<span class="px-1.5 py-0.2 rounded bg-surface-container-highest text-[10px] text-secondary font-bold">MASTER</span>
+</div>
+<span class="font-body-sm text-[12px] text-on-surface-variant truncate">Neon Cyberblade</span>
+</div>
+</div>
+<div class="flex flex-col items-end shrink-0 pl-2">
+<span class="font-label-md text-label-md font-extrabold text-on-surface">719,250</span>
+<span class="font-label-sm text-[11px] text-tertiary font-bold">$500 Cash</span>
+</div>
+</div>
+<!-- Row #6 -->
+<div class="flex items-center justify-between p-3 rounded-xl bg-surface-container hover:bg-surface-container-high transition-colors shadow-sm">
+<div class="flex items-center gap-3 min-w-0">
+<div class="flex flex-col items-center justify-center w-8">
+<span class="font-label-md text-label-md font-bold text-on-surface">#6</span>
+<span class="text-[10px] font-bold text-error flex items-center -mt-0.5">▼ 1</span>
+</div>
+<div class="relative w-11 h-11 rounded-xl overflow-hidden bg-surface-variant shrink-0">
+<img class="w-full h-full object-cover" data-alt="Chibi mecha robot esports mascot with glowing amber visor and chrome alloy plating, clean 3D character design" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcw5QgwYrYh15nISzz1UOkRUdToG9_1Vqn3JPWUj6UY7t6VMxhtoRS6LSeoV3ehQS9nJMtFLhtivISkQXlQfoDi3iUO3-hGGkaBpZDn0TK1p9GM4QtP2fMRPEmdk5lbluzaoNclVdf8qGxddiKx34j_oKigIrKpzxl9RRyUrfhIiQEShq7S3Mulv8H5GvX7DCtCKSTeN5HV0wMPwNjJZBdchqHBTFKO7RJEUx6sGhxn9b3hvQI7QwrYw"/>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5 truncate">
+<span class="font-label-md text-label-md font-bold text-on-surface truncate">GhostPulse</span>
+<span class="px-1.5 py-0.2 rounded bg-surface-container-highest text-[10px] text-primary font-bold">DIAMOND</span>
+</div>
+<span class="font-body-sm text-[12px] text-on-surface-variant truncate">Quantum Siege</span>
+</div>
+</div>
+<div class="flex flex-col items-end shrink-0 pl-2">
+<span class="font-label-md text-label-md font-extrabold text-on-surface">684,110</span>
+<span class="font-label-sm text-[11px] text-tertiary font-bold">$300 Cash</span>
+</div>
+</div>
+<!-- Row #7 -->
+<div class="flex items-center justify-between p-3 rounded-xl bg-surface-container hover:bg-surface-container-high transition-colors shadow-sm">
+<div class="flex items-center gap-3 min-w-0">
+<div class="flex flex-col items-center justify-center w-8">
+<span class="font-label-md text-label-md font-bold text-on-surface">#7</span>
+<span class="text-[10px] font-bold text-primary flex items-center -mt-0.5">▲ 4</span>
+</div>
+<div class="relative w-11 h-11 rounded-xl overflow-hidden bg-surface-variant shrink-0">
+<img class="w-full h-full object-cover" data-alt="Gamer girl avatar with holographic headphones and glowing neon cat ears, futuristic anime cyberpunk gamer aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgOoJZY7BR3N1EuAeSn4BaAlj6kYxqnalLvYVulJu50eth-ps3VHD3MikxMroFgKuOYQaF5fbRCrkwS5aDFHeaSENuN_Kel4Xzjd2TvGjeQh4EtfRceHcQPJWv0KJXBAVTeFFac-w0He2c-uSZ4zcZO5WOlM8a-WS7ZqUjwsFsfWezlTAS5aYupD42WL9iOFU-XIgMpJlxAu19hSFqVMoX9xQwbDKEAIDifE6EmDbkOtqpCuRAy6Vb9g"/>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5 truncate">
+<span class="font-label-md text-label-md font-bold text-on-surface truncate">Nyx_Runner</span>
+<span class="px-1.5 py-0.2 rounded bg-surface-container-highest text-[10px] text-primary font-bold">DIAMOND</span>
+</div>
+<span class="font-body-sm text-[12px] text-on-surface-variant truncate">Cross-Arcade Pro</span>
+</div>
+</div>
+<div class="flex flex-col items-end shrink-0 pl-2">
+<span class="font-label-md text-label-md font-extrabold text-on-surface">651,800</span>
+<span class="font-label-sm text-[11px] text-tertiary font-bold">$200 Cash</span>
+</div>
+</div>
+<!-- Row #8 -->
+<div class="flex items-center justify-between p-3 rounded-xl bg-surface-container hover:bg-surface-container-high transition-colors shadow-sm">
+<div class="flex items-center gap-3 min-w-0">
+<div class="flex flex-col items-center justify-center w-8">
+<span class="font-label-md text-label-md font-bold text-on-surface">#8</span>
+<span class="text-[10px] font-bold text-error flex items-center -mt-0.5">▼ 3</span>
+</div>
+<div class="relative w-11 h-11 rounded-xl overflow-hidden bg-surface-variant shrink-0">
+<img class="w-full h-full object-cover" data-alt="Dark phantom masked rogue with glowing violet eyes and tactical cyber gear, hyper-detailed digital gaming portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAehZldZVoqinDgHqbJ35O3wNGrjsbv2MJle3w9-_w7Pm1ngX66uE9JevB4lc_JrauQIymAZ2bWqmvodUPd8iyp5IhvMWn-O55CpQeNfLEQeG2Dj2gembiycYkABTeUi20kHycLnRL1Va-FHQOM0RmpEdaCej75Oot898y2UHcI5Ovw4Kf30-3qkn1fubYF5A1JJOYXaYSINoN8JR3PJ9wMhtWZShROoSoZASG-lKHrh068gbBNjC38QA"/>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5 truncate">
+<span class="font-label-md text-label-md font-bold text-on-surface truncate">SpectreOps</span>
+<span class="px-1.5 py-0.2 rounded bg-surface-container-highest text-[10px] text-primary font-bold">DIAMOND</span>
+</div>
+<span class="font-body-sm text-[12px] text-on-surface-variant truncate">Neon Cyberblade</span>
+</div>
+</div>
+<div class="flex flex-col items-end shrink-0 pl-2">
+<span class="font-label-md text-label-md font-extrabold text-on-surface">628,490</span>
+<span class="font-label-sm text-[11px] text-tertiary font-bold">$150 Cash</span>
+</div>
+</div>
+<!-- Row #9 -->
+<div class="flex items-center justify-between p-3 rounded-xl bg-surface-container hover:bg-surface-container-high transition-colors shadow-sm">
+<div class="flex items-center gap-3 min-w-0">
+<div class="flex flex-col items-center justify-center w-8">
+<span class="font-label-md text-label-md font-bold text-on-surface">#9</span>
+<span class="text-[10px] font-bold text-primary flex items-center -mt-0.5">▲ 1</span>
+</div>
+<div class="relative w-11 h-11 rounded-xl overflow-hidden bg-surface-variant shrink-0">
+<img class="w-full h-full object-cover" data-alt="Golden robotic gladiator avatar with ornate gilded armor plate, high poly esports game avatar profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCN-gzYW0tbWlxgcNG0hFj5KeM-ZJnDFSBN9NsusHONmAqc6UuoS29nEdBKVs4oGVnybmD8qwyuDXeMqR8ZiOetfmRNKS1rKeFeHMPZszjEcVHQ3sfSpF-xekq-ML1F1oKwVSfKlDKoWbCon6B8FYNbTVSpVVvyzSvILZxgJby-Dv9PctRiXBzsTRThz_k3ZFD7GeKJFS8GB81egHcB90PINJL4D2beNgoc2o7OEhqbc_qyPo8f0z1EzA"/>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5 truncate">
+<span class="font-label-md text-label-md font-bold text-on-surface truncate">Midas_Touch</span>
+<span class="px-1.5 py-0.2 rounded bg-surface-container-highest text-[10px] text-on-surface-variant font-bold">PLATINUM</span>
+</div>
+<span class="font-body-sm text-[12px] text-on-surface-variant truncate">Apex Drift 3088</span>
+</div>
+</div>
+<div class="flex flex-col items-end shrink-0 pl-2">
+<span class="font-label-md text-label-md font-extrabold text-on-surface">602,300</span>
+<span class="font-label-sm text-[11px] text-tertiary font-bold">$100 Cash</span>
+</div>
+</div>
+<!-- Row #10 -->
+<div class="flex items-center justify-between p-3 rounded-xl bg-surface-container hover:bg-surface-container-high transition-colors shadow-sm">
+<div class="flex items-center gap-3 min-w-0">
+<div class="flex flex-col items-center justify-center w-8">
+<span class="font-label-md text-label-md font-bold text-on-surface">#10</span>
+<span class="text-[10px] font-bold text-primary flex items-center -mt-0.5">▲ 5</span>
+</div>
+<div class="relative w-11 h-11 rounded-xl overflow-hidden bg-surface-variant shrink-0">
+<img class="w-full h-full object-cover" data-alt="Cybernetic tiger beast esports logo avatar in energetic cyan and electric purple light trails, modern 3D gaming asset" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzTQXkLH-FO6sWBLVX05xkXGETH17hyvNZXJxVXw2fXWHPoGelFkh_GHLG2xMaVWvG3TzihSqm-oDvTXwcoBHolfYyqj7M-_XsEhPv4oFnb-VozHMma4nv9BUDzv1FIb_6GXWqo6fSve_d4CiYe3Y9X5HKP5P2cTFQFMT_-ApvFaPNr5LHpTtbl2GYjUbjUiYFhJG8gR_VqeJxWv24Pa_YusgU6ObbtGJiVw8iBZnuRFy-EThuPHtmDA"/>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5 truncate">
+<span class="font-label-md text-label-md font-bold text-on-surface truncate">CyberFang</span>
+<span class="px-1.5 py-0.2 rounded bg-surface-container-highest text-[10px] text-on-surface-variant font-bold">PLATINUM</span>
+</div>
+<span class="font-body-sm text-[12px] text-on-surface-variant truncate">Quantum Siege</span>
+</div>
+</div>
+<div class="flex flex-col items-end shrink-0 pl-2">
+<span class="font-label-md text-label-md font-extrabold text-on-surface">588,940</span>
+<span class="font-label-sm text-[11px] text-tertiary font-bold">$100 Cash</span>
+</div>
+</div>
+</div>
+<!-- End of Rank List Action -->
+<div class="flex flex-col items-center justify-center pt-2 gap-2">
+<button class="w-full py-3 rounded-xl bg-surface-container-high text-primary font-label-md text-label-md font-bold active:scale-[0.98] transition-transform flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">keyboard_double_arrow_down</span>
+      Load Next 50 Ranks
+    </button>
+<span class="font-body-sm text-[11px] text-on-surface-variant">Rankings recalculate instantly after every tournament match.</span>
+</div>
+</div>
+<script>
+  (function() {
+    // Game Dropdown Toggling
+    const dropdownBtn = document.getElementById('game-dropdown-btn');
+    const dropdownMenu = document.getElementById('game-dropdown-menu');
+    const selectedGameText = document.getElementById('selected-game');
+    const gameOpts = document.querySelectorAll('.game-opt');
+
+    if (dropdownBtn && dropdownMenu) {
+      dropdownBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dropdownMenu.classList.toggle('hidden');
+        dropdownMenu.classList.toggle('flex');
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!dropdownMenu.contains(e.target) && !dropdownBtn.contains(e.target)) {
+          dropdownMenu.classList.add('hidden');
+          dropdownMenu.classList.remove('flex');
+        }
+      });
+
+      gameOpts.forEach(opt => {
+        opt.addEventListener('click', () => {
+          const gameTitle = opt.getAttribute('data-game');
+          if (selectedGameText && gameTitle) {
+            selectedGameText.textContent = gameTitle;
+          }
+          dropdownMenu.classList.add('hidden');
+          dropdownMenu.classList.remove('flex');
+        });
+      });
+    }
+
+    // Time Tabs Switching Micro-interaction
+    const timeTabs = document.querySelectorAll('.time-tab');
+    timeTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        timeTabs.forEach(t => {
+          t.classList.remove('bg-primary-container', 'text-on-primary-container', 'font-bold', 'shadow-md');
+          t.classList.add('text-on-surface-variant');
+        });
+        tab.classList.add('bg-primary-container', 'text-on-primary-container', 'font-bold', 'shadow-md');
+        tab.classList.remove('text-on-surface-variant');
+      });
+    });
+
+    // Dynamic Live Countdown Timer Micro-interaction
+    let secondsLeft = (1 * 86400) + (14 * 3600) + (32 * 60) + 8;
+    const countdownEl = document.getElementById('countdown');
+
+    if (countdownEl) {
+      setInterval(() => {
+        if (secondsLeft > 0) {
+          secondsLeft--;
+          const d = Math.floor(secondsLeft / 86400);
+          const h = Math.floor((secondsLeft % 86400) / 3600);
+          const m = Math.floor((secondsLeft % 3600) / 60);
+          const s = secondsLeft % 60;
+          countdownEl.textContent = `${d}d ${h}h ${m}m ${s < 10 ? '0' : ''}${s}s`;
+        }
+      }, 1000);
+    }
+  })();
+</script></main><nav class="fixed bottom-0 inset-x-0 z-50 pb-safe bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_-8px_32px_rgba(0,0,0,0.7)]" data-active-classes="text-primary font-bold drop-shadow-[0_0_12px_rgba(76,215,246,0.6)]"><div class="flex justify-around items-center h-20 px-margin"><a class="flex flex-col items-center justify-center gap-1 w-16 h-14 text-on-surface-variant transition-all" data-path="home" href="#"><span class="material-symbols-outlined text-[24px]">sports_esports</span><span class="font-label-sm text-label-sm">Arcade</span></a><a aria-current="page" class="flex flex-col items-center justify-center gap-1 w-16 h-14 transition-all text-primary font-bold drop-shadow-[0_0_12px_rgba(76,215,246,0.6)]" data-path="leaderboard" href="#"><span class="material-symbols-outlined text-[24px]">leaderboard</span><span class="font-label-sm text-label-sm">Ranks</span></a><a class="flex flex-col items-center justify-center gap-1 w-16 h-14 text-on-surface-variant transition-all" data-path="rewards" href="#"><span class="material-symbols-outlined text-[24px]">featured_seasonal_and_gifts</span><span class="font-label-sm text-label-sm">Loot</span></a><a class="flex flex-col items-center justify-center gap-1 w-16 h-14 text-on-surface-variant transition-all" data-path="profile" href="#"><span class="material-symbols-outlined text-[24px]">badge</span><span class="font-label-sm text-label-sm">Profile</span></a></div></nav></body></html>

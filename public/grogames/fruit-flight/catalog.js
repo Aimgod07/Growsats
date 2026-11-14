@@ -1,0 +1,1 @@
+globalThis.GameCatalog=[{"id":"fruit-flight","name":"Fruit Flight","category":"Action","tagline":"Fresh fruit. Perfect slices.","help":"Swipe through airborne fruit. Slice several in one swipe for a combo. Avoid bombs. Three mistakes end the round.","accent":"#ff9f97","bg":"#493a4c","label":"SWIPE & SLICE","number":15}];globalThis.Games={};

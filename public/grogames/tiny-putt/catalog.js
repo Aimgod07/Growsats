@@ -1,0 +1,1 @@
+globalThis.GameCatalog=[{"id":"tiny-putt","name":"Tiny Putt","category":"Sports","tagline":"A tiny course with a big personality.","help":"Drag back from the ball, then release to putt. The longer the pull, the stronger the shot. Sink all five holes with as few strokes as possible.","accent":"#b4e4bb","bg":"#2a504c","label":"MINI GOLF","number":19}];globalThis.Games={};

@@ -1,0 +1,1 @@
+globalThis.GameCatalog=[{"id":"rhythm-reef","name":"Rhythm Reef","category":"Rhythm","tagline":"Find the beat beneath the waves.","help":"Tap one of four lanes when a pearl reaches the glowing line. Keyboard: D F J K. Finish the 45-second song with fewer than 12 misses.","accent":"#e7a8cf","bg":"#303958","label":"FOUR-LANE RHYTHM","number":23}];globalThis.Games={};

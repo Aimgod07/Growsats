@@ -1,0 +1,160 @@
+[
+  {
+    "id": "saltwake",
+    "title": "Saltwake",
+    "category": "Adventure",
+    "orientation": "portrait",
+    "path": "/grogames/saltwake/index.html",
+    "cover": "/grogames/saltwake/cover.png",
+    "provider": "NovaGames",
+    "providerId": "novagames"
+  },
+  {
+    "id": "cloud-skipper",
+    "title": "Cloud Skipper",
+    "category": "Arcade",
+    "orientation": "portrait",
+    "path": "/grogames/cloud-skipper/index.html",
+    "cover": "/grogames/cloud-skipper/cover.svg",
+    "provider": "NovaGames",
+    "providerId": "novagames"
+  },
+  {
+    "id": "courtside",
+    "title": "Courtside",
+    "category": "Sports",
+    "orientation": "portrait",
+    "path": "/grogames/courtside/index.html",
+    "cover": "/grogames/covers/cinematic/courtside.webp"
+  },
+  {
+    "id": "featherfall",
+    "title": "Featherfall",
+    "category": "Puzzle",
+    "orientation": "landscape",
+    "path": "/grogames/featherfall/index.html",
+    "cover": "/grogames/covers/cinematic/featherfall.webp"
+  },
+  {
+    "id": "first-touch",
+    "title": "First Touch",
+    "category": "Sports",
+    "orientation": "landscape",
+    "path": "/grogames/first-touch/index.html",
+    "cover": "/grogames/covers/cinematic/first-touch.webp"
+  },
+  {
+    "id": "fruit-frenzy",
+    "title": "Fruit Frenzy",
+    "category": "Arcade",
+    "orientation": "portrait",
+    "path": "/grogames/fruit-frenzy/index.html",
+    "cover": "/grogames/covers/cinematic/fruit-frenzy.webp"
+  },
+  {
+    "id": "groove-grove",
+    "title": "Groove Grove",
+    "category": "Rhythm",
+    "orientation": "portrait",
+    "path": "/grogames/groove-grove/index.html",
+    "cover": "/grogames/covers/cinematic/groove-grove.webp"
+  },
+  {
+    "id": "neon-rage",
+    "title": "Neon Rage",
+    "category": "Racing",
+    "orientation": "portrait",
+    "path": "/grogames/neon-rage/index.html",
+    "cover": "/grogames/covers/cinematic/neon-rage.webp"
+  },
+  {
+    "id": "skyline-sprint",
+    "title": "Skyline Sprint",
+    "category": "Runner",
+    "orientation": "portrait",
+    "path": "/grogames/skyline-sprint/index.html",
+    "cover": "/grogames/covers/cinematic/skyline-sprint.webp"
+  },
+  {
+    "id": "strikepoint",
+    "title": "Strikepoint",
+    "category": "Action",
+    "orientation": "landscape",
+    "path": "/grogames/strikepoint/index.html",
+    "cover": "/grogames/covers/cinematic/strikepoint.webp",
+    "provider": "NovaGames",
+    "providerId": "novagames"
+  },
+  {
+    "id": "tidal-rush",
+    "title": "Tidal Rush",
+    "category": "Adventure",
+    "orientation": "portrait",
+    "path": "/grogames/tidal-rush/index.html",
+    "cover": "/grogames/covers/cinematic/tidal-rush.webp"
+  },
+  {
+    "id": "turbo-avenue",
+    "title": "Turbo Avenue",
+    "category": "Racing",
+    "orientation": "portrait",
+    "path": "/grogames/turbo-avenue/index.html?embed=1",
+    "cover": "/grogames/covers/cinematic/turbo-avenue.webp"
+  },
+  {
+    "id": "moon-rider",
+    "title": "Moon Rider",
+    "category": "Racing",
+    "orientation": "portrait",
+    "path": "/grogames/moon-rider/index.html?embed=1",
+    "cover": "/grogames/covers/cinematic/moon-rider.webp"
+  },
+  {
+    "id": "sky-courier",
+    "title": "Sky Courier",
+    "category": "Action",
+    "orientation": "portrait",
+    "path": "/grogames/sky-courier/index.html?embed=1",
+    "cover": "/grogames/covers/cinematic/sky-courier.webp"
+  },
+  {
+    "id": "orbit-guard",
+    "title": "Orbit Guard",
+    "category": "Action",
+    "orientation": "portrait",
+    "path": "/grogames/orbit-guard/index.html?embed=1",
+    "cover": "/grogames/covers/cinematic/orbit-guard.webp"
+  },
+  {
+    "id": "meteor-drift",
+    "title": "Meteor Drift",
+    "category": "Action",
+    "orientation": "portrait",
+    "path": "/grogames/meteor-drift/index.html?embed=1",
+    "cover": "/grogames/covers/cinematic/meteor-drift.webp"
+  },
+  {
+    "id": "pulse-paddle",
+    "title": "Pulse Paddle",
+    "category": "Sports",
+    "orientation": "portrait",
+    "path": "/grogames/pulse-paddle/index.html",
+    "cover": "/grogames/covers/cinematic/pulse-paddle.webp"
+  },
+  {
+    "id": "archery-3d",
+    "title": "Archery 3D",
+    "category": "Sports",
+    "orientation": "landscape",
+    "path": "/grogames/archery-3d.html",
+    "cover": "/grogames/covers/cinematic/archery-3d.webp"
+  },
+  {
+    "id": "ice-curl",
+    "title": "Ice Curl",
+    "category": "Sports",
+    "orientation": "portrait",
+    "path": "/grogames/ice-curl/index.html",
+    "cover": "/grogames/covers/cinematic/ice-curl.webp"
+  }
+]

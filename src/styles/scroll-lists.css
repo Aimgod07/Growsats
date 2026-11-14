@@ -1,0 +1,15 @@
+.hub-scroll-list {
+  min-width: 0;
+  max-height: min(320px, 45dvh);
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior-y: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #58617b transparent;
+  scrollbar-gutter: stable;
+  -webkit-overflow-scrolling: touch;
+}
+.hub-scroll-list--offers { max-height: min(440px, 55dvh); }
+.hub-scroll-list:focus-visible { outline: 2px solid #4cd7f6; outline-offset: 3px; border-radius: 8px; }
+.hub-scroll-list::-webkit-scrollbar { width: 5px; }
+.hub-scroll-list::-webkit-scrollbar-thumb { background: #58617b; border-radius: 8px; }

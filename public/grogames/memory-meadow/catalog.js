@@ -1,0 +1,1 @@
+globalThis.GameCatalog=[{"id":"memory-meadow","name":"Memory Meadow","category":"Puzzle","tagline":"Slow down. Remember the little things.","help":"Tap two cards to reveal them. Match all eight pairs. Fewer turns earn a better score.","accent":"#b5dca1","bg":"#324d45","label":"MEMORY PAIRS","number":10}];globalThis.Games={};

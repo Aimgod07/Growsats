@@ -1,0 +1,1 @@
+globalThis.GameCatalog=[{"id":"pipe-garden","name":"Pipe Garden","category":"Puzzle","tagline":"Bring a little water to the garden.","help":"Tap pipes to rotate them. Connect the blue source at the left to the flower at the right. Connections must line up.","accent":"#b5de9b","bg":"#354c42","label":"ROTATION PUZZLE","number":12}];globalThis.Games={};

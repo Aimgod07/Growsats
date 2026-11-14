@@ -1,0 +1,1 @@
+globalThis.GameCatalog=[{"id":"pocket-merge","name":"Pocket Merge","category":"Puzzle","tagline":"Small moves. Beautiful possibilities.","help":"Swipe or use arrow keys to slide tiles. Equal numbers merge. Reach 2048. You lose only when no move remains.","accent":"#e8bf83","bg":"#40382e","label":"2048","number":9}];globalThis.Games={};

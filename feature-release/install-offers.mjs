@@ -1,0 +1,15 @@
+import fs from 'node:fs';
+const b='C:/Users/choud/Desktop/playloot-backend',p='C:/Users/choud/Desktop/playloot-pms';
+fs.copyFileSync(new URL('./offers.js',import.meta.url),b+'/src/routes/offers.js');
+fs.copyFileSync(new URL('./0006_offers.sql',import.meta.url),b+'/migrations/0006_offers.sql');
+let s=fs.readFileSync(b+'/src/index.js','utf8');
+if(!s.includes('./routes/offers.js'))s="import { offersAdmin, offersPlayer } from './routes/offers.js';\n"+s;
+if(!s.includes('return offersAdmin'))s=s.replace('    if (path === "/api/pms/config"','    if (path.startsWith("/api/pms/offers")) return offersAdmin(request, env, path);\n    if (path === "/api/pms/config"');
+if(!s.includes('return offersPlayer'))s=s.replace('  if (path === "/api/auth/logout"','  if (path === "/api/offers" || path.startsWith("/api/offers/")) return offersPlayer(request, env, session, path);\n  if (path === "/api/auth/logout"');
+fs.writeFileSync(b+'/src/index.js',s);
+fs.copyFileSync(new URL('./OffersStudio.jsx',import.meta.url),p+'/src/OffersStudio.jsx');
+let app=fs.readFileSync(p+'/src/App.jsx','utf8');
+if(!app.includes('import OffersStudio'))app="import OffersStudio from './OffersStudio';\n"+app;
+if(!app.includes("['offers','Offers'"))app=app.replace('const pages = [',"const pages = [['offers','Offers',Boxes],");
+if(!app.includes('<OffersStudio'))app=app.replace(" {section==='overview'"," {section==='offers'&&<OffersStudio auth={auth}/>}\n {section==='overview'");
+fs.writeFileSync(p+'/src/App.jsx',app);

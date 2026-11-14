@@ -1,0 +1,1 @@
+globalThis.GameCatalog=[{"id":"tower-bloom","name":"Tower Bloom","category":"Timing","tagline":"Build something that reaches the sun.","help":"Tap when the moving floor lines up with the tower. Overhang is trimmed away. Perfect placements restore a little width.","accent":"#f0bf91","bg":"#4a4056","label":"STACK BUILDER","number":21}];globalThis.Games={};

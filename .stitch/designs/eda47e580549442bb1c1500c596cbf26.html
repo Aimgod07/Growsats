@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Playloot - All Games</title>
+  <!-- Google Fonts & Tailwind CDN -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Sora', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            surface: {
+              DEFAULT: '#0B0D18',
+              dim: '#07080F',
+              container: '#111424',
+              low: '#15192D',
+              high: '#1D223B',
+              border: '#262D4A',
+            },
+            brand: {
+              cyan: '#06B6D4',
+              violet: '#8B5CF6',
+              purple: '#A855F7',
+              pink: '#EC4899',
+              gold: '#F59E0B',
+              emerald: '#10B981',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #07080F;
+      color: #F1F5F9;
+      font-family: 'Sora', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    /* Custom scrollbars */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Neon glow highlights */
+    .glow-cyan {
+      box-shadow: 0 0 20px -3px rgba(6, 182, 212, 0.35);
+    }
+    .glow-cyan-sm {
+      box-shadow: 0 0 10px -2px rgba(6, 182, 212, 0.4);
+    }
+    .glow-violet {
+      box-shadow: 0 0 20px -4px rgba(139, 92, 246, 0.35);
+    }
+
+    /* Shimmer effect for skeleton loading */
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+    .animate-shimmer {
+      position: relative;
+      overflow: hidden;
+    }
+    .animate-shimmer::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0; bottom: 0; left: 0;
+      transform: translateX(-100%);
+      background-image: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0,
+        rgba(255, 255, 255, 0.06) 20%,
+        rgba(255, 255, 255, 0.12) 60%,
+        rgba(255, 255, 255, 0)
+      );
+      animation: shimmer 1.8s infinite;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex justify-center bg-[#07080F]">
+
+  <!-- Mobile Wrapper (~390px, responsive on tablet/desktop) -->
+  <div class="w-full max-w-[440px] md:max-w-2xl lg:max-w-4xl min-h-screen bg-[#0A0D1A] flex flex-col border-x border-[#1C223B]/60 shadow-2xl relative pb-28">
+
+    <!-- TOP APP BAR / HEADER (Sticky) -->
+    <header class="sticky top-0 z-40 bg-[#0A0D1A]/95 backdrop-blur-md border-b border-[#1C223B] px-4 pt-3 pb-3 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <!-- Back Navigation Button -->
+        <button id="backBtn" class="w-10 h-10 rounded-xl bg-[#13172C] hover:bg-[#1C2240] active:scale-95 border border-[#273054] flex items-center justify-center text-slate-300 hover:text-white transition-all" aria-label="Go back">
+          <i class="fa-solid fa-arrow-left text-sm"></i>
+        </button>
+        <!-- Title & Counter -->
+        <div>
+          <div class="flex items-center space-x-2">
+            <h1 class="text-lg font-bold text-white tracking-tight leading-none">All Games</h1>
+            <span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-cyan-500/15 text-cyan-400 border border-cyan-500/30">
+              <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 mr-1 animate-pulse"></span>
+              <span id="gameCountBadge">48 Live</span>
+            </span>
+          </div>
+          <p class="text-[11px] text-slate-400 mt-0.5">Explore arcade brackets & cash tourneys</p>
+        </div>
+      </div>
+
+      <!-- Right Action: Refresh button & Status View Toggle -->
+      <div class="flex items-center space-x-2">
+        <button id="refreshBtn" class="w-9 h-9 rounded-xl bg-[#13172C] hover:bg-[#1C2240] active:scale-90 border border-[#273054] flex items-center justify-center text-slate-400 hover:text-cyan-400 transition-all" title="Refresh catalog">
+          <i class="fa-solid fa-rotate-right text-xs" id="refreshIcon"></i>
+        </button>
+        <!-- State switcher pill (for easy prototype demonstration) -->
+        <div class="relative">
+          <button id="stateMenuBtn" class="px-2.5 py-1.5 rounded-lg bg-[#14182E] hover:bg-[#1D2240] border border-[#262F52] text-[11px] font-medium text-slate-300 flex items-center space-x-1.5 transition">
+            <i class="fa-solid fa-sliders text-cyan-400 text-[10px]"></i>
+            <span class="hidden sm:inline">Preview:</span>
+            <span id="currentStateLabel" class="text-cyan-400 font-mono text-[10px]">Ready</span>
+            <i class="fa-solid fa-chevron-down text-[8px] text-slate-400"></i>
+          </button>
+          <!-- State Dropdown -->
+          <div id="stateDropdown" class="hidden absolute right-0 mt-2 w-44 rounded-xl bg-[#101428] border border-[#2B355B] shadow-2xl p-1.5 z-50 text-xs">
+            <button onclick="setUIState('normal')" class="w-full text-left px-3 py-2 rounded-lg hover:bg-[#1B2142] text-slate-200 flex items-center justify-between">
+              <span>Default Grid</span>
+              <i class="fa-solid fa-check text-cyan-400 text-[10px]" id="checkNormal"></i>
+            </button>
+            <button onclick="setUIState('skeleton')" class="w-full text-left px-3 py-2 rounded-lg hover:bg-[#1B2142] text-slate-200 flex items-center justify-between">
+              <span>Loading Skeletons</span>
+              <i class="fa-solid fa-check text-cyan-400 text-[10px] hidden" id="checkSkeleton"></i>
+            </button>
+            <button onclick="setUIState('empty')" class="w-full text-left px-3 py-2 rounded-lg hover:bg-[#1B2142] text-slate-200 flex items-center justify-between">
+              <span>Empty Search</span>
+              <i class="fa-solid fa-check text-cyan-400 text-[10px] hidden" id="checkEmpty"></i>
+            </button>
+            <button onclick="setUIState('error')" class="w-full text-left px-3 py-2 rounded-lg hover:bg-[#1B2142] text-slate-200 flex items-center justify-between">
+              <span>Recoverable Error</span>
+              <i class="fa-solid fa-check text-cyan-400 text-[10px] hidden" id="checkError"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- SEARCH BAR SECTION -->
+    <div class="px-4 pt-3 pb-2">
+      <div class="relative w-full">
+        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+          <i class="fa-solid fa-magnifying-glass text-xs text-cyan-400/80"></i>
+        </div>
+        <input 
+          type="text" 
+          id="gameSearchInput"
+          placeholder="Search games, modes, or tags..." 
+          class="w-full bg-[#12162B] text-slate-100 placeholder-slate-400 text-sm rounded-xl pl-10 pr-9 py-2.5 border border-[#232B4C] focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/50 transition-all font-sans"
+        />
+        <button id="clearSearchBtn" class="hidden absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-200" title="Clear search">
+          <i class="fa-solid fa-circle-xmark text-xs"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- CATEGORY FILTER CHIPS (Single-select horizontally scrollable) -->
+    <div class="px-4 py-1.5">
+      <div class="flex items-center space-x-2 overflow-x-auto no-scrollbar py-1 text-xs select-none" id="categoryChips">
+        <button data-cat="all" class="cat-pill px-3.5 py-1.5 rounded-full font-semibold transition-all whitespace-nowrap bg-cyan-500 text-black shadow-md shadow-cyan-500/20 active:scale-95 flex items-center space-x-1.5">
+          <i class="fa-solid fa-grid-2 text-[10px]"></i>
+          <span>All</span>
+          <span class="text-[10px] bg-black/20 px-1.5 py-0.2 rounded-full font-mono">48</span>
+        </button>
+        <button data-cat="action" class="cat-pill px-3.5 py-1.5 rounded-full font-medium transition-all whitespace-nowrap bg-[#13182E] text-slate-300 hover:text-white border border-[#232B4B] hover:border-slate-500 active:scale-95 flex items-center space-x-1.5">
+          <i class="fa-solid fa-bolt text-yellow-400 text-[10px]"></i>
+          <span>Action</span>
+        </button>
+        <button data-cat="arcade" class="cat-pill px-3.5 py-1.5 rounded-full font-medium transition-all whitespace-nowrap bg-[#13182E] text-slate-300 hover:text-white border border-[#232B4B] hover:border-slate-500 active:scale-95 flex items-center space-x-1.5">
+          <i class="fa-solid fa-gamepad text-purple-400 text-[10px]"></i>
+          <span>Arcade</span>
+        </button>
+        <button data-cat="puzzle" class="cat-pill px-3.5 py-1.5 rounded-full font-medium transition-all whitespace-nowrap bg-[#13182E] text-slate-300 hover:text-white border border-[#232B4B] hover:border-slate-500 active:scale-95 flex items-center space-x-1.5">
+          <i class="fa-solid fa-puzzle-piece text-emerald-400 text-[10px]"></i>
+          <span>Puzzle</span>
+        </button>
+        <button data-cat="sports" class="cat-pill px-3.5 py-1.5 rounded-full font-medium transition-all whitespace-nowrap bg-[#13182E] text-slate-300 hover:text-white border border-[#232B4B] hover:border-slate-500 active:scale-95 flex items-center space-x-1.5">
+          <i class="fa-solid fa-flag-checkered text-rose-400 text-[10px]"></i>
+          <span>Sports</span>
+        </button>
+        <button data-cat="tactics" class="cat-pill px-3.5 py-1.5 rounded-full font-medium transition-all whitespace-nowrap bg-[#13182E] text-slate-300 hover:text-white border border-[#232B4B] hover:border-slate-500 active:scale-95 flex items-center space-x-1.5">
+          <i class="fa-solid fa-chess-knight text-cyan-400 text-[10px]"></i>
+          <span>Tactics</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ERROR BANNER (Recoverable state) -->
+    <div id="errorStateContainer" class="hidden px-4 pt-2 pb-1">
+      <div class="rounded-2xl bg-rose-950/40 border border-rose-500/40 p-3.5 flex items-start space-x-3 backdrop-blur-sm">
+        <div class="w-8 h-8 rounded-xl bg-rose-500/20 border border-rose-500/30 flex items-center justify-center text-rose-400 shrink-0 mt-0.5">
+          <i class="fa-solid fa-triangle-exclamation text-sm"></i>
+        </div>
+        <div class="flex-1">
+          <div class="flex items-center justify-between">
+            <h4 class="text-xs font-bold text-rose-200">Sync with Arena Vault Interrupted</h4>
+            <span class="text-[10px] font-mono text-rose-400">ERR_503_FEED</span>
+          </div>
+          <p class="text-[11px] text-rose-300/80 mt-0.5">Live game rosters could not fetch updated match multipliers. Cached offline mode enabled.</p>
+          <div class="mt-2.5 flex items-center space-x-2">
+            <button onclick="retryLoadGames()" class="px-3 py-1.5 rounded-lg bg-rose-500 hover:bg-rose-600 text-white text-[11px] font-semibold active:scale-95 transition flex items-center space-x-1">
+              <i class="fa-solid fa-rotate-right text-[10px]"></i>
+              <span>Retry Sync</span>
+            </button>
+            <button onclick="dismissError()" class="px-2.5 py-1.5 rounded-lg bg-rose-900/40 hover:bg-rose-900/70 text-rose-300 text-[11px] transition">
+              Dismiss
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN VIEW AREA: NORMAL GAMES GRID -->
+    <main id="gamesGridSection" class="px-4 pt-2.5 pb-6 flex-1">
+      <!-- Section subheader -->
+      <div class="flex items-center justify-between mb-2.5 text-xs text-slate-400">
+        <div class="flex items-center space-x-1.5">
+          <span class="text-slate-300 font-semibold" id="filterStatusLabel">Showing All Games</span>
+          <span class="text-slate-500">•</span>
+          <span id="filteredCountText" class="font-mono text-cyan-400">12 matches</span>
+        </div>
+        <div class="flex items-center space-x-1 text-[11px] text-slate-400">
+          <span>Sort:</span>
+          <span class="text-cyan-400 font-medium">Popularity</span>
+        </div>
+      </div>
+
+      <!-- 2-COLUMN DENSE VERTICAL GRID (Adapts to 3-4 cols on tablet/desktop) -->
+      <div id="gamesGrid" class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+        <!-- Game Cards will be rendered dynamically here -->
+      </div>
+    </main>
+
+    <!-- LOADING SKELETON STATE (Hidden by default) -->
+    <section id="skeletonSection" class="hidden px-4 pt-2.5 pb-6 flex-1">
+      <div class="flex items-center justify-between mb-3 text-xs text-slate-500">
+        <div class="w-32 h-3.5 bg-[#181F38] rounded animate-shimmer"></div>
+        <div class="w-16 h-3.5 bg-[#181F38] rounded animate-shimmer"></div>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+        <!-- 6 Skeleton Cards -->
+        <div class="rounded-2xl bg-[#12162A] border border-[#212847] p-2.5 flex flex-col space-y-2.5 overflow-hidden animate-shimmer">
+          <div class="w-full aspect-[4/3] rounded-xl bg-[#1B223D]"></div>
+          <div class="w-3/4 h-3.5 rounded bg-[#1B223D]"></div>
+          <div class="flex items-center justify-between pt-1">
+            <div class="w-14 h-4 rounded-full bg-[#1B223D]"></div>
+            <div class="w-12 h-6 rounded-lg bg-[#1B223D]"></div>
+          </div>
+        </div>
+        <div class="rounded-2xl bg-[#12162A] border border-[#212847] p-2.5 flex flex-col space-y-2.5 overflow-hidden animate-shimmer">
+          <div class="w-full aspect-[4/3] rounded-xl bg-[#1B223D]"></div>
+          <div class="w-3/4 h-3.5 rounded bg-[#1B223D]"></div>
+          <div class="flex items-center justify-between pt-1">
+            <div class="w-14 h-4 rounded-full bg-[#1B223D]"></div>
+            <div class="w-12 h-6 rounded-lg bg-[#1B223D]"></div>
+          </div>
+        </div>
+        <div class="rounded-2xl bg-[#12162A] border border-[#212847] p-2.5 flex flex-col space-y-2.5 overflow-hidden animate-shimmer">
+          <div class="w-full aspect-[4/3] rounded-xl bg-[#1B223D]"></div>
+          <div class="w-3/4 h-3.5 rounded bg-[#1B223D]"></div>
+          <div class="flex items-center justify-between pt-1">
+            <div class="w-14 h-4 rounded-full bg-[#1B223D]"></div>
+            <div class="w-12 h-6 rounded-lg bg-[#1B223D]"></div>
+          </div>
+        </div>
+        <div class="rounded-2xl bg-[#12162A] border border-[#212847] p-2.5 flex flex-col space-y-2.5 overflow-hidden animate-shimmer">
+          <div class="w-full aspect-[4/3] rounded-xl bg-[#1B223D]"></div>
+          <div class="w-3/4 h-3.5 rounded bg-[#1B223D]"></div>
+          <div class="flex items-center justify-between pt-1">
+            <div class="w-14 h-4 rounded-full bg-[#1B223D]"></div>
+            <div class="w-12 h-6 rounded-lg bg-[#1B223D]"></div>
+          </div>
+        </div>
+        <div class="rounded-2xl bg-[#12162A] border border-[#212847] p-2.5 flex flex-col space-y-2.5 overflow-hidden animate-shimmer">
+          <div class="w-full aspect-[4/3] rounded-xl bg-[#1B223D]"></div>
+          <div class="w-3/4 h-3.5 rounded bg-[#1B223D]"></div>
+          <div class="flex items-center justify-between pt-1">
+            <div class="w-14 h-4 rounded-full bg-[#1B223D]"></div>
+            <div class="w-12 h-6 rounded-lg bg-[#1B223D]"></div>
+          </div>
+        </div>
+        <div class="rounded-2xl bg-[#12162A] border border-[#212847] p-2.5 flex flex-col space-y-2.5 overflow-hidden animate-shimmer">
+          <div class="w-full aspect-[4/3] rounded-xl bg-[#1B223D]"></div>
+          <div class="w-3/4 h-3.5 rounded bg-[#1B223D]"></div>
+          <div class="flex items-center justify-between pt-1">
+            <div class="w-14 h-4 rounded-full bg-[#1B223D]"></div>
+            <div class="w-12 h-6 rounded-lg bg-[#1B223D]"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EMPTY SEARCH STATE (Hidden by default) -->
+    <section id="emptyStateSection" class="hidden px-6 py-14 flex-1 flex flex-col items-center justify-center text-center">
+      <div class="relative mb-4">
+        <div class="w-20 h-20 rounded-3xl bg-cyan-500/10 border border-cyan-500/25 flex items-center justify-center text-cyan-400">
+          <i class="fa-solid fa-gamepad text-3xl"></i>
+        </div>
+        <div class="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-[#15192E] border border-cyan-500/50 flex items-center justify-center text-slate-400 text-xs">
+          <i class="fa-solid fa-magnifying-glass text-[10px]"></i>
+        </div>
+      </div>
+      <h3 class="text-base font-bold text-white tracking-tight">No Playloot games found</h3>
+      <p class="text-xs text-slate-400 max-w-xs mt-1.5 leading-relaxed">
+        We couldn't find any arena matches matching "<span id="emptyQueryTerm" class="text-cyan-400 font-medium"></span>". Check your spelling or try another genre.
+      </p>
+      
+      <!-- Quick category recommendations -->
+      <div class="mt-5 flex flex-wrap justify-center gap-1.5 max-w-xs">
+        <button onclick="resetSearch('action')" class="px-2.5 py-1 rounded-lg bg-[#14182E] hover:bg-[#1E2344] border border-[#252E50] text-[11px] text-slate-300 transition">
+          🔥 Action
+        </button>
+        <button onclick="resetSearch('puzzle')" class="px-2.5 py-1 rounded-lg bg-[#14182E] hover:bg-[#1E2344] border border-[#252E50] text-[11px] text-slate-300 transition">
+          🧩 Puzzle
+        </button>
+        <button onclick="resetSearch('arcade')" class="px-2.5 py-1 rounded-lg bg-[#14182E] hover:bg-[#1E2344] border border-[#252E50] text-[11px] text-slate-300 transition">
+          🕹️ Retro Arcade
+        </button>
+      </div>
+
+      <button onclick="resetSearch('all')" class="mt-6 px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-black font-semibold text-xs transition active:scale-95 shadow-lg shadow-cyan-500/20">
+        Browse All 48 Games
+      </button>
+    </section>
+
+    <!-- LAUNCH MODAL (Action preview feedback) -->
+    <div id="launchModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
+      <div class="w-full max-w-xs bg-[#111529] border border-[#2B355A] rounded-2xl p-5 shadow-2xl relative text-center">
+        <div id="launchGameIcon" class="w-16 h-16 mx-auto rounded-2xl flex items-center justify-center text-3xl mb-3 shadow-lg"></div>
+        <h3 id="launchGameTitle" class="text-base font-bold text-white">Launching Arena</h3>
+        <p id="launchGameCategory" class="text-xs text-cyan-400 font-mono mt-0.5 uppercase tracking-wider"></p>
+        <div class="my-4 py-2.5 px-3 rounded-xl bg-[#090C19] border border-[#1E2544] flex items-center justify-between text-xs font-mono">
+          <span class="text-slate-400">Match Pool:</span>
+          <span id="launchReward" class="text-amber-400 font-bold flex items-center">
+            <i class="fa-solid fa-coins mr-1 text-xs"></i> 500 Coins
+          </span>
+        </div>
+        <div class="flex items-center space-x-2">
+          <button onclick="closeLaunchModal()" class="flex-1 py-2.5 rounded-xl bg-[#1B213E] hover:bg-[#252C52] text-slate-300 text-xs font-medium transition">
+            Cancel
+          </button>
+          <button onclick="confirmLaunch()" class="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold text-xs shadow-lg shadow-cyan-500/25 active:scale-95 transition">
+            Enter Match
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PERSISTENT BOTTOM TAB NAVIGATION (Cyber-Luxe style matching existing screens) -->
+    <nav class="fixed bottom-0 w-full max-w-[440px] md:max-w-2xl lg:max-w-4xl bg-[#090B16]/95 backdrop-blur-xl border-t border-[#1C223B] px-5 py-2.5 flex items-center justify-around z-40">
+      <button class="flex flex-col items-center space-y-1 text-cyan-400 active:scale-95 transition">
+        <i class="fa-solid fa-gamepad text-lg"></i>
+        <span class="text-[10px] font-semibold tracking-tight">Arcade</span>
+      </button>
+      <button class="flex flex-col items-center space-y-1 text-slate-400 hover:text-slate-200 active:scale-95 transition">
+        <i class="fa-solid fa-chart-simple text-lg"></i>
+        <span class="text-[10px] font-medium tracking-tight">Ranks</span>
+      </button>
+      <button class="flex flex-col items-center space-y-1 text-slate-400 hover:text-slate-200 active:scale-95 transition">
+        <i class="fa-solid fa-gift text-lg"></i>
+        <span class="text-[10px] font-medium tracking-tight">Loot</span>
+      </button>
+      <button class="flex flex-col items-center space-y-1 text-slate-400 hover:text-slate-200 active:scale-95 transition">
+        <i class="fa-solid fa-user-astronaut text-lg"></i>
+        <span class="text-[10px] font-medium tracking-tight">Profile</span>
+      </button>
+    </nav>
+
+  </div>
+
+  <script>
+    // GAME DATABASE - Rich arcade lineup with tags, art themes, live player counts, and prize tokens
+    const GAMES_CATALOG = [
+      {
+        id: 'neon-cyberblade',
+        title: 'Neon Cyberblade',
+        category: 'action',
+        categoryName: 'Action',
+        players: '48.2k',
+        tag: 'HOT TOURNAMENT',
+        reward: '500 Coins',
+        rewardType: 'coins',
+        badgeColor: 'bg-rose-500/90 text-white',
+        gradient: 'from-violet-950 via-indigo-900 to-cyan-900',
+        icon: 'fa-shield-halved',
+        accentColor: '#06b6d4',
+        artSvg: `<svg class="w-full h-full" viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="200" height="150" fill="#0C0F22"/>
+          <circle cx="100" cy="75" r="50" stroke="#06B6D4" stroke-width="2" stroke-dasharray="4 4" opacity="0.4"/>
+          <path d="M40 120L100 30L160 120H40Z" fill="url(#blade_grad)" opacity="0.3"/>
+          <path d="M96 25L104 25L102 125L98 125Z" fill="#06B6D4" filter="drop-shadow(0 0 8px #06B6D4)"/>
+          <line x1="70" y1="90" x2="130" y2="90" stroke="#EC4899" stroke-width="3"/>
+          <circle cx="100" cy="75" r="16" fill="#8B5CF6"/>
+          <path d="M96 70L106 75L96 80V70Z" fill="#FFFFFF"/>
+          <defs>
+            <linearGradient id="blade_grad" x1="100" y1="30" x2="100" y2="120">
+              <stop stop-color="#06B6D4"/>
+              <stop offset="1" stop-color="#7C3AED"/>
+            </linearGradient>
+          </defs>
+        </svg>`
+      },
+      {
+        id: 'apex-drift',
+        title: 'Apex Drift 2088',
+        category: 'sports',
+        categoryName: 'Sports',
+        players: '19.5k',
+        tag: 'LIVE GP',
+        reward: '1,200 Coins',
+        rewardType: 'coins',
+        badgeColor: 'bg-amber-500/90 text-black',
+        gradient: 'from-blue-950 via-purple-950 to-slate-900',
+        icon: 'fa-car-side',
+        accentColor: '#f59e0b',
+        artSvg: `<svg class="w-full h-full" viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="200" height="150" fill="#0B0E1E"/>
+          <!-- Cyberpunk Road Grid -->
+          <line x1="20" y1="150" x2="85" y2="70" stroke="#EC4899" stroke-width="1.5" opacity="0.5"/>
+          <line x1="180" y1="150" x2="115" y2="70" stroke="#EC4899" stroke-width="1.5" opacity="0.5"/>
+          <line x1="100" y1="70" x2="100" y2="150" stroke="#06B6D4" stroke-width="2" stroke-dasharray="8 6"/>
+          <circle cx="100" cy="55" r="28" fill="#F59E0B" opacity="0.8"/>
+          <!-- Neon Race Car Silhouette -->
+          <rect x="75" y="95" width="50" height="22" rx="6" fill="#1E2345" stroke="#06B6D4" stroke-width="2"/>
+          <rect x="85" y="90" width="30" height="10" rx="3" fill="#06B6D4"/>
+          <circle cx="82" cy="118" r="4" fill="#EC4899"/>
+          <circle cx="118" cy="118" r="4" fill="#EC4899"/>
+        </svg>`
+      },
+      {
+        id: 'cosmic-bubble',
+        title: 'Cosmic Bubble Clash',
+        category: 'puzzle',
+        categoryName: 'Puzzle',
+        players: '32.1k',
+        tag: '1v1 BLITZ',
+        reward: '25 Gems',
+        rewardType: 'gems',
+        badgeColor: 'bg-purple-600/90 text-white',
+        gradient: 'from-fuchsia-950 via-purple-900 to-indigo-950',
+        icon: 'fa-cubes',
+        accentColor: '#a855f7',
+        artSvg: `<svg class="w-full h-full" viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="200" height="150" fill="#110B22"/>
+          <circle cx="65" cy="50" r="22" fill="#8B5CF6" opacity="0.7"/>
+          <circle cx="130" cy="60" r="28" fill="#EC4899" opacity="0.8"/>
+          <circle cx="95" cy="100" r="24" fill="#06B6D4" opacity="0.75"/>
+          <circle cx="70" cy="46" r="6" fill="#FFFFFF" opacity="0.6"/>
+          <circle cx="134" cy="55" r="8" fill="#FFFFFF" opacity="0.6"/>
+          <circle cx="98" cy="95" r="7" fill="#FFFFFF" opacity="0.6"/>
+          <path d="M65 50L130 60L95 100Z" stroke="#FDE047" stroke-width="1.5" stroke-dasharray="3 3"/>
+        </svg>`
+      },
+      {
+        id: 'quantum-chess',
+        title: 'Quantum Chess Blitz',
+        category: 'tactics',
+        categoryName: 'Tactics',
+        players: '12.4k',
+        tag: 'STRATEGY',
+        reward: '350 Coins',
+        rewardType: 'coins',
+        badgeColor: 'bg-cyan-600/90 text-white',
+        gradient: 'from-teal-950 via-slate-900 to-blue-950',
+        icon: 'fa-chess-king',
+        accentColor: '#10b981',
+        artSvg: `<svg class="w-full h-full" viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="200" height="150" fill="#09121B"/>
+          <!-- Grid perspective -->
+          <path d="M30 130L80 50H120L170 130H30Z" fill="#102535" opacity="0.6"/>
+          <line x1="100" y1="50" x2="100" y2="130" stroke="#06B6D4" stroke-width="1.5"/>
+          <line x1="60" y1="90" x2="140" y2="90" stroke="#06B6D4" stroke-width="1.5"/>
+          <!-- Hologram Knight / King -->
+          <circle cx="100" cy="70" r="16" fill="#06B6D4" opacity="0.3"/>
+          <path d="M93 85L100 60L107 85H93Z" fill="#06B6D4"/>
+          <circle cx="100" cy="54" r="5" fill="#38BDF8"/>
+          <circle cx="100" cy="54" r="9" stroke="#38BDF8" stroke-width="1.5" opacity="0.7"/>
+        </svg>`
+      },
+      {
+        id: 'pixel-dungeon',
+        title: 'Pixel Dungeon Run',
+        category: 'arcade',
+        categoryName: 'Arcade',
+        players: '28.0k',
+        tag: 'ROGUE',
+        reward: '100 Coins',
+        rewardType: 'coins',
+        badgeColor: 'bg-emerald-600/90 text-white',
+        gradient: 'from-emerald-950 via-stone-900 to-teal-950',
+        icon: 'fa-dungeon',
+        accentColor: '#34d399',
+        artSvg: `<svg class="w-full h-full" viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="200" height="150" fill="#0C1412"/>
+          <rect x="40" y="30" width="120" height="90" rx="8" fill="#152420" stroke="#34D399" stroke-width="2"/>
+          <!-- Pixel bricks -->
+          <rect x="55" y="45" width="20" height="12" fill="#34D399" opacity="0.6"/>
+          <rect x="85" y="45" width="20" height="12" fill="#34D399" opacity="0.3"/>
+          <rect x="125" y="45" width="20" height="12" fill="#34D399" opacity="0.7"/>
+          <rect x="70" y="65" width="20" height="12" fill="#F59E0B"/>
+          <!-- Sword icon -->
+          <path d="M100 70L115 85L110 90L95 75Z" fill="#FFFFFF"/>
+          <rect x="90" y="80" width="6" height="6" fill="#F43F5E"/>
+        </svg>`
+      },
+      {
+        id: 'hyper-dash',
+        title: 'Hyper Dash 2088',
+        category: 'arcade',
+        categoryName: 'Arcade',
+        players: '35.4k',
+        tag: 'CHECKPOINT',
+        reward: '400 Coins',
+        rewardType: 'coins',
+        badgeColor: 'bg-blue-600/90 text-white',
+        gradient: 'from-blue-950 via-indigo-950 to-slate-900',
+        icon: 'fa-gauge-high',
+        accentColor: '#38bdf8',
+        artSvg: `<svg class="w-full h-full" viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="200" height="150" fill="#0C1024"/>
+          <path d="M20 130Q100 30 180 130" stroke="#38BDF8" stroke-width="3" fill="none"/>
+          <circle cx="100" cy="70" r="24" fill="#1D2B56" stroke="#EC4899" stroke-width="2"/>
+          <line x1="100" y1="70" x2="114" y2="60" stroke="#FDE047" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="100" cy="70" r="4" fill="#FFFFFF"/>
+          <text x="78" y="115" font-family="monospace" font-size="12" fill="#38BDF8" font-weight="bold">SPEED</text>
+        </svg>`
+      },
+      {
+        id: 'loot-knight-raid',
+        title: 'Loot Knight Raid',
+        category: 'action',
+        categoryName: 'Action',
+        players: '64.0k',
+        tag: 'BOSS RAID',
+        reward: '800 Coins',
+        rewardType: 'coins',
+        badgeColor: 'bg-rose-600/90 text-white',
+        gradient: 'from-red-950 via-slate-900 to-indigo-950',
+        icon: 'fa-shield-virus',
+        accentColor: '#f43f5e',
+        artSvg: `<svg class="w-full h-full" viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="200" height="150" fill="#170A0F"/>
+          <circle cx="100" cy="75" r="45" fill="#4C0519" opacity="0.5"/>
+          <polygon points="100,35 125,55 120,95 100,115 80,95 75,55" fill="#BE123C" stroke="#FDA4AF" stroke-width="2"/>
+          <path d="M100 48V100" stroke="#FFF" stroke-width="2"/>
+          <circle cx="100" cy="48" r="3" fill="#FDE047"/>
+          <circle cx="70" cy="115" r="8" fill="#F59E0B"/>
+          <circle cx="130" cy="115" r="8" fill="#F59E0B"/>
+        </svg>`
+      },
+      {
+        id: 'cyber-hoops',
+        title: 'Cyber Dunk 3D',
+        category: 'sports',
+        categoryName: 'Sports',
+        players: '17.8k',
+        tag: 'HOT',
+        reward: '150 Coins',
+        rewardType: 'coins',
+        badgeColor: 'bg-orange-500 text-black font-bold',
+        gradient: 'from-amber-950 via-slate-900 to-orange-950',
+        icon: 'fa-basketball',
+        accentColor: '#f97316',
+        artSvg: `<svg class="w-full h-full" viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="200" height="150" fill="#140D07"/>
+          <!-- Hoop Backboard -->
+          <rect x="60" y="25" width="80" height="50" rx="4" fill="#2B1A0E" stroke="#F97316" stroke-width="2"/>
+          <rect x="80" y="40" width="40" height="25" fill="none" stroke="#F97316" stroke-width="1.5"/>
+          <!-- Rim & Net -->
+          <ellipse cx="100" cy="75" rx="22" ry="7" fill="none" stroke="#EF4444" stroke-width="3"/>
+          <path d="M82 78L88 105L100 115L112 105L118 78" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-dasharray="3 3"/>
+          <!-- Glowing Ball -->
+          <circle cx="100" cy="48" r="14" fill="#F97316" filter="drop-shadow(0 0 6px #F97316)"/>
+          <line x1="86" y1="48" x2="114" y2="48" stroke="#000000" stroke-width="1.5"/>
+        </svg>`
+      },
+      {
+        id: 'grid-matrix-match',
+        title: 'Matrix Block Drop',
+        category: 'puzzle',
+        categoryName: 'Puzzle',
+        players: '23.6k',
+        tag: 'CHILL',
+        reward: '10 Gems',
+        rewardType: 'gems',
+        badgeColor: 'bg-teal-500/90 text-white',
+        gradient: 'from-cyan-950 via-teal-950 to-slate-900',
+        icon: 'fa-shapes',
+        accentColor: '#14b8a6',
+        artSvg: `<svg class="w-full h-full" viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="200" height="150" fill="#0A1516"/>
+          <g fill="#14B8A6">
+            <rect x="50" y="40" width="22" height="22" rx="3" opacity="0.9"/>
+            <rect x="76" y="40" width="22" height="22" rx="3" opacity="0.9"/>
+            <rect x="102" y="40" width="22" height="22" rx="3" opacity="0.9"/>
+            <rect x="76" y="66" width="22" height="22" rx="3" opacity="0.9"/>
+          </g>
+          <g fill="#06B6D4">
+            <rect x="128" y="70" width="22" height="22" rx="3" opacity="0.7"/>
+            <rect x="128" y="96" width="22" height="22" rx="3" opacity="0.7"/>
+          </g>
+        </svg>`
+      },
+      {
+        id: 'quantum-siege',
+        title: 'Quantum Siege',
+        category: 'action',
+        categoryName: 'Action',
+        players: '41.9k',
+        tag: 'MULTIPLAYER',
+        reward: '600 Coins',
+        rewardType: 'coins',
+        badgeColor: 'bg-sky-600/90 text-white',
+        gradient: 'from-indigo-950 via-slate-900 to-cyan-950',
+        icon: 'fa-crosshairs',
+        accentColor: '#38bdf8',
+        artSvg: `<svg class="w-full h-full" viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="200" height="150" fill="#0D1326"/>
+          <circle cx="100" cy="75" r="40" stroke="#38BDF8" stroke-width="2"/>
+          <circle cx="100" cy="75" r="20" stroke="#818CF8" stroke-width="1.5" stroke-dasharray="4 2"/>
+          <circle cx="100" cy="75" r="4" fill="#EF4444"/>
+          <line x1="50" y1="75" x2="150" y2="75" stroke="#38BDF8" stroke-width="1.5"/>
+          <line x1="100" y1="25" x2="100" y2="125" stroke="#38BDF8" stroke-width="1.5"/>
+        </svg>`
+      },
+      {
+        id: 'turbo-air-hockey',
+        title: 'Neon Puck Hockey',
+        category: 'sports',
+        categoryName: 'Sports',
+        players: '14.2k',
+        tag: 'ARCADE 2P',
+        reward: '200 Coins',
+        rewardType: 'coins',
+        badgeColor: 'bg-indigo-600/90 text-white',
+        gradient: 'from-blue-950 via-slate-900 to-indigo-950',
+        icon: 'fa-compact-disc',
+        accentColor: '#6366f1',
+        artSvg: `<svg class="w-full h-full" viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="200" height="150" fill="#0C1124"/>
+          <rect x="40" y="25" width="120" height="100" rx="10" stroke="#6366F1" stroke-width="2" fill="#131B38"/>
+          <line x1="40" y1="75" x2="160" y2="75" stroke="#EC4899" stroke-width="2"/>
+          <circle cx="100" cy="75" r="16" stroke="#06B6D4" stroke-width="1.5" fill="none"/>
+          <!-- Mallets & Puck -->
+          <circle cx="100" cy="48" r="12" fill="#EF4444"/>
+          <circle cx="100" cy="102" r="12" fill="#06B6D4"/>
+          <circle cx="105" cy="72" r="6" fill="#FDE047"/>
+        </svg>`
+      },
+      {
+        id: 'synth-rhythm-blaster',
+        title: 'Synth Beat Beat',
+        category: 'arcade',
+        categoryName: 'Arcade',
+        players: '38.7k',
+        tag: 'POPULAR',
+        reward: '450 Coins',
+        rewardType: 'coins',
+        badgeColor: 'bg-pink-600/90 text-white',
+        gradient: 'from-pink-950 via-purple-950 to-slate-900',
+        icon: 'fa-music',
+        accentColor: '#ec4899',
+        artSvg: `<svg class="w-full h-full" viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="200" height="150" fill="#180B1C"/>
+          <line x1="50" y1="20" x2="50" y2="130" stroke="#EC4899" stroke-width="2" opacity="0.4"/>
+          <line x1="83" y1="20" x2="83" y2="130" stroke="#8B5CF6" stroke-width="2" opacity="0.4"/>
+          <line x1="117" y1="20" x2="117" y2="130" stroke="#3B82F6" stroke-width="2" opacity="0.4"/>
+          <line x1="150" y1="20" x2="150" y2="130" stroke="#06B6D4" stroke-width="2" opacity="0.4"/>
+          <!-- Notes falling -->
+          <circle cx="50" cy="90" r="10" fill="#EC4899"/>
+          <circle cx="83" cy="55" r="10" fill="#8B5CF6"/>
+          <circle cx="117" cy="110" r="10" fill="#3B82F6"/>
+          <circle cx="150" cy="75" r="10" fill="#06B6D4"/>
+        </svg>`
+      }
+    ];
+
+    // Current State
+    let currentCategory = 'all';
+    let searchQuery = '';
+    let uiState = 'normal'; // 'normal', 'skeleton', 'empty', 'error'
+
+    // DOM Elements
+    const gamesGrid = document.getElementById('gamesGrid');
+    const filteredCountText = document.getElementById('filteredCountText');
+    const filterStatusLabel = document.getElementById('filterStatusLabel');
+    const searchInput = document.getElementById('gameSearchInput');
+    const clearSearchBtn = document.getElementById('clearSearchBtn');
+    const categoryChips = document.getElementById('categoryChips');
+    const emptyStateSection = document.getElementById('emptyStateSection');
+    const emptyQueryTerm = document.getElementById('emptyQueryTerm');
+    const skeletonSection = document.getElementById('skeletonSection');
+    const gamesGridSection = document.getElementById('gamesGridSection');
+    const errorStateContainer = document.getElementById('errorStateContainer');
+    const stateMenuBtn = document.getElementById('stateMenuBtn');
+    const stateDropdown = document.getElementById('stateDropdown');
+    const currentStateLabel = document.getElementById('currentStateLabel');
+    const refreshBtn = document.getElementById('refreshBtn');
+    const refreshIcon = document.getElementById('refreshIcon');
+    const launchModal = document.getElementById('launchModal');
+
+    // Render Game Cards
+    function renderGames() {
+      if (uiState !== 'normal') return;
+
+      const filtered = GAMES_CATALOG.filter(game => {
+        const matchesCategory = currentCategory === 'all' || game.category === currentCategory;
+        const matchesSearch = !searchQuery || 
+          game.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          game.categoryName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          game.tag.toLowerCase().includes(searchQuery.toLowerCase());
+        return matchesCategory && matchesSearch;
+      });
+
+      // Update badges
+      filteredCountText.textContent = `${filtered.length} ${filtered.length === 1 ? 'game' : 'games'}`;
+      if (currentCategory === 'all' && !searchQuery) {
+        filterStatusLabel.textContent = 'Showing All Games';
+      } else if (searchQuery) {
+        filterStatusLabel.textContent = `Results for "${searchQuery}"`;
+      } else {
+        const activeChip = document.querySelector(`[data-cat="${currentCategory}"] span`);
+        filterStatusLabel.textContent = `${activeChip ? activeChip.textContent : 'Category'} Games`;
+      }
+
+      if (filtered.length === 0) {
+        gamesGridSection.classList.add('hidden');
+        emptyStateSection.classList.remove('hidden');
+        emptyQueryTerm.textContent = searchQuery || currentCategory;
+        return;
+      }
+
+      emptyStateSection.classList.add('hidden');
+      gamesGridSection.classList.remove('hidden');
+
+      gamesGrid.innerHTML = filtered.map(game => `
+        <div class="group relative rounded-2xl bg-[#111425] border border-[#202742] hover:border-cyan-500/60 p-2.5 flex flex-col transition-all duration-200 hover:-translate-y-1 shadow-lg hover:shadow-cyan-500/10 cursor-pointer overflow-hidden" onclick="openLaunchModal('${game.id}')">
+          <!-- Game Artwork Container -->
+          <div class="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-gradient-to-br ${game.gradient} border border-white/5 flex items-center justify-center">
+            ${game.artSvg}
+            
+            <!-- Category / Live Tag Badge -->
+            <div class="absolute top-2 left-2 flex items-center space-x-1">
+              <span class="px-1.5 py-0.5 rounded-md text-[9px] font-bold font-mono tracking-wider uppercase ${game.badgeColor} shadow-md backdrop-blur-sm">
+                ${game.tag}
+              </span>
+            </div>
+
+            <!-- Active Players Live Ticker -->
+            <div class="absolute bottom-2 left-2 flex items-center space-x-1 bg-black/60 backdrop-blur-md px-1.5 py-0.5 rounded-md border border-white/10 text-[9px] text-slate-300 font-mono">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping mr-0.5"></span>
+              <span>${game.players}</span>
+            </div>
+
+            <!-- Play Overlay Affordance on hover -->
+            <div class="absolute inset-0 bg-cyan-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[1px]">
+              <div class="w-10 h-10 rounded-full bg-cyan-400 text-black flex items-center justify-center shadow-lg shadow-cyan-400/40 transform scale-90 group-hover:scale-100 transition-transform">
+                <i class="fa-solid fa-play text-xs ml-0.5"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Metadata & Launch affordance -->
+          <div class="mt-2.5 flex flex-col flex-1 justify-between">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-mono font-medium text-slate-400 uppercase tracking-wider">${game.categoryName}</span>
+                <!-- Subtle reward badge -->
+                <span class="inline-flex items-center space-x-1 text-[10px] font-mono font-semibold ${game.rewardType === 'gems' ? 'text-cyan-300' : 'text-amber-400'}">
+                  <i class="fa-solid ${game.rewardType === 'gems' ? 'fa-gem' : 'fa-coins'} text-[9px]"></i>
+                  <span>${game.reward}</span>
+                </span>
+              </div>
+              <h3 class="text-xs sm:text-sm font-bold text-white tracking-tight group-hover:text-cyan-300 transition-colors line-clamp-1 mt-0.5">
+                ${game.title}
+              </h3>
+            </div>
+
+            <!-- Direct Play Affordance Button -->
+            <div class="mt-2.5 pt-2 border-t border-[#1C233B] flex items-center justify-between">
+              <span class="text-[10px] text-slate-400 font-mono group-hover:text-cyan-400 transition-colors">Instant Launch</span>
+              <div class="w-7 h-7 rounded-lg bg-[#181E38] group-hover:bg-cyan-400 text-slate-300 group-hover:text-black flex items-center justify-center text-[10px] transition-all font-bold">
+                <i class="fa-solid fa-play text-[9px] ml-0.5"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Category Filter Selection
+    categoryChips.addEventListener('click', (e) => {
+      const btn = e.target.closest('.cat-pill');
+      if (!btn) return;
+
+      document.querySelectorAll('.cat-pill').forEach(el => {
+        el.className = 'cat-pill px-3.5 py-1.5 rounded-full font-medium transition-all whitespace-nowrap bg-[#13182E] text-slate-300 hover:text-white border border-[#232B4B] hover:border-slate-500 active:scale-95 flex items-center space-x-1.5';
+      });
+
+      btn.className = 'cat-pill px-3.5 py-1.5 rounded-full font-semibold transition-all whitespace-nowrap bg-cyan-500 text-black shadow-md shadow-cyan-500/20 active:scale-95 flex items-center space-x-1.5';
+      
+      currentCategory = btn.dataset.cat;
+      setUIState('normal');
+      renderGames();
+    });
+
+    // Search Input Handling
+    searchInput.addEventListener('input', (e) => {
+      searchQuery = e.target.value.trim();
+      clearSearchBtn.classList.toggle('hidden', searchQuery.length === 0);
+      setUIState('normal');
+      renderGames();
+    });
+
+    clearSearchBtn.addEventListener('click', () => {
+      searchInput.value = '';
+      searchQuery = '';
+      clearSearchBtn.classList.add('hidden');
+      renderGames();
+      searchInput.focus();
+    });
+
+    // Quick Reset
+    function resetSearch(cat) {
+      searchInput.value = '';
+      searchQuery = '';
+      clearSearchBtn.classList.add('hidden');
+      
+      if (cat) {
+        currentCategory = cat;
+        document.querySelectorAll('.cat-pill').forEach(el => {
+          if (el.dataset.cat === cat) {
+            el.className = 'cat-pill px-3.5 py-1.5 rounded-full font-semibold transition-all whitespace-nowrap bg-cyan-500 text-black shadow-md shadow-cyan-500/20 active:scale-95 flex items-center space-x-1.5';
+          } else {
+            el.className = 'cat-pill px-3.5 py-1.5 rounded-full font-medium transition-all whitespace-nowrap bg-[#13182E] text-slate-300 hover:text-white border border-[#232B4B] hover:border-slate-500 active:scale-95 flex items-center space-x-1.5';
+          }
+        });
+      }
+      setUIState('normal');
+      renderGames();
+    }
+
+    // Refresh simulation
+    refreshBtn.addEventListener('click', () => {
+      refreshIcon.classList.add('animate-spin');
+      setUIState('skeleton');
+      setTimeout(() => {
+        refreshIcon.classList.remove('animate-spin');
+        setUIState('normal');
+      }, 700);
+    });
+
+    // UI State Management (Default, Skeleton, Empty, Error)
+    function setUIState(state) {
+      uiState = state;
+      stateDropdown.classList.add('hidden');
+
+      // Update preview label
+      const labels = { normal: 'Ready', skeleton: 'Skeleton', empty: 'Empty', error: 'Error' };
+      currentStateLabel.textContent = labels[state] || state;
+
+      // Update checkmarks
+      document.getElementById('checkNormal').classList.toggle('hidden', state !== 'normal');
+      document.getElementById('checkSkeleton').classList.toggle('hidden', state !== 'skeleton');
+      document.getElementById('checkEmpty').classList.toggle('hidden', state !== 'empty');
+      document.getElementById('checkError').classList.toggle('hidden', state !== 'error');
+
+      // Hide all dynamic view states
+      gamesGridSection.classList.add('hidden');
+      skeletonSection.classList.add('hidden');
+      emptyStateSection.classList.add('hidden');
+      errorStateContainer.classList.add('hidden');
+
+      if (state === 'normal') {
+        renderGames();
+      } else if (state === 'skeleton') {
+        skeletonSection.classList.remove('hidden');
+      } else if (state === 'empty') {
+        emptyStateSection.classList.remove('hidden');
+        emptyQueryTerm.textContent = searchQuery || 'No matches';
+      } else if (state === 'error') {
+        errorStateContainer.classList.remove('hidden');
+        gamesGridSection.classList.remove('hidden'); // Show cached grid under error banner
+        renderGames();
+      }
+    }
+
+    // State switcher dropdown toggle
+    stateMenuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      stateDropdown.classList.toggle('hidden');
+    });
+
+    document.addEventListener('click', () => {
+      stateDropdown.classList.add('hidden');
+    });
+
+    function dismissError() {
+      errorStateContainer.classList.add('hidden');
+    }
+
+    function retryLoadGames() {
+      errorStateContainer.classList.add('hidden');
+      setUIState('skeleton');
+      setTimeout(() => {
+        setUIState('normal');
+      }, 600);
+    }
+
+    // Launch Modal Interaction
+    function openLaunchModal(gameId) {
+      const game = GAMES_CATALOG.find(g => g.id === gameId);
+      if (!game) return;
+
+      document.getElementById('launchGameTitle').textContent = game.title;
+      document.getElementById('launchGameCategory').textContent = `${game.categoryName} Arcade • 1v1 Bracket`;
+      document.getElementById('launchReward').innerHTML = `
+        <i class="fa-solid ${game.rewardType === 'gems' ? 'fa-gem text-cyan-400' : 'fa-coins text-amber-400'} mr-1.5"></i> ${game.reward}
+      `;
+      const iconContainer = document.getElementById('launchGameIcon');
+      iconContainer.className = `w-16 h-16 mx-auto rounded-2xl flex items-center justify-center text-3xl mb-3 shadow-lg bg-gradient-to-br ${game.gradient} border border-cyan-400/40 text-cyan-300`;
+      iconContainer.innerHTML = `<i class="fa-solid ${game.icon}"></i>`;
+
+      launchModal.classList.remove('hidden');
+      launchModal.classList.add('flex');
+    }
+
+    function closeLaunchModal() {
+      launchModal.classList.add('hidden');
+      launchModal.classList.remove('flex');
+    }
+
+    function confirmLaunch() {
+      const btn = event.target;
+      btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin mr-1"></i> Joining Queue...`;
+      setTimeout(() => {
+        btn.innerHTML = `Enter Match`;
+        closeLaunchModal();
+      }, 700);
+    }
+
+    // Back button behavior
+    document.getElementById('backBtn').addEventListener('click', () => {
+      const originalText = document.getElementById('backBtn').innerHTML;
+      document.getElementById('backBtn').innerHTML = `<i class="fa-solid fa-check text-cyan-400 text-xs"></i>`;
+      setTimeout(() => {
+        document.getElementById('backBtn').innerHTML = originalText;
+      }, 500);
+    });
+
+    // Initial render
+    renderGames();
+  </script>
+</body>
+</html>

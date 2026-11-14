@@ -1,0 +1,3 @@
+GroGames contains 37 standalone game cards. Runtime files live in public/grogames; manifest.json lists every title, cover, orientation, and launch path. The Arcade enhancement renders matching two-column image cards and opens the existing embedded player. Relative first-party URLs are resolved against the app origin; external games still require HTTPS. Existing Playloot versions of Skate Runner and Neon Racer are preserved. Archery 3D retains its original external Three.js dependency.
+
+Validation: 37 card launches and local dependencies checked; existing arcade filter and player tests pass; production build passes. Browser and physical-device playtesting is still required. No live deployment was performed.

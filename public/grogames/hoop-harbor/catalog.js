@@ -1,0 +1,1 @@
+globalThis.GameCatalog=[{"id":"hoop-harbor","name":"Hoop Harbor","category":"Sports","tagline":"Nothing but sea breeze and swishes.","help":"Drag from the ball toward the hoop, then release to shoot. The dotted guide helps you aim. Score as many baskets as possible in 60 seconds.","accent":"#ffc28b","bg":"#2e5661","label":"BASKETBALL","number":16}];globalThis.Games={};

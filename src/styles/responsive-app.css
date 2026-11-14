@@ -1,0 +1,59 @@
+/* Scoped to authenticated app routes; the login page is intentionally untouched. */
+.app-workspace{min-height:100dvh;background:#0e1017;color:#f6f4ff;width:100%;min-width:0}
+.app-workspace *, .app-workspace *::before,.app-workspace *::after{box-sizing:border-box}
+.app-workspace button:focus-visible,.app-workspace a:focus-visible{outline:2px solid #4cd7f6;outline-offset:4px}
+@media(min-width:600px){
+ .app-workspace .stitch-shell__frame{width:100%!important}
+ .app-workspace .hub,.app-workspace .arcade-catalog,.app-workspace .coming-soon{width:100%;max-width:none!important;margin-inline:auto;padding-inline:clamp(24px,4vw,64px)!important}
+ .app-workspace .catalog-grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))!important;gap:20px!important}
+ .app-workspace .lootably-grid{grid-template-columns:repeat(auto-fill,minmax(280px,1fr));align-items:start}
+ .app-workspace .pms-bottom-nav{width:min(100%,720px)!important}
+ .app-workspace .hub__header{padding-block:28px;gap:18px}
+ .app-workspace .hub__header h1{font-size:30px}
+ .app-workspace .hub__body{padding-inline:0;gap:24px}
+ .app-workspace .neo-panel,.app-workspace .hub__card{padding:24px}
+ .app-workspace .neo-profile{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;align-items:start}
+ .app-workspace .neo-profile__hero{grid-column:1/-1}
+ .app-workspace .neo-quick-actions{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .app-workspace .hub__row,.app-workspace .hub__mission{font-size:14px;padding-block:16px}
+ .app-workspace .neo-board-list>button{padding:16px;grid-template-columns:44px 48px minmax(0,1fr) auto;gap:16px}
+ .app-workspace .neo-player-copy b{font-size:15px}
+ .app-workspace .neo-player-copy small,.app-workspace .neo-player-score>b{font-size:12px}
+ .app-workspace .neo-podium{max-width:700px;margin-inline:auto}
+ .app-workspace .coming-soon__card{min-height:65dvh}
+}
+@media(min-width:1024px){
+ .app-workspace{padding-top:80px}
+ .app-workspace .hub,.app-workspace .arcade-catalog,.app-workspace .coming-soon{min-height:100dvh;padding-bottom:40px!important}
+ .app-workspace .stitch-shell{min-height:100dvh!important}
+ .app-workspace .stitch-shell__frame{height:calc(100dvh - 80px)!important;max-width:none}
+ .app-workspace .catalog-header{top:80px!important}
+ .app-workspace .hub__balances,.app-workspace .neo-wallet{gap:24px}
+ .app-workspace .hub-scroll-list{max-height:520px}
+ .app-workspace .payments .hub__body{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}
+}
+@media(prefers-reduced-motion:reduce){.app-workspace *{scroll-behavior:auto!important}}
+.website-header{display:none}
+@media(min-width:1024px){
+ .app-workspace .pms-bottom-nav{display:none!important}
+ .website-header{position:fixed;inset:0 0 auto;z-index:9000;height:80px;display:flex;align-items:center;gap:40px;padding:0 clamp(24px,3vw,64px);background:rgba(14,16,23,.97);border-bottom:1px solid #2a3040;backdrop-filter:blur(16px);font-family:Inter,system-ui,sans-serif}
+ .website-brand{display:flex;align-items:center;gap:12px;color:#f6f4ff;text-decoration:none;font-size:20px;font-weight:900;letter-spacing:1px;white-space:nowrap}
+ .website-brand>span{font-size:40px;line-height:1;color:#a078ff}
+ .website-header nav{display:flex;align-items:center;gap:8px;flex:1;min-width:0}
+ .website-header nav a{padding:12px 18px;color:#aeb8ca;text-decoration:none;font-size:14px;font-weight:650;border-radius:9px;white-space:nowrap}
+ .website-header nav a:hover{background:#ffffff08;color:#fff}
+ .website-header nav a[aria-current=page]{background:#4cd7f612;color:#4cd7f6}
+ .website-offers{display:flex;align-items:center;gap:16px;padding:12px 18px;border-radius:10px;background:#4cd7f6;color:#071821;text-decoration:none;font-size:13px;font-weight:800;white-space:nowrap}
+}
+
+@media(min-width:1024px){
+ .website-header{gap:24px}
+ .website-account{display:flex;align-items:center;gap:8px;flex-shrink:0}
+ .website-balance{display:flex;align-items:center;gap:6px;padding:9px 10px;background:#242733;border:1px solid #ffffff0c;border-radius:12px;color:#ffbd60;text-decoration:none;font-size:13px}
+ .website-balance--gems{color:#4cd7f6}
+ .website-icon{width:38px;height:38px;display:grid;place-items:center;color:#b6c3d0;text-decoration:none;border-radius:50%}
+ .website-icon:hover{background:#ffffff10;color:#4cd7f6}
+ .website-avatar{border:1px solid #8570bb;overflow:hidden;background:#262139}
+ .website-avatar img{width:100%;height:100%;object-fit:cover}
+}
+@media(min-width:1024px) and (max-width:1250px){.website-header{gap:14px;padding-inline:20px}.website-header nav{gap:2px}.website-header nav a{padding-inline:10px}.website-brand{font-size:16px;gap:6px}.website-offers{padding:10px;font-size:12px}.website-balance{padding:8px 6px}}

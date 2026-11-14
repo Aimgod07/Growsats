@@ -1,0 +1,1 @@
+globalThis.GameCatalog=[{"id":"meteor-drift","name":"Meteor Drift","category":"Action","tagline":"Cut a path through the asteroid belt.","help":"Drag to move your ship; it aims toward your touch and fires automatically. Split asteroids, collect their cores and survive.","accent":"#efba79","bg":"#30273d","label":"SPACE SURVIVAL","number":5}];globalThis.Games={};

@@ -1,0 +1,1 @@
+globalThis.GameCatalog=[{"id":"moon-rider","name":"Moon Rider","category":"Racing","tagline":"Find your balance beyond the skyline.","help":"Hold the right side to accelerate, left side to brake. Use A/D or the on-screen tilt buttons to balance in the air. Land on both wheels.","accent":"#bdadff","bg":"#22213b","label":"PHYSICS RIDER","number":2}];globalThis.Games={};

@@ -1,0 +1,11 @@
+.turnstile { display: flex; flex-direction: column; align-items: center; gap: 0.45rem; }
+.turnstile__widget { min-height: 65px; width: 100%; display: flex; justify-content: center; }
+.turnstile__status { margin: 0; display: flex; align-items: center; gap: 0.4rem; color: rgba(255,255,255,0.42); font-size: 0.7rem; }
+.turnstile__status svg { flex: none; color: rgba(196,181,253,0.65); }
+.turnstile__status--error { color: #fca5a5; }
+.turnstile__status--error svg { color: #fca5a5; }
+
+/* Native apps and browsers without the Cloudflare bundle never paint anything,
+   so fall back to a visible hint instead of an unexplained gap in the form. */
+.turnstile[data-state="off"] { display: none; }
+.turnstile__retry { background: none; border: 0; padding: 0; font: inherit; color: #c4b5fd; text-decoration: underline; cursor: pointer; } .turnstile__retry:hover { color: #ddd6fe; }

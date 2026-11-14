@@ -1,0 +1,1 @@
+globalThis.GameCatalog=[{"id":"dungeon-sprout","name":"Dungeon Sprout","category":"Adventure","tagline":"A small hero on a leafy quest.","help":"Swipe or use arrows to move one square. Collect all gems and the key, then reach the gate. Avoid the patrolling slimes.","accent":"#c4dc8f","bg":"#34433b","label":"MAZE ADVENTURE","number":24}];globalThis.Games={};
