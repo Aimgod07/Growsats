@@ -2,21 +2,22 @@
 
 React, Vite, and Capacitor app backed by a Cloudflare Worker, D1, and R2.
 
-## Existing production API
+## Production API
 
-- Worker: `playloot-api` at `https://playloot-api.choudharydeepanshu160.workers.dev`
-- D1: `playloot-prod-db` (bound as `DB`)
-- R2: `playloot-prod-files` (bound as `FILES`)
+- Active Worker is `playloot-backend` at `https://playloot-backend.choudharydeepanshu160.workers.dev`. Its source and deployment configuration are in the separate `Desktop/playloot-backend` project.
+- The `playloot-api` Worker and this repository’s `worker/` directory are retained legacy implementations.
+- D1: `playloot-db` (bound as `DB`)
+- R2: `playloot-media` (bound as `MEDIA`)
 - Worker secret: `TWO_STEP_ENCRYPTION_KEY` (32 random bytes, Base64 encoded)
-- Worker secret: `REDEMPTION_ADMIN_KEY` (random admin credential)
+- Worker secret: `PMS_ADMIN_KEY` (random admin credential)
 
-`wrangler.jsonc` and `migrations/` describe the existing production Worker in this repository. The separate `playloot-backend` project is the active local development API.
+`wrangler.jsonc` and `migrations/` in this repository describe the legacy Worker. The separate `playloot-backend` project owns the active development and production API.
 
 ## Local development
 
 The active development API is the separate `playloot-backend` project. Run `npm run dev` there and `npm run dev` in this frontend project. That Worker listens on port 8787, which matches `.env.development`. The `worker/` and `server/` directories in this project are older backend implementations and are not used by the development app.
 
-For a production web build or Android app, `npm run build` uses `.env.production` and the existing `playloot-api` HTTPS Worker. Run `npx cap sync android` after rebuilding Android assets. The separate `playloot-backend` project still needs its production D1 binding and deployment URL configured before the production frontend can switch to it.
+For a production web build or Android app, `npm run build` uses `.env.production` and the active `playloot-backend` HTTPS Worker. Run `npx cap sync android` after rebuilding Android assets. Deploy API changes from the separate backend project.
 
 ## Operations and limits
 

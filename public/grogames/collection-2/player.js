@@ -5,7 +5,7 @@
  const params=new URLSearchParams(location.search); let origin=location.origin;
  try { const candidate=new URL(params.get('parentOrigin')||document.referrer||location.href); if(['https:','http:'].includes(candidate.protocol))origin=candidate.origin; } catch {}
  const emit=(type,data={})=>{if(parent!==window)parent.postMessage({type,gameId:meta.id,...data},origin);};
- let best=0,game,state='intro',score=0,time=0,last=0,particles=[],toastUntil=0,audio,sound=false,lastActivity=0,submitted=false;
+ let best=0;let game;let state='intro';let score=0;let time=0;let last=0;let particles=[];let toastUntil=0;let audio;let sound=false;let lastActivity=0;(false);
  try{best=Number(localStorage.getItem('gro-best:'+meta.id))||0;}catch{}
  const accent=`hsl(${meta.hue} 90% 68%)`,secondary=`hsl(${(meta.hue+60)%360} 85% 70%)`;
  // Cache the atmospheric artwork once; animation only redraws moving objects.
@@ -27,10 +27,10 @@
  const api={
   rand:(a,b)=>a+Math.random()*(b-a),int:(a,b)=>Math.floor(a+Math.random()*(b-a+1)),accent,secondary,
   add(n,x=200,y=280){score+=n;for(let i=0;i<10&&particles.length<80;i++)particles.push({x,y,vx:(Math.random()-.5)*160,vy:-Math.random()*180,t:.7});tone();},
-  end(win=true){if(state!=='playing')return;state='result';best=Math.max(best,score);try{localStorage.setItem('gro-best:'+meta.id,String(best));}catch{}$('best').textContent=best;const practice=submitted;if(!submitted){emit('playloot:score',{score});console.log('PLAYLOOT_SCORE:'+JSON.stringify({gameId:meta.id,score}));submitted=true;}$('eyebrow').textContent=win?'CHALLENGE COMPLETE':'KEEP YOUR STREAK ALIVE';modal(win?'Beautifully played.':'One more run?',`${score.toLocaleString()} points · Best ${best.toLocaleString()}. ${practice?'Practice round. Reopen from Arcade for a new scored session.':'Score sent to the app. Replays are practice rounds.'}`,'Play again →');},
+  end(win=true){if(state!=='playing')return;state='result';best=Math.max(best,score);try{localStorage.setItem('gro-best:'+meta.id,String(best));}catch{}$('best').textContent=best;PlaylootScores.finish(score);$('eyebrow').textContent=win?'CHALLENGE COMPLETE':'KEEP YOUR STREAK ALIVE';modal(win?'Beautifully played.':'One more run?',`${score.toLocaleString()} points · Best ${best.toLocaleString()}. Score recorded automatically. Every completed replay is recorded.`,'Play again →');},
   hint(text){$('toast').textContent=text;toastUntil=time+2;},get time(){return time;},get score(){return score;}
  };
- function start(){score=0;time=0;lastActivity=0;particles=[];$('toast').textContent='';game=GroFactories[meta.mode](api);state='playing';$('dialog').close();canvas.focus();last=performance.now();emit('playloot:activity');}
+ function start(){PlaylootScores.start();score=0;time=0;lastActivity=0;particles=[];$('toast').textContent='';game=GroFactories[meta.mode](api);state='playing';$('dialog').close();canvas.focus();last=performance.now();emit('playloot:activity');}
  function pause(){if(state!=='playing')return;state='paused';game.up?.();modal('Take a breather.',meta.help,'Resume →');}
  $('play').onclick=()=>{if(state==='paused'){state='playing';last=performance.now();$('dialog').close();canvas.focus();}else start();};$('restart').onclick=start;$('pause').onclick=pause;
  $('dialog').addEventListener('cancel',e=>e.preventDefault());

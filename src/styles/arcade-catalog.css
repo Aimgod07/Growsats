@@ -2,7 +2,7 @@
 .arcade-catalog { background: #0e1017 !important; color: #e9eaf3; font-family: Inter,system-ui,sans-serif !important; max-width: 440px !important; padding: 0 18px 35px !important; }
 .arcade-catalog * { box-sizing: border-box; }
 .catalog-header { margin: 0 -18px 23px !important; padding: 20px 18px !important; background: #12161eeb !important; border-bottom: 1px solid #ffffff0b !important; }
-.catalog-header h1 { font: 800 23px/1.2 'Plus Jakarta Sans',sans-serif !important; letter-spacing: -.035em; }
+.catalog-header h1 { font: 800 23px/1.2 'Inter',sans-serif !important; letter-spacing: -.035em; }
 .catalog-header p { color: #a1b0c5 !important; margin-top: 6px !important; font-size: 11px !important; }
 .catalog-header button { min-width: 42px; min-height: 44px; background: #1b222f !important; border: 1px solid #ffffff12 !important; border-radius: 12px !important; }
 .catalog-search input { border: 1px solid #343b49 !important; background: #181d27 !important; border-radius: 14px !important; min-height: 48px; font: 12px Inter,sans-serif !important; }
@@ -16,7 +16,7 @@
 .catalog-card-art { order: -1; flex: none !important; width: 100%; aspect-ratio: 1.25; margin: 0 !important; border: 0 !important; border-radius: 0 !important; background: #222c3e !important; }
 .catalog-card-art img { transition: transform 350ms ease; }
 .catalog-play { top: auto !important; left: auto !important; bottom: 9px; right: 9px; transform: none !important; width: 33px !important; height: 33px !important; border-radius: 10px !important; background: #34cce4 !important; color: #103444 !important; z-index: 1; box-shadow: 0 4px 12px #0004 !important; }
-.catalog-card-title { font: 700 13px/1.45 'Plus Jakarta Sans',sans-serif !important; background: transparent !important; padding: 12px 12px 0 !important; min-height: 50px !important; }
+.catalog-card-title { font: 700 13px/1.45 'Inter',sans-serif !important; background: transparent !important; padding: 12px 12px 0 !important; min-height: 50px !important; }
 .catalog-card-meta { flex-direction: column; align-items: flex-start !important; margin: 0 !important; padding: 8px 12px 12px !important; background: transparent !important; gap: 7px !important; }
 .catalog-tag { max-width: 100%; overflow: hidden; text-overflow: ellipsis; background: #3dc8df0d !important; border: 1px solid #3dc8df1c !important; border-radius: 6px !important; color: #a0cbd5 !important; font: 600 9px Inter,sans-serif !important; letter-spacing: .03em !important; padding: 4px 6px !important; }
 .catalog-instant { color: #92a3bb; font: 500 10px Inter,sans-serif; }
@@ -25,3 +25,20 @@
 .all-game-card:active { transform: scale(.985) !important; }
 @media (hover:hover) { .all-game-card:hover { transform: translateY(-3px); border-color: #49cadf60 !important; } .all-game-card:hover img { transform: scale(1.04); } }
 @media (prefers-reduced-motion:reduce) { .arcade-catalog * { animation: none !important; transition: none !important; } }
+
+/* Use the same violet material as the Arcade hero and featured carousel. */
+.arcade-catalog { background: var(--playloot-backdrop) !important; }
+.catalog-header { background: #160f29f2 !important; border-bottom-color: var(--playloot-hero-edge) !important; }
+.catalog-header button { background: #281b4a !important; border-color: var(--playloot-hero-edge) !important; color: #ddccff !important; }
+.catalog-search input { background: #1b142c !important; border-color: var(--playloot-hero-edge) !important; color: #f7f2ff !important; }
+.catalog-search input:focus { border-color: #c5b4ff !important; box-shadow: 0 0 0 3px #b08cf51c; }
+.all-games-categories button { background: #291c4680 !important; border-color: var(--playloot-hero-edge) !important; color: #d9ccff !important; box-shadow: inset 0 1px 0 #d7c5ff0c; }
+.all-games-categories button[aria-pressed="true"] { background: var(--playloot-hero-button) !important; border-color: #d7caff99 !important; color: #140e2c !important; box-shadow: inset 0 1px 0 #ffffff40, 0 4px 16px #a478e51a; }
+.all-game-card { background: var(--playloot-hero-surface) !important; border-color: var(--playloot-hero-edge) !important; box-shadow: inset 0 1px 0 #d7c5ff1f, 0 10px 22px -12px #08031b80 !important; }
+.catalog-card-inner { background: linear-gradient(145deg,#261a43,#17102f 75%) !important; }
+.catalog-card-art { background: #1c1433 !important; }
+.catalog-play { background: var(--playloot-hero-button) !important; color: #140e2c !important; border: 1px solid #d7caff66; }
+.catalog-tag { background: #a98afa12 !important; border-color: #b6a0ee33 !important; color: #d9ccff !important; }
+.catalog-instant { color: #beb0d8; }
+.arcade-catalog :is(button,a,[role="button"]):focus-visible { outline-color: #d8c6ff; }
+@media (hover:hover) { .all-game-card:hover { border-color: #c5a5ff !important; box-shadow: inset 0 1px 0 #d7c5ff33, 0 10px 28px -12px #8153be4d !important; } }

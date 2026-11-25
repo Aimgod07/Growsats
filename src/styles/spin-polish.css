@@ -1,6 +1,6 @@
 .spin-dialog { font-family: Inter,system-ui,sans-serif !important; }
 .spin-dialog__card { background: radial-gradient(ellipse at 50% 0,#5c3c7540,transparent 65%),#1b202d !important; border: 1px solid #bcb2ff29 !important; border-radius: 26px !important; padding-top: 36px !important; max-height: calc(100dvh - 30px); overflow-y: auto; }
-.spin-dialog__card h2 { font-family: 'Plus Jakarta Sans',sans-serif; font-size: 20px !important; margin-bottom: 24px !important; }
+.spin-dialog__card h2 { font-family: 'Inter',sans-serif; font-size: 20px !important; margin-bottom: 24px !important; }
 .spin-dialog__card > button[aria-label] { width: 40px !important; height: 40px !important; top: 8px !important; right: 8px !important; border-radius: 12px !important; }
 .spin-dialog button { min-height: 44px; transition: filter 180ms ease; }
 .spin-dialog button:focus-visible { outline: 2px solid #7bdeeb; outline-offset: 4px; }

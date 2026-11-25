@@ -1,5 +1,4 @@
 import { useEffect, useState, useSyncExternalStore } from 'react';
-import { useLocation } from 'react-router-dom';
 import { getLoadingSnapshot, subscribeLoading, clearLoadingErrors } from '../utils/loading';
 import './app-loader.css';
 
@@ -22,7 +21,7 @@ function RouteLoader() {
   useEffect(() => {
     if (done || pending || errors.length) return;
     // Allow dependent requests and iframe startup to register before revealing.
-    const timer = setTimeout(() => setDone(true), 350);
+    const timer = setTimeout(() => setDone(true), 100);
     return () => clearTimeout(timer);
   }, [pending, errors.length, version, done]);
   if (done) return null;
@@ -37,6 +36,7 @@ function RouteLoader() {
 }
 
 export default function AppLoader() {
-  const location = useLocation();
-  return <RouteLoader key={location.key + location.pathname} />;
+  // Startup only: background refreshes and route changes must not cover a
+  // usable page. Lazy routes and individual sections handle their own loading.
+  return <RouteLoader />;
 }

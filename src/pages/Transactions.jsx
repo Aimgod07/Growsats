@@ -1,7 +1,7 @@
-import CoinConversion from '../components/CoinConversion';
 import {useCallback,useEffect,useRef,useState} from 'react';
 import {Link,useSearchParams} from 'react-router-dom';
-import {ArrowDownLeft,ArrowUpRight,Wallet,Gift,Bitcoin,Landmark,RefreshCw,ArrowLeft,Clock3,CheckCircle2,XCircle} from 'lucide-react';
+import { ArrowDownLeft, ArrowUpRight, Wallet, Bitcoin, Landmark, RefreshCw, ArrowLeft, Clock3, CheckCircle2, XCircle } from 'lucide-react';
+import { Gift } from '../components/PlaylootIcons';
 import {backend,getStoredUser} from '../utils/api';
 import {toMinorUnits} from '../utils/money';
 import '../styles/player-hub.css';
@@ -9,7 +9,7 @@ import '../styles/transactions.css';
 const statuses={created:'Awaiting provider',pending:'Processing',succeeded:'Successful',failed:'Failed'};
 const icons={currency:Landmark,crypto:Bitcoin,gift_card:Gift};
 export default function Transactions(){
- const [searchParams,setSearchParams]=useSearchParams();
+ const [,setSearchParams]=useSearchParams();
  const direction='withdraw';
  const setDirection=value=>setSearchParams({direction:value},{replace:true});
  const [providerId,setProviderId]=useState('default');
@@ -43,8 +43,11 @@ export default function Transactions(){
  }
  async function retry(id){setBusy(true);setError('');try{await backend.retryPayment(id);await load();}catch(e){setError(e.message);}finally{setBusy(false);}}
  return <main className="hub payments"><header className="hub__header"><Link className="hub__back" to="/redeem" aria-label="Back to Loot"><ArrowLeft/></Link><div><small className="payments-eyebrow">YOUR WALLET</small><h1>Transactions</h1></div><button className="hub__back" onClick={load} aria-label="Refresh transactions"><RefreshCw size={18}/></button></header>
- <div className="hub__body"><CoinConversion onConverted={load}/>{error&&<p className="payments-alert" role="alert">{error}</p>}{message&&<p className="payments-message" role="status">{message}</p>}
- <section className="neo-panel payments-balance"><Wallet/><span>Available cash</span><strong>{data?money(data.wallet?.availableMinor):'—'}</strong><small>{money(data?.wallet?.reservedMinor)} reserved for withdrawals</small></section>
+ <div className="hub__body">{error&&<p className="payments-alert" role="alert">{error}</p>}{message&&<p className="payments-message" role="status">{message}</p>}
+ <section className="neo-panel payments-balance">
+   <div className="payments-balance__copy"><span>Available cash</span><strong>{data?money(data.wallet?.availableMinor):'—'}</strong><small>{money(data?.wallet?.reservedMinor)} reserved for withdrawals</small></div>
+   <img className="payments-balance__art" src="/playloot-art/withdraw-bank.png" alt="" />
+ </section>
  {loading?<p role="status">Loading your wallet…</p>:data&&<>
  {!data.ready&&<section className="payments-notice"><Clock3 size={20}/><div><b>Payments are coming soon</b><p>Gift cards, crypto and currency payments will open when our payment provider is connected.</p></div></section>}
  <section className="neo-panel"><div className="payments-tabs" role="group" aria-label="Transaction type">{['withdraw'].map(type=><button key={type} type="button" aria-pressed={direction===type} onClick={()=>{setDirection(type);setError('');}}>{type==='deposit'?<ArrowDownLeft size={18}/>:<ArrowUpRight size={18}/>} {type==='deposit'?'Deposit':'Withdraw'}</button>)}</div>

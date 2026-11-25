@@ -1,0 +1,66 @@
+.web-extras { display: none; }
+
+@media (min-width: 1024px) {
+  .web-extras {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    padding: 24px clamp(24px, 3vw, 48px);
+    font-family: Inter, system-ui, sans-serif;
+    color: #eef4ff;
+  }
+
+  .web-extra {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+    align-content: start;
+    min-width: 0;
+    min-height: 248px;
+    padding: 24px;
+    border: 1px solid #30384b;
+    border-radius: 20px;
+    background: linear-gradient(130deg, #201c36, #151c29);
+    box-shadow: inset 0 1px 0 #ffffff18;
+    backdrop-filter: blur(14px);
+  }
+
+  .web-extra-art {
+    position: absolute;
+    right: 6%;
+    top: 12%;
+    width: 34%;
+    height: 64%;
+    object-fit: contain;
+    pointer-events: none;
+    z-index: -1;
+    opacity: .84;
+  }
+
+  .web-extra small { color: #83dae9; font-size: 10px; line-height: 14px; letter-spacing: 1.5px; }
+  .web-extra h2 { margin: 16px 0 0; font-size: 20px; line-height: 26px; font-weight: 600; }
+  .web-extra p, .web-extra-balance { width: 62%; min-height: 72px; margin: 20px 0 16px; }
+  .web-extra p { font-size: 13px; line-height: 1.6; color: #b1bed0; }
+  .web-extra-balance { display: flex; flex-wrap: wrap; align-content: start; gap: 24px; }
+  .web-extra-balance strong { font-size: 26px; line-height: 34px; }
+  .web-extra-balance span { display: block; font-size: 11px; line-height: 16px; color: #a9b5c9; margin-top: 5px; }
+  .web-extra-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; width: 100%; align-self: end; }
+  .app-workspace .web-extra-links .polished-action {
+    min-width: 0;
+    min-height: 44px;
+    height: 100%;
+    padding: 10px 12px;
+    font-size: 12px;
+    line-height: 16px;
+  }
+  .web-extra-links a span { overflow-wrap: anywhere; }
+  .web-extra-links svg { width: 15px; height: 15px; flex: none; }
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .web-extra { padding: 20px; }
+  .web-extra-art { width: 28%; top: 25%; height: 48%; }
+  .web-extra p, .web-extra-balance { width: 66%; }
+  .app-workspace .web-extra-links .polished-action { height: 54px; padding-inline: 8px; gap: 5px; font-size: 11px; }
+}

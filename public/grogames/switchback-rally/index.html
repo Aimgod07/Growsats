@@ -1,0 +1,9 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#173a35"><title>Switchback Rally · PlayLoot</title><link rel="stylesheet" href="style.css"></head>
+<body><canvas aria-label="Side-view hill racing course"></canvas>
+<header><strong id="route">Fern Pass</strong><span id="distance">0 m</span><span id="coins">● 0</span><button id="pause" aria-label="Pause race" hidden>Ⅱ</button></header>
+<section id="panel"><h1>Switchback<br><i>Rally</i></h1><p id="message">Race the hills. Balance in the air and land on your wheels.</p>
+<div id="choices"><label>Vehicle<select id="vehicle"><option>Trail Jeep</option><option>Dirt Bike</option><option>Ridge Buggy</option></select></label><label>Course<select id="course"><option>Fern Pass</option><option>Copper Ridge</option><option>Alpine Run</option></select></label></div>
+<button id="start">Race Fern Pass →</button><button id="garage" hidden>Garage</button><small id="hint">↑ gas · ↓ brake · ← → lean · P pause</small></section>
+<footer hidden><div><button data-key="left" aria-label="Lean back">↶</button><button data-key="right" aria-label="Lean forward">↷</button></div><div><button data-key="brake">Brake</button><button data-key="gas">Gas</button></div></footer>
+<script src="../score-bridge.js"></script><script type="module" src="game.js"></script></body></html>

@@ -30,14 +30,14 @@ function mapGroGame(game) {
 
 const styles = {
   page: {
-    backgroundColor: "#07080f",
+    background: "var(--playloot-backdrop)",
     minHeight: "100dvh",
     width: "100%",
     maxWidth: "960px",
     margin: "0 auto",
     padding: "12px 16px 32px",
     fontFamily:
-      "'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+      "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
     boxSizing: "border-box",
   },
   header: {
@@ -314,7 +314,7 @@ const styles = {
 };
 
 const globalCSS = `
-  @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap');
   .all-games-categories::-webkit-scrollbar { display: none; }
   @keyframes allGamesShimmer {
     0% { background-position: 200% 0; }
@@ -375,6 +375,7 @@ export default function AllGames({ title = "All Games" }) {
   const [activeGame, setActiveGame] = useState(null);
   const [searchParams] = useSearchParams();
   const requestedGameId = searchParams.get('game');
+  const requestedEventId = searchParams.get('event');
 
   const navigate = useNavigate();
   const pageTitle = title !== "All Games" ? title : source === "grogames" ? "GroGames" : "Gamezop Games";
@@ -455,8 +456,8 @@ export default function AllGames({ title = "All Games" }) {
     if (!Capacitor.isNativePlatform() && game.embedded !== true) {
       window.open(url.href, "_blank", "noopener,noreferrer");
     }
-    setActiveGame({ ...game, playUrl: url.href });
-  }, []);
+    setActiveGame({ ...game, playUrl: url.href, eventId: game.id === requestedGameId ? requestedEventId : undefined });
+  }, [requestedGameId, requestedEventId]);
 
   useEffect(() => {
     if (!requestedGameId || activeGame || status !== 'success') return;

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Gamepad2, Sparkles, Mail, Lock, X, Loader2, LogIn, Trophy, Zap, ShieldCheck, Users, ChevronRight } from "lucide-react";
+import { Sparkles, Mail, Lock, X, Loader2, LogIn, Trophy, Zap, ShieldCheck, Users, ChevronRight } from 'lucide-react';
+import { Gamepad2 } from '../components/PlaylootIcons';
 import { backend, isSignedIn } from "../utils/api";
 import Turnstile from "../components/Turnstile";
 import "../styles/Login.css";
@@ -19,11 +20,12 @@ function isCaptchaError(message) {
 
 export default function Login() {
   const navigate = useNavigate();
+  const referralCode = new URLSearchParams(window.location.search).get('ref')?.trim().toUpperCase().slice(0, 12) || '';
   const [checkingSession, setCheckingSession] = useState(() => isSignedIn());
   const [showEmailForm, setShowEmailForm] = useState(true);
-  const [registering, setRegistering] = useState(false);
+  const [registering, setRegistering] = useState(Boolean(referralCode));
   const [name, setName] = useState("");
-  const [inviteCode, setInviteCode] = useState("");
+  const [inviteCode, setInviteCode] = useState(referralCode);
   const [code, setCode] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

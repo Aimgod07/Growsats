@@ -1,6 +1,6 @@
 import {useWebInactivity} from './useWebInactivity';
 import { useEffect, useRef, useState, useCallback, useMemo } from "react";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, Menu } from "lucide-react";
 import { Capacitor } from "@capacitor/core";
 import { backend, getStoredUser } from "../../utils/api";
 import { useNavigate } from "react-router-dom";
@@ -8,8 +8,29 @@ import { GameWebView as NativeGameWebView } from "./gameWebView";
 import { useGameTimer } from "./useGameTimer";
 import GameTimerBadge, { CLAIM_THRESHOLD_SECONDS } from "./GameTimerBadge";
 import { LoadingScreen } from '../AppLoader';
+import './game-viewport.css';
 
 const CLOSE_BAR_HEIGHT = 60;
+const GAME_MENU_DURATION = 5000;
+
+function protectGameInput(frame) {
+  const doc = frame?.contentDocument;
+  if (!doc?.head || doc.getElementById('playloot-game-input')) return;
+  const style = doc.createElement('style');
+  style.id = 'playloot-game-input';
+  style.textContent = `
+    html, body { overscroll-behavior: none; touch-action: pan-x pan-y; }
+    * { -webkit-user-select: none !important; user-select: none !important; -webkit-touch-callout: none !important; }
+    input, textarea, [contenteditable]:not([contenteditable="false"]) { -webkit-user-select: text !important; user-select: text !important; }
+  `;
+  doc.head.append(style);
+  const preventBrowserAction = event => {
+    if (!event.target?.closest?.('input, textarea, [contenteditable]:not([contenteditable="false"])')) event.preventDefault();
+  };
+  for (const type of ['selectstart', 'contextmenu', 'dragstart', 'dblclick']) {
+    doc.addEventListener(type, preventBrowserAction, true);
+  }
+}
 
 function computeOverlayRect() {
   // The native view is attached to android.R.id.content, whose coordinates
@@ -154,9 +175,9 @@ const styles = {
 };
 
 export default function GameWebViewOverlay({ game: requestedGame, onClose: requestedClose }) {
-  const { id, title, playUrl, embedded, orientation } = requestedGame || {};
-  const game = useMemo(() => playUrl ? { id, title, playUrl, embedded, orientation } : null,
-    [id, title, playUrl, embedded, orientation]);
+  const { id, title, playUrl, embedded, orientation, eventId } = requestedGame || {};
+  const game = useMemo(() => playUrl ? { id, title, playUrl, embedded, orientation, eventId } : null,
+    [id, title, playUrl, embedded, orientation, eventId]);
   // Parent screens refresh wallet/catalog data while playing. A fresh callback
   // must never become a request to destroy and relaunch the native game.
   const closeRef = useRef(requestedClose);
@@ -165,6 +186,15 @@ export default function GameWebViewOverlay({ game: requestedGame, onClose: reque
   const cancelLaunchRef = useRef(() => {});
   const actionsRef = useRef({});
   const [nativeMounted, setNativeMounted] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  useEffect(() => {
+    if (!game) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [game]);
   const [sessionError, setSessionError] = useState(null);
   const [sessionAttempt, setSessionAttempt] = useState(0);
   const [status, setStatus] = useState("loading");
@@ -195,7 +225,15 @@ export default function GameWebViewOverlay({ game: requestedGame, onClose: reque
     launchUrl.searchParams.set('parentOrigin',window.location.origin);
   }
   const playableUrl = launchUrl?.href;
+  const isEmbeddedWeb = Boolean(game?.embedded && !isNative);
+  const isStrikepoint = isOwned && launchUrl?.pathname.startsWith('/grogames/strikepoint/');
   useEffect(() => {
+    if (!menuOpen || !isEmbeddedWeb) return;
+    const timer = setTimeout(() => setMenuOpen(false), GAME_MENU_DURATION);
+    return () => clearTimeout(timer);
+  }, [menuOpen, isEmbeddedWeb, playableUrl]);
+  useEffect(() => {
+    setMenuOpen(false);
     setLoadedGameUrl(null);
     setSlowGame(false);
     if (!playableUrl) return;
@@ -225,7 +263,7 @@ export default function GameWebViewOverlay({ game: requestedGame, onClose: reque
       if(event.data?.type==='playloot:activity'||event.data?.type==='pocket-arcade:start'||event.data?.type==='pocket-arcade:resume')backend.eventHeartbeat(activeSessionId).catch(()=>{});
       if(event.data?.type==='playloot:idle')onClose();
       if(event.data?.type==='playloot:score'||event.data?.type==='pocket-arcade:end'){
-        try{await backend.submitEventScore(activeSessionId,event.data.score);setClaimState({status:'submitted',message:'Score submitted for review.'})}
+        try{await backend.submitEventScore(activeSessionId,event.data.score,event.data.runId);setClaimState({status:'submitted',message:'Score recorded automatically.'})}
         catch(e){setClaimState({status:'error',message:e.message})}
       }
     };
@@ -249,13 +287,13 @@ export default function GameWebViewOverlay({ game: requestedGame, onClose: reque
     let cancelled = false;
     setSessionError(null);
     setNativeElapsedSeconds(0);
-    const gameKey = `${game.id}:${game.playUrl}`;
+    const gameKey = `${game.id}:${game.playUrl}:${game.eventId || ""}`;
     if (startRequestRef.current.key !== gameKey) {
       playSessionRef.current = null;
       setActiveSessionId(null);
       startRequestRef.current = {
         key: gameKey,
-        promise: backend.startPlay(game.id, game.title, isOwned ? 'grogames' : undefined),
+        promise: backend.startPlay(game.id, game.title, isOwned ? 'grogames' : undefined, game.eventId),
       };
     }
     startRequestRef.current.promise
@@ -274,7 +312,7 @@ export default function GameWebViewOverlay({ game: requestedGame, onClose: reque
     return () => {
       cancelled = true;
     };
-  }, [game, sessionAttempt]);
+  }, [game, isOwned, sessionAttempt]);
 
   const openInNewTab = useCallback(() => {
     const opened = window.open(game.playUrl, "_blank", "noopener,noreferrer");
@@ -416,9 +454,9 @@ export default function GameWebViewOverlay({ game: requestedGame, onClose: reque
         await waitForViewport(orientation);
         if (cancelled) return;
         const rect = computeOverlayRect();
-        await listen('game:score', async ({score}) => {
+        await listen('game:score', async ({score,runId}) => {
           if(cancelled || !isOwned || !playSessionRef.current)return;
-          try { const result=await backend.submitEventScore(playSessionRef.current,score);setClaimState({status:'submitted',message:`Score ${score} saved for ${result.gameId}.`}); }
+          try { const result=await backend.submitEventScore(playSessionRef.current,score,runId);setClaimState({status:'submitted',message:`Score ${score} saved for ${result.gameId}.`}); }
           catch(e){setClaimState({status:'error',message:e.message});}
         });
         if (cancelled) return;
@@ -464,14 +502,15 @@ export default function GameWebViewOverlay({ game: requestedGame, onClose: reque
 
   return (
     <>
-      {idleRemaining!==null&&<div role="status" aria-label="Inactivity countdown" style={{position:'fixed',top:72,right:16,zIndex:10005,pointerEvents:'none'}}><div style={{background:'#191d2d',color:'#fff',padding:28,borderRadius:20,border:'1px solid #4cd7f6',textAlign:'center',maxWidth:360}}><h2>Still playing?</h2><p>Game closes in {idleRemaining} seconds without activity.</p><button type="button" style={{...styles.statusBtn,pointerEvents:'auto'}}>Keep playing</button></div></div>}
+      {idleRemaining!==null&&<div role="status" className="game-idle-countdown">Tap to continue - {idleRemaining}s</div>}
       {!sessionError && ((game.embedded && !isNative && (loadedGameUrl !== playableUrl || !activeSessionId)) || (isNative && !nativeMounted && status === 'loading')) &&
         <LoadingScreen title={slowGame ? 'Taking a little longer' : `Opening ${game.title}`} detail={slowGame ? 'The game is still loading. You can close it and try again.' : 'Preparing your game and connecting your session…'}>
           <div className="app-loader__actions" style={{marginTop:24}}><button onClick={handleClose}>Close game</button></div>
         </LoadingScreen>}
-      <div style={{ ...styles.overlayBar, display: isNative && nativeMounted ? 'none' : 'flex' }}>
+      {isEmbeddedWeb && !menuOpen && <button type="button" className="game-overlay-menu" aria-label="Open game menu" aria-expanded={false} onClick={() => setMenuOpen(true)}><Menu size={20} aria-hidden="true" /></button>}
+      <div className={isNative ? undefined : "game-overlay-toolbar"} style={{ ...styles.overlayBar, display: (isNative && nativeMounted) || (isEmbeddedWeb && !menuOpen) ? 'none' : 'flex' }}>
         <span style={styles.overlayTitle}>{game.title}</span>
-        <div style={styles.overlayBarRight}>
+        <div className={isNative ? undefined : "game-overlay-actions"} style={styles.overlayBarRight}>
           <GameTimerBadge
             elapsedSeconds={elapsedSeconds}
             onClaim={handleClaim}
@@ -509,7 +548,7 @@ export default function GameWebViewOverlay({ game: requestedGame, onClose: reque
 
       {claimState && typeof claimState === 'object' && <div role="status" style={{ ...styles.overlayStatus, bottom: 'auto', minHeight: 62, zIndex: 10000 }}>{claimState.message}</div>}
 
-      {game.embedded && !isNative ? <iframe ref={gameFrameRef} src={playableUrl} title={game.title} onLoad={() => setLoadedGameUrl(playableUrl)} sandbox="allow-scripts allow-same-origin allow-pointer-lock" style={{position:'fixed',inset:'60px 0 0',width:'100%',height:'calc(100dvh - 60px)',border:0,zIndex:9998,background:'#10101c'}}/> : isNative ? (
+      {isEmbeddedWeb ? <iframe ref={gameFrameRef} src={playableUrl} title={game.title} onLoad={event => { protectGameInput(event.currentTarget); setLoadedGameUrl(playableUrl); }} allow={isStrikepoint ? "fullscreen; gamepad; accelerometer 'self'; gyroscope 'self'" : "fullscreen; gamepad"} allowFullScreen sandbox="allow-scripts allow-same-origin allow-pointer-lock" style={{position:'fixed',inset:0,width:'100%',height:'100dvh',border:0,zIndex:9998,background:'#10101c'}}/> : isNative ? (
         <>
           {status === "loading" && (
             <div style={styles.overlayStatus}>Loading {game.title}…</div>

@@ -6,6 +6,7 @@ export function installCoverMotion(root = document) {
   img[data-game-cover]{animation:gameCoverDrift 8s ease-in-out infinite;animation-play-state:paused;transform-origin:center;}
   img[data-game-cover][data-cover-visible="true"]{animation-play-state:running;}
   @media(prefers-reduced-motion:reduce){img[data-game-cover]{animation:none!important;transform:none!important;}}`;
+  style.textContent += '@media(max-width:767px){img[data-game-cover]{animation:none!important;transform:none!important;}}';
   document.head.append(style);
   const selector = '.grogames-art img';
   const seen = new WeakSet();

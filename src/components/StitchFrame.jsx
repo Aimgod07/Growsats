@@ -1,5 +1,8 @@
-import DesktopExtras from './DesktopExtras';
 import responsiveFrameCss from '../styles/responsive-frame.css?raw';
+import paletteCss from '../styles/playloot-palette.css?raw';
+import typographyCss from '../styles/typography.css?raw';
+import iconCss from '../styles/playloot-icons.css?raw';
+import SiteFooter from './SiteFooter';
 import {createPortal} from 'react-dom';
 import {AdPlacement} from './LiveFeatures';
 import { useEffect, useRef, useState, useMemo } from "react";
@@ -53,7 +56,7 @@ const ROUTES = {
 
 const NAVIGATION_BRIDGE = `<script>
   const routeByPath = {
-    notifications: "/notifications", coins: "/missions", diamonds: "/offers?reward=diamonds",
+    notifications: "/notifications", coins: "/missions", diamonds: "/offers?reward=diamonds", offers: "/offers", tournaments: "/tournaments",
     home: "/Home", arcade: "/Home", "arcade-lobby": "/Home",
     "all-games": "/all-games?source=gamezop",
     leaderboard: "/leaderboard", ranks: "/leaderboard",
@@ -555,7 +558,7 @@ const LIVE_DATA_LOADER = `<script>
       + '<p style="margin:0;font-size:13.5px;font-weight:800;color:#e1e1f0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + esc(player.name) + '</p>'
       + '<p style="margin:2px 0 0;font-size:11px;color:#869397">' + group(player.coins) + ' pts · Lv ' + player.level + '</p>'
       + '</div>'
-      + '<span style="font-size:11px;font-weight:800;color:' + accent + '">💎 ' + group(player.diamonds) + '</span>'
+      + '<span style="font-size:11px;font-weight:800;color:' + accent + '"><img class="pl-diamond-inline" src="/playloot-art/diamond.png" alt=""> ' + group(player.diamonds) + '</span>'
       + '</div>';
   }
 
@@ -762,10 +765,10 @@ const HOME_SECTIONS_LOADER = `<script>
   ];
 
   var ZONES = [
-    { t: "Quick Match", s: "60s rounds", i: "bolt", slug: "quick-match", bg: "linear-gradient(135deg,#e79400,#472a00)", fg: "#2a1700" },
-    { t: "Ranked Ladder", s: "Climb tiers", i: "military_tech", bg: "linear-gradient(135deg,#4cd7f6,#003640)", fg: "#003640" },
-    { t: "Boss Raids", s: "Co-op only", i: "shield", slug: "boss-raids", bg: "linear-gradient(135deg,#a78bfa,#25005a)", fg: "#25005a" },
-    { t: "Tournaments", s: "Win big", i: "emoji_events", slug: "tournaments", bg: "linear-gradient(135deg,#7cffa3,#0e2414)", fg: "#0e2414" }
+    { t: "Quick Match", i: "bolt", slug: "quick-match", bg: "linear-gradient(135deg,#e79400,#472a00)", fg: "#2a1700" },
+    { t: "Ranked Ladder", i: "military_tech", bg: "linear-gradient(135deg,#4cd7f6,#003640)", fg: "#003640" },
+    { t: "Boss Raids", i: "shield", slug: "boss-raids", bg: "linear-gradient(135deg,#a78bfa,#25005a)", fg: "#25005a" },
+    { t: "Tournaments", i: "emoji_events", slug: "tournaments", bg: "linear-gradient(135deg,#7cffa3,#0e2414)", fg: "#0e2414" }
   ];
 
   function icon(name, color, size) {
@@ -816,7 +819,7 @@ const HOME_SECTIONS_LOADER = `<script>
       var z = ZONES[i];
       cards += '<div' + (z.slug ? ' data-coming-soon="' + z.slug + '" role="button" tabindex="0" aria-label="' + z.t + ', coming soon"' : '') + ' style="border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:10px;background:' + z.bg + ';color:' + z.fg + ';' + (z.slug ? 'cursor:pointer;' : '') + '">'
         + '<div style="display:flex;align-items:center;justify-content:space-between">'
-        + icon(z.i, z.fg, 22) + '<span style="font-size:9px;font-weight:800;letter-spacing:0.06em;opacity:0.75">' + z.s.toUpperCase() + '</span></div>'
+        + icon(z.i, z.fg, 22) + '</div>'
         + '<p style="margin:0;font-size:14px;font-weight:900;line-height:1.15">' + z.t + '</p>'
         + '</div>';
     }
@@ -837,7 +840,9 @@ const HOME_SECTIONS_LOADER = `<script>
     wrap.style.gap = "22px";
     wrap.style.padding = "8px 16px 16px";
     // Order: Quick Loot → Daily Missions banner → Game Zones
-    wrap.innerHTML = quickHtml() + bannerHtml() + zonesHtml();
+    wrap.innerHTML = quickHtml()
+      + '<section class="gz-play-daily"><h2 class="gz-play-daily__title">Play Daily</h2>' + bannerHtml() + '</section>'
+      + zonesHtml();
     function openComingSoon(target) {
       var slug=target && target.getAttribute("data-coming-soon");
       if(slug) parent.postMessage({type:"playloot:coming-soon",feature:slug},"*");
@@ -1281,10 +1286,14 @@ const DECLUTTER_LOADER = `<script>
 
 export default function StitchFrame({ screen }) {
   const appConfig = useAppConfig();
+  // Updates for other pages must not navigate this srcDoc frame or reset games.
+  const frameConfigKey=JSON.stringify({branding:appConfig.branding,screens:{[screen]:appConfig.screens?.[screen]},components:{buttons:appConfig.components?.buttons},catalogRevision:appConfig.catalogRevision});
+  const frameConfig=useMemo(()=>JSON.parse(frameConfigKey),[frameConfigKey]);
   const wallet = useWallet();
   const navigate = useNavigate();
   const frameRef = useRef(null);
   const [adHost, setAdHost] = useState(null);
+  const [footerHost, setFooterHost] = useState(null);
   const [loadedScreen, setLoadedScreen] = useState(null);
   const [readyScreen, setReadyScreen] = useState(null);
   const [activeGame, setActiveGame] = useState(null);
@@ -1323,11 +1332,11 @@ export default function StitchFrame({ screen }) {
         const loader =
           screen === "arcade"
             ? GAME_GRID_LOADER.replace("__GAMES_API_URL__", GAMES_API_URL)
-                .replace("__APP_CONFIG__", () => JSON.stringify(appConfig).replace(/</g,'\\u003c')) +
+                .replace("__APP_CONFIG__", () => JSON.stringify(frameConfig).replace(/</g,'\\u003c')) +
               SPIN_LOADER +
               UI_CLEANUP_LOADER +
               HOME_SECTIONS_LOADER +
-              `<script>(${enhanceArcade.toString()})(${JSON.stringify(FEATURED_GAMES).replace(/</g,'\\u003c')},${JSON.stringify(appConfig).replace(/</g,'\\u003c')},${JSON.stringify(GAMES_API_URL)});(${installCoverMotion.toString()})();</script>`
+              `<script>(${enhanceArcade.toString()})(${JSON.stringify(FEATURED_GAMES).replace(/</g,'\\u003c')},${JSON.stringify(frameConfig).replace(/</g,'\\u003c')},${JSON.stringify(GAMES_API_URL)});(${installCoverMotion.toString()})();</script>`
             : "";
         const declutter = DECLUTTER_LOADER.replace("__SCREEN_NAME__", screen);
         const bento =
@@ -1341,19 +1350,19 @@ export default function StitchFrame({ screen }) {
           .replace("__SCREEN_NAME__", JSON.stringify(screen))
           .replace("__BACKEND_URL__", JSON.stringify(BACKEND_URL));
         const ready = `<script>document.addEventListener("DOMContentLoaded", function () { parent.postMessage({ type: "playloot:screen-ready", screen: ${JSON.stringify(screen)} }, "*"); });</script>`;
-        const combined = `${NAVIGATION_BRIDGE}${loader}${bento}${declutter}${live}${SPACING_LOADER}<style>${stitchUtilityCss}\n${polishCss}\n${responsiveFrameCss}</style><script>(${finishScreen.toString()})(${JSON.stringify(screen)},${JSON.stringify(referenceArtwork)});</script>${ready}`;
+        const combined = `${NAVIGATION_BRIDGE}${loader}${bento}${declutter}${live}${SPACING_LOADER}<style>${paletteCss}\n${iconCss}\n${stitchUtilityCss}\n${polishCss}\n${responsiveFrameCss}\n${typographyCss}</style><script>(${finishScreen.toString()})(${JSON.stringify(screen)},${JSON.stringify(referenceArtwork)});</script>${ready}`;
         const selfHostedHtml=html
           .replace(/<script\s+src=["']https:\/\/cdn\.tailwindcss\.com["']><\/script>/i,'')
           .replace(/<script\s+id=["']tailwind-config["']>[\s\S]*?<\/script>/i,'');
-        const themedHtml = selfHostedHtml.replace("</head>", '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet"></head>');
+        const themedHtml = selfHostedHtml;
         return themedHtml.includes("</body>")
           ? themedHtml.replace("</body>", `${combined}</body>`)
           : `${themedHtml}${combined}`;
       })()
-    : undefined, [html, screen, appConfig]);
+    : undefined, [html, screen, frameConfig]);
 
   useEffect(() => {
-    const allowedPaths = new Set([...Object.values(ROUTES), "/all-games?source=grogames"]);
+    const allowedPaths = new Set([...Object.values(ROUTES), "/all-games?source=grogames", "/tournaments"]);
     const handleMessage = (event) => {
       if (event.source !== frameRef.current?.contentWindow) return;
       if (event.data?.type === "playloot:screen-ready" && event.data.screen === screen) {
@@ -1403,16 +1412,20 @@ export default function StitchFrame({ screen }) {
         srcDoc={srcDoc}
         onLoad={() => {
           const doc = frameRef.current?.contentDocument;
-          if (screen !== 'arcade' || !doc?.querySelector('main')) { setAdHost(null); return; }
+          if (screen !== 'arcade' || !doc?.querySelector('main')) { setAdHost(null); setFooterHost(null); return; }
           const host = doc.createElement('div');
           host.dataset.adSlot = 'arcade';
           doc.querySelector('main').prepend(host);
           setAdHost(host);
+          const footer = doc.createElement('div');
+          doc.querySelector('main').after(footer);
+          setFooterHost(footer);
           frameRef.current?.contentWindow?.postMessage({type:'playloot:wallet-sync',wallet:wallet.data},'*');
         }}
         style={{ display: "block", width: "min(100vw, 440px)", height: "100dvh", border: 0, background: "#0e1017", visibility: readyScreen === screen ? "visible" : "hidden" }}
       />
-      {screen === 'arcade' && adHost && createPortal(<><DesktopExtras/><AdPlacement slot="arcade"/></>, adHost)}
+      {screen === 'arcade' && adHost && createPortal(<AdPlacement slot="arcade"/>, adHost)}
+      {screen === 'arcade' && footerHost && createPortal(<SiteFooter/>, footerHost)}
       <GameWebViewOverlay game={activeGame} onClose={() => setActiveGame(null)} />
       {spinOpen && <SpinWheel onClose={() => setSpinOpen(false)} />}
     </main>

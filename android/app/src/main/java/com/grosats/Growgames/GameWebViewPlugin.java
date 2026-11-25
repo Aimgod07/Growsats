@@ -310,6 +310,7 @@ public class GameWebViewPlugin extends Plugin {
                             if (score >= 0 && score <= 1000000000 && score == Math.floor(score)) {
                                 JSObject result = new JSObject();
                                 result.put("score", (long) score);
+                                if (data.has("runId")) result.put("runId", data.getString("runId"));
                                 notifyListeners("game:score", result);
                             }
                         } catch (Exception ignored) { }

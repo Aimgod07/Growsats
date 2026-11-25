@@ -1,6 +1,6 @@
 import {useEffect,useRef,useState} from 'react';
 import {createPortal} from 'react-dom';
-import {Bell} from 'lucide-react';
+import { Bell } from './PlaylootIcons';
 import {PushNotifications} from '@capacitor/push-notifications';
 import {isSignedIn} from '../utils/api';
 import {isAndroidPush,nativePushEnabled,enableNativePush} from '../utils/nativePush';

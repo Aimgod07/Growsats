@@ -1,0 +1,38 @@
+.playloot-footer {
+  margin-top: 48px;
+  overflow: hidden;
+  background: var(--playloot-gradient);
+  color: #eef0ff;
+  font-family: Inter, sans-serif;
+}
+.playloot-footer__scene {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: clamp(4px, 2vw, 32px);
+  height: clamp(160px, 24vw, 300px);
+  padding-inline: 5%;
+  background: radial-gradient(ellipse at 70% 70%, #4332ae, transparent 65%), #0c0b31;
+}
+.playloot-footer__scene img { width: 17%; height: 92%; object-fit: contain; object-position: bottom; }
+.playloot-footer__body { display: grid; grid-template-columns: 1.8fr repeat(3, 1fr); gap: 36px; max-width: 1408px; margin: auto; padding: 64px 40px 48px; }
+.playloot-footer__brand { display: inline-flex; align-items: center; gap: 10px; font-size: 22px; font-weight: 800; }
+.playloot-footer__brand img { width: 50px; height: 50px; object-fit: contain; }
+.playloot-footer a { color: #f4f3ff; text-decoration: none; }
+.playloot-footer a:hover { text-decoration: underline; }
+.playloot-footer a:focus-visible { outline: 2px solid #8ee8fa; outline-offset: 5px; }
+.playloot-footer__identity p { margin: 18px 0; color: #d4d1fa; font-size: 14px; }
+.playloot-footer__language { display: inline-block; padding: 12px 20px; border: 1px solid #ffffff20; border-radius: 12px; background: #ffffff10; font-size: 13px; }
+.playloot-footer nav h2 { margin: 10px 0 22px; font-size: 13px !important; font-weight: 500; color: #bdb9ed; }
+.playloot-footer nav a { display: block; width: fit-content; margin-bottom: 16px; font-size: 14px; line-height: 1.4; }
+.playloot-footer__wordmark { padding: 0 3%; font-size: clamp(65px, 20vw, 280px); line-height: 1; font-weight: 900; letter-spacing: -.07em; text-align: center; color: #e0dfff; }
+.playloot-footer__bottom { padding: 24px 40px 36px; font-size: 12px; color: #d4d1fa; text-align: center; }
+@media(max-width: 700px) {
+  .playloot-footer__body { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 36px 24px 24px; gap: 24px; }
+  .playloot-footer__identity { grid-column: 1 / -1; }
+}
+@media (width < 1024px) {
+  .playloot-footer { margin-top: 24px; }
+  .playloot-footer__scene { height: clamp(112px, 30vw, 200px); }
+  .playloot-footer__bottom { padding-bottom: calc(94px + env(safe-area-inset-bottom, 0px)); }
+}

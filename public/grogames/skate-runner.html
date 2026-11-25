@@ -341,5 +341,5 @@ Bridge.on("PAUSE",()=>pauseGame("parent"));
 Bridge.on("RESUME",resumeGame);
 Bridge.on("RESTART",()=>{ pausedBy=null; game.scene.stop("Game"); game.scene.stop("GameOver"); game.scene.stop("Start"); game.scene.start("Game"); });
 </script>
-</body>
+<script defer src="/grogames/audio-effects.js"></script></body>
 </html>

@@ -1,0 +1,28 @@
+.playloot-art-icon {
+  display: inline-block;
+  width: var(--icon-size, 1em);
+  height: var(--icon-size, 1em);
+  flex-shrink: 0;
+  vertical-align: middle;
+  background: var(--icon-art) center / contain no-repeat;
+  image-rendering: auto;
+}
+.playloot-bell-icon { --icon-art: url('/playloot-art/bell-icon.png'); }
+.playloot-notification-button-icon,
+[data-path="notifications"] .playloot-bell-icon { --icon-art: url('/playloot-art/notification-button-bell.png'); }
+.playloot-gamepad-icon { --icon-art: url('/playloot-art/gamepad-icon.png'); }
+.material-symbols-outlined.playloot-art-icon { color: transparent !important; overflow: hidden; }
+.playloot-gift-icon { --icon-art: url('/playloot-art/gift-orange-blue.png'); background-size: 135%; }
+.playloot-coin-icon { --icon-art: url('/playloot-art/coin-icon.png'); }
+.playloot-calendar-icon { --icon-art: url('/playloot-art/calendar-icon.png'); background-size: 215%; }
+.playloot-profile-icon { --icon-art: url('/playloot-art/profile-icon.png'); background-size: 140%; }
+img[src^="/playloot-art/"] { image-rendering: auto; }
+.neo-wallet .playloot-coin-icon { grid-row: 1 / 3; }
+.coin-conversion__balance .playloot-coin-icon { grid-row: 1 / 3; }
+.hub__row > .playloot-art-icon { flex: none; }
+.loot-card-pair .hub__row > .playloot-art-icon {
+  width: 30px;
+  height: 30px;
+  background-size: 138%;
+}
+.loot-card-pair .hub__row > .playloot-gift-icon { background-size: 135%; }

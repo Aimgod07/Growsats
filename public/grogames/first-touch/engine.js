@@ -9,7 +9,8 @@ const shots=[
  {id:'chip',name:'Chip',key:'6',tag:'Lift it over',speed:15,curve:0,arc:2.4,color:'#d8c7ff'}
 ];
 const difficulties={casual:{name:'Casual',reaction:.32,speed:2.9,error:.38},club:{name:'Club',reaction:.23,speed:4.1,error:.22},pro:{name:'Pro',reaction:.15,speed:5.4,error:.10}};
-const players=[{name:'Luca',role:'THE PLAYMAKER',number:'24',skin:'#d99a72',hair:'#241f22',kit:'#f2f5f8',shorts:'#173451',accent:'#183452',boot:'#244b70'}, {name:'Amara',role:'THE FINISHER',number:'07',skin:'#774b37',hair:'#231c22',kit:'#b9ed6a',shorts:'#2e4d56',accent:'#203f50',boot:'#f980b9'}, {name:'Kai',role:'THE ARTIST',number:'09',skin:'#d2a078',hair:'#1d2532',kit:'#6fbfff',shorts:'#283b61',accent:'#e8f7fc',boot:'#f5ad45'}];
+const contactTime=.64;
+const players=[{name:'Luca',role:'THE PLAYMAKER',number:'24',skin:'#d99a72',hair:'#241f22',kit:'#f2f5f8',shorts:'#173451',accent:'#183452',boot:'#244b70'}, {name:'Amara',role:'THE FINISHER',number:'07',skin:'#774b37',hair:'#231c22',kit:'#20824b',shorts:'#2e4d56',accent:'#203f50',boot:'#f980b9'}, {name:'Kai',role:'THE ARTIST',number:'09',skin:'#d2a078',hair:'#1d2532',kit:'#f1cc32',shorts:'#283b61',accent:'#e8f7fc',boot:'#f5ad45'}];
 class Session{
  constructor(config={},seed=123){this.config={difficulty:config.difficulty||'club',mode:config.mode||'roam'};this.diff=difficulties[this.config.difficulty]||difficulties.club;this.seed=seed;this.stats={attempts:0,goals:0,saves:0,streak:0,best:0,score:0,targets:0};this.time=0;this.events=[];this.shotIndex=0;this.aim={x:1.8,y:1.7};this.newAttempt();}
  random(){this.seed=(this.seed*16807)%2147483647;return(this.seed-1)/2147483646;}
@@ -24,7 +25,7 @@ class Session{
  finish(outcome){if(this.result)return;this.result=outcome;this.phase='result';this.phaseTime=0;const st=this.stats;if(outcome==='goal'){st.goals++;st.streak++;st.best=Math.max(st.best,st.streak);const target=Math.hypot(this.end.x-this.target.x,this.end.y-this.target.y)<this.target.radius;const clean=this.power>=.58&&this.power<=.84;this.bonus=target?'TOP BINS':clean?'SWEET STRIKE':'NICE FINISH';st.score+=100+Math.min(st.streak-1,10)*15+(target?100:0);if(target)st.targets++;}else{st.streak=0;if(outcome==='save')st.saves++;this.bonus=outcome==='save'?'TRY THE CORNERS':outcome==='post'?'SO CLOSE':'ADJUST YOUR AIM';}this.emit('result',{outcome,bonus:this.bonus,stats:{...st}});}
  step(dt){dt=clamp(dt,0,.04);this.time+=dt;this.phaseTime+=dt;const b=this.ball,k=this.keeper;
  if(this.phase==='ready'||this.phase==='charging'){k.x=Math.sin(this.time*1.6)*.35;k.lean=Math.sin(this.time*1.6)*.06;if(this.phase==='charging')this.power=Math.min(1,.15+this.phaseTime*.6);return;}
- if(this.phase==='runup'){if(this.phaseTime>=.64)this.launch();return;}
+ if(this.phase==='runup'){if(this.phaseTime>=contactTime)this.launch();return;}
  if(this.phase==='flight'){
  const old={...b};this.flightTime+=dt;const t=this.flightTime,at=this.flightPosition(t);b.x=at.x;b.y=at.y;b.z=at.z;
  if(t>this.diff.reaction){if(!k.reacted){k.reacted=true;k.targetX=clamp(this.end.x+(this.random()-.5)*this.diff.error*2,-3.35,3.35);k.targetY=this.end.y;}const delta=k.targetX-k.x;k.x+=clamp(delta,-this.diff.speed*dt,this.diff.speed*dt);const want=clamp(Math.abs(k.targetX)*.38,0,1);k.dive+=(want-k.dive)*Math.min(1,dt*7);k.lean=Math.sign(k.targetX)*k.dive*1.18;k.y=Math.max(0,k.targetY-1.35)*k.dive;}
@@ -34,5 +35,5 @@ class Session{
  }else if(this.phase==='result'){b.vy-=9.81*dt;b.x+=b.vx*dt;b.y+=b.vy*dt;b.z+=b.vz*dt;if(b.y<.11){b.y=.11;b.vy=Math.abs(b.vy)*.35;b.vx*=.94;b.vz*=.94;}if(this.result==='goal'){if(b.z< -1.7){b.z=-1.7;b.vz=Math.abs(b.vz)*.25;}b.x=clamp(b.x,-3.45,3.45);}k.dive=Math.max(0,k.dive-dt*.45);k.lean*=1-dt*.5;k.y=Math.max(0,k.y-dt);if(this.phaseTime>2.7)this.newAttempt();}
  }
 }
-const api={Session,shots,players,difficulties,clamp};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.Football=api;
+const api={Session,shots,players,difficulties,clamp,contactTime};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.Football=api;
 })(typeof window!=='undefined'?window:globalThis);

@@ -5,9 +5,19 @@ beforeEach(()=>{window.matchMedia=vi.fn(()=>({matches:true,addEventListener:vi.f
 function render(groGames){document.body.innerHTML='<main><div></div></main>';enhanceArcade([],{screens:{arcade:{groGames}}});document.dispatchEvent(new Event('DOMContentLoaded'));}
 describe('Gro Games controls',()=>{
  it('limits only original game cards',()=>{render({enabled:true,limit:3});expect(document.querySelectorAll('.grogames-card')).toHaveLength(3);expect(document.querySelector('.gro-heading').textContent).toContain('3 games');});
- it('shows every original game when the limit is zero',()=>{render({enabled:true,limit:0});expect(document.querySelectorAll('.grogames-card')).toHaveLength(17);});
+ it('shows every original game when the limit is zero',()=>{render({enabled:true,limit:0});expect(document.querySelectorAll('.grogames-card')).toHaveLength(19);});
  it('opens the shared catalog filtered to GroGames',()=>{const post=vi.spyOn(window.parent,'postMessage');render({enabled:true,limit:3});document.querySelector('.gro-view-all').click();expect(post).toHaveBeenCalledWith({type:'playloot:navigate',path:'/all-games?source=grogames'},'*');post.mockRestore();});
  it('hides the section when disabled',()=>{render({enabled:false,limit:4});expect(document.querySelector('.grogames-section')).toBeNull();});
+ it('requests every initial cover without waiting for iframe visibility',()=>{
+  render({enabled:true,limit:10});
+  const images=[...document.querySelectorAll('.grogames-art img')];
+  expect(images).toHaveLength(10);
+  for(const img of images){
+   expect(img.loading).toBe('eager');
+   expect(img.getAttribute('src')).toMatch(/^\/grogames\/covers\/cinematic\/.+\.webp$/);
+   expect(img.width).toBe(640);expect(img.height).toBe(480);
+  }
+ });
 });
 
 it('selects Gro Games for the hero independently of the Gro Games section',()=>{
@@ -17,4 +27,7 @@ it('selects Gro Games for the hero independently of the Gro Games section',()=>{
   document.dispatchEvent(new Event('DOMContentLoaded'));
   expect(document.querySelectorAll('.pl-feature')).toHaveLength(1);
   expect(document.querySelector('.pl-feature h3').textContent).toBe('Courtside');
+  expect(document.querySelector('.pl-feature source').getAttribute('media')).toBe('(min-width: 1024px)');
+  expect(document.querySelector('.pl-feature source').getAttribute('srcset')).toBe('/grogames/covers/desktop/courtside.webp');
+  expect(document.querySelector('.pl-feature img').getAttribute('src')).toBe('/grogames/covers/cinematic/courtside.webp');
 });

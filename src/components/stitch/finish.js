@@ -31,7 +31,7 @@ export function finishScreen(screen, artwork) {
         link.href = '#';
         link.dataset.path = 'all-games';
         link.className = 'pl-text-link';
-        link.textContent = 'View all →';
+        link.textContent = 'View all';
         viewAll.replaceWith(link);
       }
       const identity = document.querySelector('main section');
@@ -74,10 +74,29 @@ export function finishScreen(screen, artwork) {
       });
       root.querySelectorAll('.payout-card').forEach((card) => card.classList.add('pl-payout-card'));
     }
+    function applyCurrencyAndNavigationArt(root) {
+      root.querySelectorAll('.material-symbols-outlined').forEach(icon => {
+        const name = icon.textContent.trim();
+        if (name === 'diamond') icon.classList.add('pl-diamond-icon');
+        else if (['calendar_month', 'calendar_today', 'event', 'date_range'].includes(name)) icon.classList.add('playloot-art-icon', 'playloot-calendar-icon');
+        else if (['person', 'account_circle', 'person_outline'].includes(name)) icon.classList.add('playloot-art-icon', 'playloot-profile-icon');
+        else if (name === 'card_giftcard') icon.classList.add('playloot-art-icon', 'playloot-gift-icon');
+        else if (name === 'monetization_on' || name === 'paid') icon.classList.add('playloot-art-icon', 'playloot-coin-icon');
+        else if (name === 'notifications' || name === 'sports_esports') {
+          icon.classList.add('playloot-art-icon', name === 'notifications' ? 'playloot-bell-icon' : 'playloot-gamepad-icon');
+        } else return;
+        icon.setAttribute('aria-hidden', 'true');
+      });
+    }
     enhance(document);
+    applyCurrencyAndNavigationArt(document);
     new MutationObserver((records) => {
       records.forEach((record) => record.addedNodes.forEach((node) => {
-        if (node.nodeType === 1) enhance(node.parentElement || node);
+        if (node.nodeType === 1) {
+          const root = node.parentElement || node;
+          enhance(root);
+          applyCurrencyAndNavigationArt(root);
+        }
       }));
     }).observe(document.body, { childList: true, subtree: true });
     document.querySelectorAll('input[type="range"]').forEach((slider) => {

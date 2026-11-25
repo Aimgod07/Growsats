@@ -1,5 +1,29 @@
 [
   {
+    "id": "switchback-rally",
+    "title": "Switchback Rally",
+    "category": "Driving",
+    "orientation": "landscape",
+    "path": "/grogames/switchback-rally/index.html",
+    "cover": "/grogames/switchback-rally/cover.webp"
+  },
+  {
+    "id": "canyon-drive",
+    "title": "Canyon Drive",
+    "category": "Driving",
+    "orientation": "landscape",
+    "path": "/grogames/canyon-drive/index.html",
+    "cover": "/grogames/canyon-drive/cover.webp"
+  },
+  {
+    "id": "goldleaf-run",
+    "title": "Goldleaf Run",
+    "category": "Runner",
+    "orientation": "landscape",
+    "path": "/grogames/goldleaf-run/index.html",
+    "cover": "/grogames/goldleaf-run/cover.webp"
+  },
+  {
     "id": "saltwake",
     "title": "Saltwake",
     "category": "Adventure",
@@ -15,7 +39,7 @@
     "category": "Arcade",
     "orientation": "portrait",
     "path": "/grogames/cloud-skipper/index.html",
-    "cover": "/grogames/cloud-skipper/cover.svg",
+    "cover": "/grogames/covers/gameplay/cloud-skipper.jpg",
     "provider": "NovaGames",
     "providerId": "novagames"
   },
@@ -25,7 +49,7 @@
     "category": "Sports",
     "orientation": "portrait",
     "path": "/grogames/courtside/index.html",
-    "cover": "/grogames/covers/cinematic/courtside.webp"
+    "cover": "/grogames/covers/gameplay/courtside.jpg"
   },
   {
     "id": "featherfall",
@@ -33,7 +57,7 @@
     "category": "Puzzle",
     "orientation": "landscape",
     "path": "/grogames/featherfall/index.html",
-    "cover": "/grogames/covers/cinematic/featherfall.webp"
+    "cover": "/grogames/covers/gameplay/featherfall.jpg"
   },
   {
     "id": "first-touch",
@@ -41,7 +65,7 @@
     "category": "Sports",
     "orientation": "landscape",
     "path": "/grogames/first-touch/index.html",
-    "cover": "/grogames/covers/cinematic/first-touch.webp"
+    "cover": "/grogames/covers/gameplay/first-touch.jpg"
   },
   {
     "id": "fruit-frenzy",
@@ -49,7 +73,7 @@
     "category": "Arcade",
     "orientation": "portrait",
     "path": "/grogames/fruit-frenzy/index.html",
-    "cover": "/grogames/covers/cinematic/fruit-frenzy.webp"
+    "cover": "/grogames/covers/gameplay/fruit-frenzy.jpg"
   },
   {
     "id": "groove-grove",
@@ -57,7 +81,7 @@
     "category": "Rhythm",
     "orientation": "portrait",
     "path": "/grogames/groove-grove/index.html",
-    "cover": "/grogames/covers/cinematic/groove-grove.webp"
+    "cover": "/grogames/covers/gameplay/groove-grove.jpg"
   },
   {
     "id": "neon-rage",
@@ -65,7 +89,7 @@
     "category": "Racing",
     "orientation": "portrait",
     "path": "/grogames/neon-rage/index.html",
-    "cover": "/grogames/covers/cinematic/neon-rage.webp"
+    "cover": "/grogames/covers/gameplay/neon-rage.jpg"
   },
   {
     "id": "skyline-sprint",
@@ -73,7 +97,7 @@
     "category": "Runner",
     "orientation": "portrait",
     "path": "/grogames/skyline-sprint/index.html",
-    "cover": "/grogames/covers/cinematic/skyline-sprint.webp"
+    "cover": "/grogames/covers/gameplay/skyline-sprint.jpg"
   },
   {
     "id": "strikepoint",
@@ -81,7 +105,7 @@
     "category": "Action",
     "orientation": "landscape",
     "path": "/grogames/strikepoint/index.html",
-    "cover": "/grogames/covers/cinematic/strikepoint.webp",
+    "cover": "/grogames/covers/gameplay/strikepoint.jpg",
     "provider": "NovaGames",
     "providerId": "novagames"
   },
@@ -91,7 +115,7 @@
     "category": "Adventure",
     "orientation": "portrait",
     "path": "/grogames/tidal-rush/index.html",
-    "cover": "/grogames/covers/cinematic/tidal-rush.webp"
+    "cover": "/grogames/covers/gameplay/tidal-rush.jpg"
   },
   {
     "id": "turbo-avenue",
@@ -99,7 +123,7 @@
     "category": "Racing",
     "orientation": "portrait",
     "path": "/grogames/turbo-avenue/index.html?embed=1",
-    "cover": "/grogames/covers/cinematic/turbo-avenue.webp"
+    "cover": "/grogames/covers/gameplay/turbo-avenue.jpg"
   },
   {
     "id": "moon-rider",
@@ -107,7 +131,7 @@
     "category": "Racing",
     "orientation": "portrait",
     "path": "/grogames/moon-rider/index.html?embed=1",
-    "cover": "/grogames/covers/cinematic/moon-rider.webp"
+    "cover": "/grogames/covers/gameplay/moon-rider.jpg"
   },
   {
     "id": "sky-courier",
@@ -115,7 +139,7 @@
     "category": "Action",
     "orientation": "portrait",
     "path": "/grogames/sky-courier/index.html?embed=1",
-    "cover": "/grogames/covers/cinematic/sky-courier.webp"
+    "cover": "/grogames/covers/gameplay/sky-courier.jpg"
   },
   {
     "id": "orbit-guard",
@@ -123,7 +147,7 @@
     "category": "Action",
     "orientation": "portrait",
     "path": "/grogames/orbit-guard/index.html?embed=1",
-    "cover": "/grogames/covers/cinematic/orbit-guard.webp"
+    "cover": "/grogames/covers/gameplay/orbit-guard.jpg"
   },
   {
     "id": "meteor-drift",
@@ -131,7 +155,7 @@
     "category": "Action",
     "orientation": "portrait",
     "path": "/grogames/meteor-drift/index.html?embed=1",
-    "cover": "/grogames/covers/cinematic/meteor-drift.webp"
+    "cover": "/grogames/covers/gameplay/meteor-drift.jpg"
   },
   {
     "id": "pulse-paddle",
@@ -139,7 +163,7 @@
     "category": "Sports",
     "orientation": "portrait",
     "path": "/grogames/pulse-paddle/index.html",
-    "cover": "/grogames/covers/cinematic/pulse-paddle.webp"
+    "cover": "/grogames/covers/gameplay/pulse-paddle.jpg"
   },
   {
     "id": "archery-3d",
@@ -147,7 +171,7 @@
     "category": "Sports",
     "orientation": "landscape",
     "path": "/grogames/archery-3d.html",
-    "cover": "/grogames/covers/cinematic/archery-3d.webp"
+    "cover": "/grogames/covers/gameplay/archery-3d.jpg"
   },
   {
     "id": "ice-curl",
@@ -155,6 +179,6 @@
     "category": "Sports",
     "orientation": "portrait",
     "path": "/grogames/ice-curl/index.html",
-    "cover": "/grogames/covers/cinematic/ice-curl.webp"
+    "cover": "/grogames/covers/gameplay/ice-curl.jpg"
   }
 ]

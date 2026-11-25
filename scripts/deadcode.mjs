@@ -17,14 +17,14 @@ function walk(dir) {
 }
 
 const files = walk(SRC);
-const IMPORT_RE = /from\s+["'](\.[^"']+)["']/g;
+const IMPORT_RE = /(?:from\s+|import\s*\(\s*|import\s+)["'](\.[^"']+)["']/g;
 
 const edges = new Map();
 for (const file of files) {
   const src = readFileSync(file, "utf8");
   const targets = [];
   for (const m of src.matchAll(IMPORT_RE)) {
-    const base = resolve(dirname(file), m[1]);
+    const base = resolve(dirname(file), m[1].split('?')[0]);
     for (const ext of EXTS) {
       const candidate = base + ext;
       if (existsSync(candidate) && statSync(candidate).isFile()) {

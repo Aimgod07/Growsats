@@ -1,4 +1,7 @@
-import { ArrowLeft, CalendarDays, Clock3, Coins, Gamepad2, ShieldCheck, Star, Trophy } from 'lucide-react';
+import { ArrowLeft, Clock3, ShieldCheck, Star, Trophy } from 'lucide-react';
+import { CalendarDays } from '../components/PlaylootIcons';
+import { Coins } from '../components/PlaylootIcons';
+import { Gamepad2 } from '../components/PlaylootIcons';
 import { useNavigate, useParams } from 'react-router-dom';
 import {formatPlayTime} from '../utils/playTime';
 import { useResource } from '../hooks/useResource';

@@ -1,5 +1,5 @@
 /* Local sampled gun audio. All voices share the existing game mute/master bus. */
-(function(root){'use strict';const names=['rifle','smg','shotgun','marksman'];
+(function(root){'use strict';const names=StrikeCatalog.guns.map(gun=>gun.audio||gun.id);
 class StrikeAudio{
  constructor(context,master){this.context=context;this.master=master;this.buffers=new Map();this.voices=new Set();this.reloadVoice=null;this.serial=0;this.ready=this.load();}
  async load(){await Promise.all(names.flatMap((name,i)=>['fire','reload'].map(async kind=>{try{const r=await fetch('assets/audio/'+name+'-'+kind+'.wav');if(!r.ok)throw Error('audio unavailable');const data=await this.context.decodeAudioData(await r.arrayBuffer());this.buffers.set(i+':'+kind,data);}catch{/* Short synthesized transient remains available while offline/loading. */}})));}

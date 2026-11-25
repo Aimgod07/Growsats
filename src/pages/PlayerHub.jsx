@@ -1,11 +1,15 @@
 import ReminderSettings from '../components/ReminderSettings';
-import WalletActions from '../components/WalletActions';
+import CoinConversion from '../components/CoinConversion';
+import RewardsBanner from '../components/RewardsBanner';
 import '../styles/scroll-lists.css';
 import {formatPlayTime} from '../utils/playTime';
 import {AdPlacement} from '../components/LiveFeatures';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { ArrowLeft, Bell, Coins, Gem, Gift, Trophy, Users, Settings2, Copy, Check, Gamepad2, Star, Clock3, ShieldCheck, Search, X } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { ArrowLeft, Trophy, Settings2, Copy, Check, ShieldCheck, LogOut } from 'lucide-react';
+import { Bell, Coins, Gamepad2, Gift, NotificationButtonIcon } from '../components/PlaylootIcons';
+import DiamondIcon from '../components/DiamondIcon';
+import '../styles/leaderboard-arena.css';
 import { backend } from '../utils/api';
 import { useResource } from '../hooks/useResource';
 import { ResourceGate, ResourceBanner } from '../components/ResourceGate';
@@ -110,109 +114,72 @@ function ProfileOverview({ appConfig, profile, wallet, daily, notifications, bus
     </section>
 
     <div className="neo-quick-actions" aria-label="Player actions">
-      <button onClick={() => navigate('/missions')}><Gift/><span><b>Missions</b><small>Daily objectives</small></span></button>
-      <button onClick={() => navigate('/redeem')}><Coins/><span><b>Loot</b><small>Rewards and cashout</small></span></button>
-      <button onClick={() => navigate('/transactions')}><Coins/><span><b>Transactions</b><small>Withdrawals and history</small></span></button>
-      <button onClick={() => navigate('/profile/settings')}><Settings2/><span><b>Settings</b><small>Privacy and security</small></span></button>
+      <button onClick={() => navigate('/missions')}><Gift size={30}/><span><b>Missions</b><small>Daily objectives</small></span></button>
+      <button onClick={() => navigate('/redeem')}><Coins size={30}/><span><b>Loot</b><small>Rewards and cashout</small></span></button>
+      <button onClick={() => navigate('/transactions')}><img className="neo-quick-action-icon" src="/playloot-art/profile-transactions.png" alt="" /><span><b>Transactions</b><small>Withdrawals and history</small></span></button>
+      <button onClick={() => navigate('/profile/settings')}><img className="neo-quick-action-icon" src="/playloot-art/profile-settings.png" alt="" /><span><b>Settings</b><small>Privacy and security</small></span></button>
     </div>
 
     <ResourceGate resource={wallet} label="your balance" minHeight="82px">
       <div className="neo-wallet" hidden={appConfig.screens?.loot?.sections?.balance === false}>
         <div><Coins /><span>Coins</span><strong>{(wallet.data.coins ?? 0).toLocaleString()}</strong></div>
-        <div><Gem /><span>Diamonds</span><strong>{(wallet.data.diamonds ?? 0).toLocaleString()}</strong></div>
+        <div><DiamondIcon size={25} /><span>Diamonds</span><strong>{(wallet.data.diamonds ?? 0).toLocaleString()}</strong></div>
       </div>
     </ResourceGate>
 
-    <WalletActions />
     <section className="neo-panel" hidden={sections.stats === false}>
       <div className="neo-heading"><div><span>PERFORMANCE</span><h2>Player stats</h2></div><ShieldCheck /></div>
       <ResourceGate resource={profile} label="your stats" minHeight="100px">
         <div className="neo-stats">
-          <div><Gamepad2/><strong>{profile.data.stats?.gamesPlayed ?? 0}</strong><span>Played</span></div>
-          <div><Clock3/><strong>{formatPlayTime(profile.data.stats)}</strong><span>Game time</span></div>
-          <div><Star/><strong>{profile.data.stats?.rewardsEarned ?? 0}</strong><span>Rewards</span></div>
+          <div><img src="/playloot-art/controller.png" alt="" /><div><strong>{profile.data.stats?.gamesPlayed ?? 0}</strong><span>Played</span></div></div>
+          <div><img src="/playloot-art/stat-time.png" alt="" /><div><strong>{formatPlayTime(profile.data.stats)}</strong><span>Game time</span></div></div>
+          <div><img src="/playloot-art/stat-rewards.png" alt="" /><div><strong>{profile.data.stats?.rewardsEarned ?? 0}</strong><span>Rewards</span></div></div>
         </div>
         <div className="hub__badges">{(profile.data.badges || []).map(b => <span key={b.id} className={b.earned ? 'earned' : ''}>{b.earned ? '★' : '☆'} {b.title}</span>)}</div>
       </ResourceGate>
     </section>
 
-    <ResourceGate resource={daily} label="your daily bonus" minHeight="110px">
-      <section className="neo-daily" hidden={appConfig.screens?.loot?.sections?.daily === false}>
-        <span className="hub__sr-only">Daily bonus</span><div><span>DAILY DROP</span><h2>{daily.data.claimed ? 'Reward collected' : `${daily.data.coins ?? 50} coins are ready`}</h2><p>Return each day to keep building your balance.</p></div>
-        <button disabled={daily.data.claimed || !!busy} onClick={() => act('daily', backend.claimDaily, ['daily', 'wallet', 'rewards', 'notifications'])}>{daily.data.claimed ? 'Claimed' : busy === 'daily' ? 'Claiming…' : 'Claim now'}</button>
-      </section>
-    </ResourceGate>
+    <div className="neo-profile__updates">
+      <ResourceGate resource={daily} label="your daily bonus" minHeight="110px">
+        <section className="neo-daily" hidden={appConfig.screens?.loot?.sections?.daily === false}>
+          <span className="hub__sr-only">Daily bonus</span><div><span>DAILY DROP</span><h2>{daily.data.claimed ? 'Reward collected' : `${daily.data.coins ?? 50} coins are ready`}</h2><p>Return each day to keep building your balance.</p></div>
+          <button disabled={daily.data.claimed || !!busy} onClick={() => act('daily', backend.claimDaily, ['daily', 'wallet', 'rewards', 'notifications'])}>{daily.data.claimed ? 'Claimed' : busy === 'daily' ? 'Claiming…' : 'Claim now'}</button>
+        </section>
+      </ResourceGate>
+    <section className="neo-panel neo-profile__notifications" hidden={sections.notifications === false}>
+      <div className="neo-heading"><div><span>UPDATES</span><h2>Notifications</h2></div><b>{notifications.data.items?.length ?? 0}</b></div>
+      <ResourceGate resource={notifications} label="notifications" minHeight="60px" emptyWhen={(d) => !d.items?.length} emptyState={<p>Your reward alerts will appear here.</p>}>
+        <div className="hub-scroll-list" tabIndex={0} role="region" aria-label="Profile notifications">{notifications.data.items.map(n => <div className="neo-activity" key={n.id}><span className="neo-game-icon"><Bell/></span><div><b>{n.text}</b>{n.path&&['/Home','/offers','/missions','/events','/leaderboard','/redeem'].includes(n.path)?<a href={n.path}>Open announcement →</a>:<small>Player update</small>}</div><time>{date(n.at)}</time></div>)}</div>
+      </ResourceGate>
+    </section>
+    </div>
 
-    <section className="neo-panel" hidden={sections.recentGames === false}>
+    <section className="neo-panel neo-profile__recent" hidden={sections.recentGames === false}>
       <div className="neo-heading"><div><span>ACTIVITY</span><h2>Recently played</h2></div><button onClick={() => navigate('/all-games')}>View all</button></div>
       <ResourceGate resource={profile} label="your game history" minHeight="70px">
         {profile.data.recentGames?.length ? profile.data.recentGames.map((g, i) => <div className="neo-activity" key={`${g.gameCode}-${i}`}><span className="neo-game-icon"><Gamepad2/></span><div><b>{g.title}</b><small>{Math.max(1, Math.round((g.seconds || 0) / 60))} min played</small></div><time>{date(g.at)}</time></div>) : <p>No completed games yet. Your activity will appear here.</p>}
       </ResourceGate>
     </section>
 
-    <section className="neo-panel" hidden={sections.notifications === false}>
-      <div className="neo-heading"><div><span>UPDATES</span><h2>Notifications</h2></div><b>{notifications.data.items?.length ?? 0}</b></div>
-      <ResourceGate resource={notifications} label="notifications" minHeight="60px" emptyWhen={(d) => !d.items?.length} emptyState={<p>Your reward alerts will appear here.</p>}>
-        <div className="hub-scroll-list" tabIndex={0} role="region" aria-label="Profile notifications">{notifications.data.items.map(n => <div className="neo-activity" key={n.id}><span className="neo-game-icon"><Bell/></span><div><b>{n.text}</b>{n.path&&['/Home','/offers','/missions','/events','/leaderboard','/redeem'].includes(n.path)?<a href={n.path}>Open announcement →</a>:<small>Player update</small>}</div><time>{date(n.at)}</time></div>)}</div>
-      </ResourceGate>
-    </section>
-  </div>;
-}
-
-function PlayerSearch({ navigate }) {
-  const [query, setQuery] = useState('');
-  const [results, setResults] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-
-  useEffect(() => {
-    const term = query.trim();
-    if (term.length < 2) { setResults([]); setError(''); setLoading(false); return undefined; }
-    let active = true;
-    const timer = window.setTimeout(async () => {
-      setLoading(true); setError('');
-      try {
-        const data = await backend.searchPlayers(term);
-        if (active) setResults(data.players || []);
-      } catch (err) {
-        if (active) setError(err.message || 'Player search is unavailable');
-      } finally {
-        if (active) setLoading(false);
-      }
-    }, 250);
-    return () => { active = false; window.clearTimeout(timer); };
-  }, [query]);
-
-  return <div className="player-search">
-    <label><Search size={18}/><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search players by name or username" aria-label="Search players" />{query && <button type="button" onClick={() => setQuery('')} aria-label="Clear player search"><X size={16}/></button>}</label>
-    {query.trim().length > 0 && query.trim().length < 2 && <small>Enter at least 2 characters.</small>}
-    {loading && <small>Searching players…</small>}
-    {error && <small role="alert">{error}</small>}
-    {query.trim().length >= 2 && !loading && !error && !results.length && <small>No matching players found.</small>}
-    {!!results.length && <div className="player-search__results">{results.map((player) => <button type="button" key={player.id} onClick={() => navigate(`/players/${encodeURIComponent(player.id)}`)}>
-      <PlayerAvatar player={player} size="row"/><span><b>{player.name}</b><small>@{player.gamerId} · Level {player.level}</small></span><strong>View</strong>
-    </button>)}</div>}
   </div>;
 }
 
 function LeaderboardView({ appConfig, leaderboard, navigate }) {
   const players = leaderboard.data.players || [];
   const podium = [players[1], players[0], players[2]];
-  return <section className="neo-leaderboard" hidden={appConfig.screens?.ranks?.sections?.leaderboard === false}>
-    <div className="neo-leaderboard__intro"><span>GLOBAL SEASON</span><h2>Leaderboard</h2><p>Top players ranked by their current coin balance.</p></div>
-    <PlayerSearch navigate={navigate} />
-    <Link to="/events" style={{display:'block',padding:12,color:'#4cd7f6',textAlign:'center'}}>🏆 Tournaments & time events →</Link>
+  return <section className="neo-leaderboard leaderboard-arena" hidden={appConfig.screens?.ranks?.sections?.leaderboard === false}>
+    <div className="neo-leaderboard__intro"><span>THE PLAYLOOT ARENA</span><h2>Rise to the top</h2><p>See where you stand. Rankings follow your current coin balance.</p></div>
     <ResourceGate resource={leaderboard} label="the leaderboard" minHeight="260px" emptyWhen={(d) => !d.players?.length} emptyState={<p>No players on the board yet.</p>}>
       <div className="neo-podium">{podium.map((player) => player && <button type="button" onClick={() => navigate(`/players/${encodeURIComponent(player.id)}`)} key={player.id} className={`place place--${player.rank}`} aria-label={`View ${player.name}'s profile`}>
-        <div className="place__avatar"><PlayerAvatar player={player} size="podium"/><span>{player.rank}</span></div>
+        <div className="place__avatar">{player.rank === 1 && <span className="place__crown" aria-hidden="true">♛</span>}<PlayerAvatar player={player} size="podium"/><span className="place__rank">{player.rank}</span></div>
         <b>{player.name}</b><small>@{player.gamerId}</small><em><Coins/> {(player.coins ?? 0).toLocaleString()}</em>
         <div className="place__stand"><strong>{player.rank}</strong></div>
       </button>)}</div>
-      <div className="neo-list-heading"><span>FULL RANKINGS</span><b>{players.length} players</b></div>
+      <div className="neo-list-heading"><span>PLAYER RANKINGS</span><b>{players.length} players</b></div>
       <div className="neo-board-list">{players.map(player => <button type="button" onClick={() => navigate(`/players/${encodeURIComponent(player.id)}`)} key={player.id} className={`${leaderboard.data.me?.id === player.id ? 'is-me' : ''} ${player.rank <= 3 ? `is-top is-top-${player.rank}` : ''}`} aria-label={`View ${player.name}'s profile`}>
         <strong className="neo-rank-badge">{player.rank <= 3 ? ['','🥇','🥈','🥉'][player.rank] : `#${player.rank}`}</strong><PlayerAvatar player={player} size="row"/><div className="neo-player-copy"><b>{player.name}</b><small>@{player.gamerId} · Level {player.level}</small></div><span className="neo-player-score"><b><Coins/>{(player.coins ?? 0).toLocaleString()}</b><small>{player.tier}</small></span>
       </button>)}</div>
-      {leaderboard.data.me && <div className="neo-my-rank"><span>Your position</span><b>#{leaderboard.data.me.rank}</b><strong>{(leaderboard.data.me.coins ?? 0).toLocaleString()} coins</strong></div>}
+      {leaderboard.data.me && <div className="neo-my-rank"><div><span>Your position</span><strong>Keep climbing the ranks</strong></div><b>#{leaderboard.data.me.rank}</b><strong><Coins size={20}/> {(leaderboard.data.me.coins ?? 0).toLocaleString()}</strong><button type="button" onClick={() => navigate('/all-games')}>Play games →</button></div>}
     </ResourceGate>
   </section>;
 }
@@ -302,11 +269,15 @@ export default function PlayerHub({ initialTab = 'overview' }) {
     }
   }
 
+  const inviteLink = invite.data?.code
+    ? new URL('/?ref=' + encodeURIComponent(invite.data.code), window.location.origin).href
+    : '';
+
   async function copyInvite() {
     try {
-      await navigator.clipboard.writeText(invite.data.code);
+      await navigator.clipboard.writeText(inviteLink);
       setCopied(true); window.setTimeout(() => setCopied(false), 1500);
-    } catch { setActionError('Could not copy the invite code'); }
+    } catch { setActionError('Could not copy the invite link'); }
   }
 
   function updateSettings(patch) {
@@ -331,13 +302,22 @@ export default function PlayerHub({ initialTab = 'overview' }) {
     Object.values(resources).forEach((r) => r.reload());
   }, [resources]);
 
+  async function logout() {
+    if (busy === 'logout') return;
+    setBusy('logout');
+    try { await backend.logout(); }
+    catch { /* The logout API also clears the local session when offline. */ }
+    finally { navigate('/', {replace: true}); }
+  }
+
   return <main className="hub">
-    <header className="hub__header">
-      <button className="hub__back" onClick={() => navigate(tab === 'missions' || tab === 'settings' ? '/profile' : '/Home')} aria-label="Go back"><ArrowLeft size={21} /></button>
+    {['overview','ranks','rewards','missions'].includes(tab)&&<h1 className="hub__sr-only">{tab==='overview'?'Player profile':tab==='ranks'?'Leaderboard':tab==='rewards'?'Loot':'Missions'}</h1>}
+    {!['overview','ranks','rewards','missions'].includes(tab) && <header className="hub__header">
+      {!['settings', 'notifications'].includes(tab) && <button className="hub__back" onClick={() => navigate(tab === 'missions' ? '/profile' : '/Home')} aria-label="Go back"><ArrowLeft size={21} /></button>}
       <div><span className="hub__eyebrow">{appConfig.branding?.appName || 'PLAYLOOT'}</span><h1>{tab === 'notifications' ? 'Notifications' : tab === 'ranks' ? 'Leaderboard' : tab === 'overview' ? 'Player profile' : tab === 'rewards' ? 'Loot' : tab === 'missions' ? 'Missions' : 'Settings'}</h1></div>
-      <button className="hub__back" onClick={refreshAll} aria-label="Refresh your account">↻</button>
-      <button className="hub__back" onClick={() => navigate('/notifications')} aria-label="Open notifications"><Bell size={20} /></button>
-    </header>
+      {!['settings', 'notifications'].includes(tab) && <button className="hub__back" onClick={refreshAll} aria-label="Refresh your account">↻</button>}
+      {tab !== 'settings' && <button className="hub__back" onClick={() => navigate('/notifications')} aria-label="Open notifications"><NotificationButtonIcon size={20} /></button>}
+    </header>}
 
     {actionError && <div className="hub__error" role="alert">{actionError}</div>}
 
@@ -353,7 +333,8 @@ export default function PlayerHub({ initialTab = 'overview' }) {
       {tab === 'overview' && <ProfileOverview appConfig={appConfig} profile={profile} wallet={wallet} daily={daily} notifications={notifications} busy={busy} uploadAvatar={uploadAvatar} act={act} navigate={navigate} />}
 
       {tab === 'missions' && <>
-        <section className="hub__card">
+        <RewardsBanner variant="missions"/>
+        <section className="hub__card" id="daily-missions">
           <div className="hub__section-head"><h2>Daily missions</h2><span>Earn coins</span></div>
           <ResourceGate resource={missions} label="missions" minHeight="100px" emptyWhen={(d) => !d.missions?.length} emptyState={<p>No missions are running today. Check back tomorrow.</p>}>
             <div className="hub__mission-list">
@@ -371,13 +352,17 @@ export default function PlayerHub({ initialTab = 'overview' }) {
           </ResourceGate>
         </section>
 
-        <section className="hub__card">
-          <div className="hub__section-head"><h2>Invite friends</h2><Users size={20} /></div>
-          <p>Share your invite code. You earn 200 coins after a friend joins and claims their first play reward.</p>
+        <section className="hub__card referral-panel">
+          <div className="referral-panel__art" aria-hidden="true">
+            <img src="/playloot-art/trophies.png" alt="" />
+            <img src="/playloot-art/mystery.png" alt="" />
+          </div>
+          <div className="hub__section-head"><h2>Invite friends. <span>Earn more rewards.</span></h2></div>
+          <p><img className="referral-panel__coin" src="/playloot-art/coin.png" alt="" /> Earn 200 coins after a friend joins and claims their first play reward.</p>
           <ResourceGate resource={invite} label="your invite code" minHeight="70px">
             <div className="hub__invite">
-              <strong>{invite.data.code || '—'}</strong>
-              <button onClick={copyInvite} disabled={!invite.data.code}>{copied ? <Check size={18} /> : <Copy size={18} />}</button>
+              <input aria-label="Referral link" readOnly value={inviteLink} placeholder="Referral link unavailable" />
+              <button onClick={copyInvite} disabled={!inviteLink}>{copied ? <Check size={18} /> : <Copy size={18} />}{copied ? 'Copied' : 'Copy Link'}</button>
             </div>
             <small>{invite.data.referrals ?? 0} friends invited</small>
           </ResourceGate>
@@ -385,26 +370,35 @@ export default function PlayerHub({ initialTab = 'overview' }) {
       </>}
 
       {tab === 'ranks' && <LeaderboardView appConfig={appConfig} leaderboard={leaderboard} navigate={navigate} />}
-      {tab === 'ranks' && <Link to="/events" className="neo-panel" style={{color:'#4cd7f6',textDecoration:'none'}}>🏆 Events — play for the top score and automatic prize rewards →</Link>}
 
       {tab === 'rewards' && <>
-        <WalletActions />
-        <Link to="/offers" className="neo-panel" style={{color:'#4cd7f6',textDecoration:'none'}}>🎁 Offers — complete tasks and claim rewards →</Link>
-        <section className="hub__card" hidden={appConfig.screens?.loot?.sections?.redeem === false}>
-          <div className="hub__section-head">
-            <h2>Cashout offers</h2>
-            <ResourceGate resource={wallet} label="your balance" minHeight="0">
-              <span>{(wallet.data.coins ?? 0).toLocaleString()} coins</span>
+        <CoinConversion />
+        <div className="loot-card-pair">
+          <section className="hub__card" hidden={appConfig.screens?.loot?.sections?.redeem === false}>
+            <div className="hub__section-head">
+              <h2>Cashout offers</h2>
+              <ResourceGate resource={wallet} label="your balance" minHeight="0">
+                <span>{(wallet.data.coins ?? 0).toLocaleString()} coins</span>
+              </ResourceGate>
+            </div>
+            <ResourceGate resource={redeem} label="cashout offers" minHeight="100px" emptyWhen={(d) => !d.options?.length} emptyState={<p>No cashout offers are available right now.</p>}>
+              <div className="hub-scroll-list hub-scroll-list--offers" tabIndex={0} role="region" aria-label="Cashout offers">{redeem.data.options.map(o => <div className="hub__row" key={o.id}>
+                <Gift size={18} />
+                <span>{o.category} {o.amount}<small>{o.coinsRequired.toLocaleString()} coins</small></span>
+                <button disabled={(wallet.data.coins ?? 0) < o.coinsRequired || !!busy} onClick={() => act(o.id, () => backend.redeem(o.id), ['wallet', 'rewards', 'notifications'])}>Redeem</button>
+              </div>)}</div>
             </ResourceGate>
-          </div>
-          <ResourceGate resource={redeem} label="cashout offers" minHeight="100px" emptyWhen={(d) => !d.options?.length} emptyState={<p>No cashout offers are available right now.</p>}>
-            <div className="hub-scroll-list hub-scroll-list--offers" tabIndex={0} role="region" aria-label="Cashout offers">{redeem.data.options.map(o => <div className="hub__row" key={o.id}>
-              <Gift size={18} />
-              <span>{o.category} {o.amount}<small>{o.coinsRequired.toLocaleString()} coins</small></span>
-              <button disabled={(wallet.data.coins ?? 0) < o.coinsRequired || !!busy} onClick={() => act(o.id, () => backend.redeem(o.id), ['wallet', 'rewards', 'notifications'])}>Redeem</button>
-            </div>)}</div>
-          </ResourceGate>
-        </section>
+          </section>
+
+          <section className="hub__card" hidden={appConfig.screens?.loot?.sections?.rewards === false}>
+            <h2>Reward history</h2>
+            <ResourceGate resource={rewards} label="reward history" minHeight="70px" emptyWhen={(d) => !d.rewards?.length} emptyState={<p>Rewards you earn will show up here.</p>}>
+              <div className="hub-scroll-list" tabIndex={0} role="region" aria-label="Reward history">{rewards.data.rewards.map(r => <div className="hub__row" key={r.id}>
+                <Coins size={18} /><span>{r.source}</span><strong>+{r.amount} {r.kind}</strong>
+              </div>)}</div>
+            </ResourceGate>
+          </section>
+        </div>
 
         <section className="hub__card" hidden={appConfig.screens?.loot?.sections?.rewards === false}>
           <h2>Recent claims</h2>
@@ -413,15 +407,6 @@ export default function PlayerHub({ initialTab = 'overview' }) {
               <Gift size={18} />
               <span>{c.option?.category} {c.option?.amount}<small>{c.status}</small></span>
               <small>{date(c.at)}</small>
-            </div>)}</div>
-          </ResourceGate>
-        </section>
-
-        <section className="hub__card" hidden={appConfig.screens?.loot?.sections?.rewards === false}>
-          <h2>Reward history</h2>
-          <ResourceGate resource={rewards} label="reward history" minHeight="70px" emptyWhen={(d) => !d.rewards?.length} emptyState={<p>Rewards you earn will show up here.</p>}>
-            <div className="hub-scroll-list" tabIndex={0} role="region" aria-label="Reward history">{rewards.data.rewards.map(r => <div className="hub__row" key={r.id}>
-              <Coins size={18} /><span>{r.source}</span><strong>+{r.amount} {r.kind}</strong>
             </div>)}</div>
           </ResourceGate>
         </section>
@@ -457,6 +442,10 @@ export default function PlayerHub({ initialTab = 'overview' }) {
         <ResourceGate resource={settings} label="two-step authentication" minHeight="120px">
           <TwoStepSettings settings={settings.data} reload={settings.reload} />
         </ResourceGate>
+        <section className="hub__card settings-session">
+          <div><h2>Your session</h2><p>Sign out of Playloot on this device.</p></div>
+          <button type="button" className="settings-logout" onClick={logout} disabled={busy === 'logout'}><LogOut size={18} aria-hidden="true"/>{busy === 'logout' ? 'Logging out…' : 'Log out'}</button>
+        </section>
       </>}
     </div>
   </main>;

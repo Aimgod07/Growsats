@@ -65,9 +65,9 @@ describe("PlayerHub resilience", () => {
     mockBackend({ failures: { "/api/missions": 500 } });
     renderHub({ initialTab: "missions" });
 
-    await waitFor(() => expect(screen.getByText("Invite friends")).toBeTruthy());
+    await waitFor(() => expect(screen.getByRole("heading",{name:/Invite friends/})).toBeTruthy());
     // The invite section (healthy) is usable.
-    expect(screen.getByText("ABCD1234")).toBeTruthy();
+    expect(screen.getByLabelText("Referral link").value).toContain("ABCD1234");
     // The missions section failed, but the page still rendered around it.
     expect(screen.getByRole("main")).toBeTruthy();
     expect(screen.queryByText(/Couldn't load your account/)).toBeNull();
@@ -94,14 +94,14 @@ describe("PlayerHub resilience", () => {
       return { ok: true, status: 200, text: async () => JSON.stringify(FIXTURES[map[key]]) };
     };
 
-    renderHub();
+    renderHub({initialTab:"notifications"});
 
     // First load succeeds and notifications are listed.
     await waitFor(() => expect(screen.getByText(/Play reward: \+60 coins/)).toBeTruthy());
 
     // Now the endpoint starts failing and the player hits refresh.
     notificationsFail = true;
-    fireEvent.click(screen.getByLabelText("Refresh your account"));
+    fireEvent.click(screen.getByLabelText("Refresh notifications"));
 
     // The stale notification text is still on screen...
     await waitFor(() => expect(screen.getByText(/Play reward: \+60 coins/)).toBeTruthy());

@@ -33,3 +33,6 @@ android/app/google-services.json
 *.njsproj
 *.sln
 *.sw?
+
+# Local browser capture and audit artifacts
+.artifacts/

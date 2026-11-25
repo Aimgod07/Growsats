@@ -18,7 +18,7 @@ describe("ComingSoon", () => {
   it.each([
     ["quick-match", "Quick Match"],
     ["boss-raids", "Boss Raids"],
-    ["tournaments", "Tournaments"],
+    
   ])("renders the %s feature page", (slug, title) => {
     renderComingSoon(`/coming-soon/${slug}`);
 
@@ -26,6 +26,11 @@ describe("ComingSoon", () => {
     expect(screen.getByRole("link", { name: /back to arcade/i }).getAttribute("href")).toBe("/Home");
   });
 
+  it("renders the tournaments panel with an arcade destination",()=>{
+    renderComingSoon('/coming-soon/tournaments');
+    expect(screen.getByRole('main',{name:'Tournaments'})).toBeTruthy();
+    expect(screen.getByRole('link',{name:'Explore the Arcade'}).getAttribute('href')).toBe('/Home');
+  });
   it("redirects unknown feature names to the arcade", () => {
     renderComingSoon("/coming-soon/unknown");
     expect(screen.getByText("Arcade home")).toBeTruthy();

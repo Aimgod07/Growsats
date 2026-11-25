@@ -1,0 +1,41 @@
+:root {
+  --playloot-hero-surface: linear-gradient(145deg, #261a43, #17102f 65%, #1c1536);
+  --playloot-hero-edge: #a68bdf55;
+  --playloot-hero-ink: #f7f2ff;
+  --playloot-hero-muted: #beb0d8;
+  --playloot-hero-button: linear-gradient(135deg, #c5b4ff, #9c88e8);
+  --playloot-indigo: #292566;
+  --playloot-violet: #4547bd;
+  --playloot-periwinkle: #5861ee;
+  --playloot-night: #100e25;
+  --playloot-panel: #201d43;
+  --playloot-border: #625ba955;
+  --playloot-accent: #d2c4ff;
+  --playloot-action: #a7a1ff;
+  --playloot-action-ink: #19133d;
+  --playloot-backdrop: radial-gradient(ellipse at 80% 0%, #2925669e, transparent 52%), #100e25;
+  --playloot-gradient: linear-gradient(165deg, var(--playloot-indigo), var(--playloot-violet) 55%, var(--playloot-periwinkle));
+}
+
+.app-workspace.app-workspace { background: var(--playloot-backdrop); }
+.app-workspace :is(.hub, .events-page) { background: var(--playloot-backdrop); }
+.app-workspace :is(.hub__card, .event-card, .event-board, .event-rules):not(.referral-panel) {
+  background: var(--playloot-panel);
+  border-color: var(--playloot-border);
+}
+.app-workspace :is(.hub__eyebrow, .events-kicker, .payments-eyebrow) { color: var(--playloot-accent); }
+.app-workspace .hub__primary { background: var(--playloot-action); color: var(--playloot-action-ink); }
+.app-workspace :is(button, a):focus-visible { outline-color: var(--playloot-accent); }
+.website-header.website-header {
+  background: linear-gradient(105deg, #121020, #191632 65%, #16132b);
+  border-bottom-color: #383454;
+}
+.website-header nav a { color: #c5bfd9; }
+.website-header nav a[aria-current="page"] {
+  background: #302851;
+  color: #efe7ff;
+  box-shadow: inset 0 -2px #b8a4ff;
+}
+.website-header .website-balance { background: #211d36; border-color: #514568; }
+.website-header .website-offers { background: #5146a0; color: #fff; }
+.website-header .website-offers:hover { background: #6154b5; }

@@ -12,7 +12,7 @@ export function WalletProvider({children}){
   const reload=useCallback(async()=>{
     if(!isSignedIn()){setData(EMPTY);setError(null);return;}
     const id=++requestId.current;setLoading(true);
-    try{const next=await backend.wallet();if(active.current&&id===requestId.current){setData(next);setError(null);}}
+    try{const next=await backend.wallet();if(active.current&&id===requestId.current){setData(previous=>JSON.stringify(previous)===JSON.stringify(next)?previous:next);setError(null);}}
     catch(nextError){if(active.current&&id===requestId.current)setError(nextError);}
     finally{if(active.current&&id===requestId.current)setLoading(false);}
   },[]);

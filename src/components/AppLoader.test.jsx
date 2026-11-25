@@ -1,6 +1,6 @@
 import { act, cleanup, render, screen } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { MemoryRouter } from 'react-router-dom';
+import { MemoryRouter, useNavigate } from 'react-router-dom';
 import AppLoader from './AppLoader';
 import { beginLoading, clearLoadingErrors, getLoadingSnapshot, trackedFetch } from '../utils/loading';
 
@@ -21,6 +21,12 @@ describe('initial loading screen', () => {
   it('does not cover the page during background refresh after it is ready', async () => {
     mount(); await settle(); let finish; act(() => { finish=beginLoading('background'); });
     expect(screen.queryByRole('status')).toBeNull(); act(() => finish());
+  });
+  it('does not restart the full-screen loader when navigating',async()=>{
+    function Navigation(){const navigate=useNavigate();return <button onClick={()=>navigate('/profile')}>Profile</button>;}
+    render(<MemoryRouter><AppLoader/><Navigation/></MemoryRouter>);await settle();
+    let finish;act(()=>{finish=beginLoading('navigation-read');screen.getByText('Profile').click();});
+    expect(screen.queryByRole('status')).toBeNull();act(()=>finish());
   });
   it('offers retry and continue after a failed initial request', async () => {
     const finish = beginLoading('games'); mount(); act(() => finish(new Error('Offline')));

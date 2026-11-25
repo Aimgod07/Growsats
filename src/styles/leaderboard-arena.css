@@ -1,0 +1,87 @@
+.neo-leaderboard.leaderboard-arena {
+  padding: clamp(16px, 3vw, 40px);
+  border: 1px solid #7766b84d;
+  border-radius: 28px;
+  background: radial-gradient(ellipse at 50% 0, #4547bd55, transparent 55%), #17132e;
+  color: #f3efff;
+  box-shadow: 0 20px 55px #06031940;
+}
+.leaderboard-arena .neo-leaderboard__intro h2 { color: #f3efff; font-size: clamp(28px, 4vw, 46px); font-weight: 800; }
+.leaderboard-arena .neo-leaderboard__intro > span { color: #c4b5ff; }
+.leaderboard-arena .neo-leaderboard__intro p { color: #b8afcd; }
+.neo-leaderboard.leaderboard-arena .neo-podium {
+  height: auto;
+  max-width: 760px;
+  padding: 48px 12px 0;
+  margin: 20px auto 32px;
+  gap: clamp(8px, 2vw, 24px);
+  background: radial-gradient(ellipse at bottom, #b6a2eb45, transparent 70%);
+  border-bottom: 1px solid #7766b84d;
+}
+.leaderboard-arena .place { --medal: #8050e7; --medal-dark: #4d23a4; --medal-light: #b99aff; }
+.leaderboard-arena .place--1 { --medal: #ffc233; --medal-dark: #bf7805; --medal-light: #ffe89a; }
+.leaderboard-arena .place--3 { --medal: #797de6; --medal-dark: #393c8b; --medal-light: #bfc2ff; }
+.leaderboard-arena .place .place__avatar {
+  width: clamp(64px, 9vw, 108px);
+  height: clamp(64px, 9vw, 108px);
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+  padding: 5px;
+  background: linear-gradient(135deg, white, var(--medal-light), var(--medal));
+  border: 3px solid var(--medal);
+  box-shadow: 0 5px 0 var(--medal-dark), 0 10px 20px #36274b25;
+  scale: 1;
+  margin-bottom: 7px;
+}
+.leaderboard-arena .place--1 .place__avatar { width: clamp(82px, 11vw, 132px); height: clamp(82px, 11vw, 132px); }
+.leaderboard-arena .place__avatar > :not(span) { width: 100%; height: 100%; }
+.leaderboard-arena .place__avatar > .place__rank { display: grid; top: -14px; right: -7px; background: var(--medal); color: #fff; border: 2px solid white; }
+.leaderboard-arena .place__avatar > .place__crown { display: block; position: absolute; top: -43px; left: 50%; right: auto; width: auto; height: auto; transform: translateX(-50%); border: 0; background: transparent; font-size: 40px; color: #e8a200; text-shadow: 0 2px #fff0ad; }
+.leaderboard-arena .place > b { border: 0; background: transparent; color: #f4efff; padding: 4px 0; font-size: clamp(11px, 1.4vw, 16px); }
+.leaderboard-arena .place > small { color: #b8afcd; }
+.leaderboard-arena .place > em { background: transparent; color: var(--medal-light); margin: 5px 0 14px; font-size: clamp(12px, 1.6vw, 19px); }
+.neo-leaderboard.leaderboard-arena .place .place__stand {
+  position: relative;
+  width: 100%;
+  height: 100px;
+  border: 1px solid var(--medal-dark);
+  border-top: 7px solid var(--medal-light);
+  border-radius: 16px 16px 3px 3px;
+  background: linear-gradient(115deg, #ffffff20, transparent 40%), linear-gradient(125deg, var(--medal), var(--medal-dark));
+  box-shadow: inset -12px 0 #00000025, inset 1px 0 #ffffff55, 0 9px 0 var(--medal-dark), 0 22px 28px #05020f88;
+}
+.neo-leaderboard.leaderboard-arena .place .place__stand::after {
+  content: "";
+  position: absolute;
+  inset: 8px 14px 12px;
+  border: 1px solid #ffffff20;
+  border-radius: 8px;
+  pointer-events: none;
+}
+.neo-leaderboard.leaderboard-arena .place--1 .place__stand { height: 142px; }
+.neo-leaderboard.leaderboard-arena .place--3 .place__stand { height: 88px; }
+.leaderboard-arena .place__stand strong { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; background: #ffffffc9; color: var(--medal-dark); font-size: 32px; text-shadow: 0 1px white; box-shadow: 0 3px 6px #0002; }
+.leaderboard-arena .neo-list-heading { color: #c5b9df; }
+.leaderboard-arena .neo-board-list { gap: 0; padding: 4px 12px; border: 1px solid #7766b84d; border-radius: 20px; background: #1e1938; }
+.leaderboard-arena .neo-board-list > button { border: 0; border-bottom: 1px solid #7766b82e; border-radius: 0; background: transparent; color: #eee8fa; padding-block: 14px; }
+.leaderboard-arena .neo-board-list > button:last-child { border-bottom: 0; }
+.leaderboard-arena .neo-board-list > button.is-me { background: #3d2d654d; border-color: #9b85cf; }
+.leaderboard-arena .neo-board-list > button:hover { background: #30274c; }
+.leaderboard-arena .neo-board-list > button:focus-visible { outline: 2px solid #8050e7; outline-offset: -2px; }
+.leaderboard-arena .neo-player-copy b { color: #eee8fa; }
+.leaderboard-arena .neo-rank-badge { background: #352b51; color: #d6c5ff !important; }
+.leaderboard-arena .neo-avatar--podium { border: 2px solid white; }
+.leaderboard-arena .neo-player-copy small, .leaderboard-arena .neo-player-score small { color: #b0a3c3; }
+.leaderboard-arena .neo-player-score b { color: #d6c5ff; }
+.leaderboard-arena .neo-my-rank { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; padding: 18px; border: 1px solid #7766b86b; border-radius: 18px; background: #2b224a; }
+.leaderboard-arena .neo-my-rank span { color: #b8aacd; display: block; }
+.leaderboard-arena .neo-my-rank div > strong { display: block; color: #eee8fa; }
+.leaderboard-arena .neo-my-rank > b { color: #d6c5ff; }
+.leaderboard-arena .neo-my-rank > strong { display: flex; align-items: center; gap: 5px; color: #eee8fa; }
+.leaderboard-arena .neo-my-rank button { margin-left: auto; padding: 12px 18px; border: 0; border-radius: 12px; background: #7044c6; color: white; font-weight: 700; cursor: pointer; }
+@media(max-width: 480px) {
+  .leaderboard-arena .neo-podium { padding-inline: 0; }
+  .leaderboard-arena .place > small { font-size: 8px; }
+  .leaderboard-arena .neo-my-rank button { width: 100%; margin: 0; }
+}

@@ -3,6 +3,7 @@ import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { BACKEND_URL } from "../utils/api";
 import { clearGameCatalog } from '../utils/gameCatalog';
 import { trackedFetch } from '../utils/loading';
+import {readConfigCache,writeConfigCache} from '../utils/configCache';
 
 export const DEFAULT_APP_CONFIG = {
   version: 1,
@@ -54,7 +55,8 @@ function merge(base, incoming) {
 const ConfigContext = createContext(DEFAULT_APP_CONFIG);
 
 export function AppConfigProvider({ children }) {
-  const [remote, setRemote] = useState(null);
+  const platform=Capacitor.isNativePlatform()?'apk':'web';
+  const [remote, setRemote] = useState(()=>readConfigCache(platform));
   useEffect(() => {
     let active = true;
     let pending = false;
@@ -65,6 +67,7 @@ export function AppConfigProvider({ children }) {
         const response = await trackedFetch(`${BACKEND_URL}/api/app-config?platform=${Capacitor.isNativePlatform() ? "apk" : "web"}`, { cache: 'no-store' });
         if (!response.ok) return;
         const data = await response.json();
+        if(data?.config)writeConfigCache(platform,{...data.config,catalogRevision:data.catalogRevision});
         if (active && data?.config) setRemote(previous => {
           const next = {...data.config, catalogRevision:data.catalogRevision};
           if (JSON.stringify(previous) === JSON.stringify(next)) return previous;
@@ -78,7 +81,7 @@ export function AppConfigProvider({ children }) {
     window.addEventListener('focus', refresh);
     document.addEventListener('visibilitychange', refresh);
     return () => { active = false; clearInterval(interval); window.removeEventListener('focus',refresh); document.removeEventListener('visibilitychange',refresh); };
-  }, []);
+  }, [platform]);
   const value = useMemo(() => {
     const next = merge(DEFAULT_APP_CONFIG, remote);
     next.screens.arcade = {...next.screens.arcade, grid:{...next.screens.arcade.grid,enabled:false},carousel:{...next.screens.arcade.carousel,sources:['grogames']}};

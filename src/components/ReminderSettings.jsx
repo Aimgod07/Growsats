@@ -3,6 +3,7 @@ import {useNavigate,useLocation} from 'react-router-dom';
 import {LocalNotifications} from '@capacitor/local-notifications';
 import {backend,isSignedIn} from '../utils/api';
 import BroadcastSettings from './BroadcastSettings';
+import {NotificationButtonIcon} from './PlaylootIcons';
 import {nativePushEnabled,enableNativePush,disableNativePush,listenNativePush} from '../utils/nativePush';
 import {enableReminders,disableReminders,remindersEnabled,refreshReminders,nativeReminders} from '../utils/reminders';
 export function ReminderLifecycle(){
@@ -28,5 +29,5 @@ export default function ReminderSettings(){
  const [enabled,setEnabled]=useState(remindersEnabled),[busy,setBusy]=useState(false),[error,setError]=useState(''),[config,setConfig]=useState(null);
  useEffect(()=>{backend.reminders().then(d=>setConfig(d.config)).catch(e=>setError(e.message));},[]);
  async function toggle(){setBusy(true);setError('');try{if(enabled)await disableReminders();else await enableReminders();setEnabled(remindersEnabled());}catch(e){setError(e.message)}finally{setBusy(false)}}
- return <><BroadcastSettings/><section className="neo-panel"><h2>Game & offer reminders</h2><p>Optional reminders {config?`every ${config.intervalHours} hours`:'at the interval set by Playloot'}, with game ideas, offers and encouraging quotes.</p>{config?.enabled===false&&<p>Reminders are currently paused by Playloot.</p>}<button className="hub__primary" disabled={busy} onClick={toggle}>{busy?'Updating…':enabled?'Turn off reminders':'Enable reminders on this device'}</button><p><small>You can turn these off anytime. Delivery timing depends on your device. {nativeReminders()?'Schedule changes sync when you reopen the app.':''}</small></p>{error&&<p role="alert">{error}</p>}</section></>;
+ return <><BroadcastSettings/><section className="neo-panel"><h2>Game & offer reminders</h2>{config?.enabled===false&&<p>Reminders are currently paused by Playloot.</p>}<button className="hub__primary polished-action polished-action--primary" disabled={busy} aria-busy={busy} aria-pressed={enabled} onClick={toggle}><NotificationButtonIcon size={20}/><span>{busy?'Updating…':enabled?'Disable reminders':'Enable reminders'}</span></button>{error&&<p role="alert">{error}</p>}</section></>;
 }

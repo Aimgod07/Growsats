@@ -30,7 +30,7 @@ function background(){let sky=ctx.createLinearGradient(0,0,0,H);sky.addColorStop
  for(let i=0;i<15;i++){const x=((i*51-travel*.24)%765+765)%765-70,h=18+(i*13%35);rounded(x,H-65-h,31,h,2,i%2?'#d9ddbd':'#c4d4b2');ctx.fillStyle='#5f8f7c';for(let y=H-57-h;y<H-70;y+=10)ctx.fillRect(x+8,y,4,5);}
 }
 function pipe(x,top,bottom){const body=ctx.createLinearGradient(x,0,x+72,0);body.addColorStop(0,'#286e58');body.addColorStop(.20,'#72ae68');body.addColorStop(.47,'#98c57a');body.addColorStop(.8,'#4c9561');body.addColorStop(1,'#205c50');const draw=(y,h,end)=>{if(h<=0)return;ctx.fillStyle='#163e4530';ctx.fillRect(x+8,y+8,78,h);ctx.fillStyle=body;ctx.fillRect(x,y,72,h);ctx.fillStyle='#edffd330';ctx.fillRect(x+15,y,5,h);ctx.fillStyle='#124f4240';ctx.fillRect(x+65,y,7,h);rounded(x-6,end-17,84,25,5,body);ctx.strokeStyle='#245f4c';ctx.lineWidth=2;ctx.strokeRect(x+.5,y,71,h);ctx.fillStyle='#e4c978';ctx.fillRect(x-4,end-14,80,4);for(const xx of [x+5,x+63])ellipse(xx,end,2,2,'#214e41');};draw(-20,top+20,top-4);draw(bottom,H-bottom,bottom+17);}
-function plane(y,angle){ctx.save();ctx.translate(game.x,y);ctx.rotate(angle);const body=ctx.createLinearGradient(0,-18,0,20);body.addColorStop(0,'#eef5b3');body.addColorStop(.45,'#a5c778');body.addColorStop(1,'#4b875f');
+function plane(y,angle){ctx.save();ctx.translate(game.x,y);ctx.rotate(angle);if(window.cloudPlane){ctx.drawImage(window.cloudPlane,-52,-39,104,78);ctx.restore();return;}const body=ctx.createLinearGradient(0,-18,0,20);body.addColorStop(0,'#eef5b3');body.addColorStop(.45,'#a5c778');body.addColorStop(1,'#4b875f');
  // Far wing, tail, tapered fuselage, cockpit and near wing.
  ctx.fillStyle='#406d54';ctx.beginPath();ctx.moveTo(-7,-4);ctx.lineTo(-25,-32);ctx.quadraticCurveTo(-17,-38,-8,-31);ctx.lineTo(18,0);ctx.fill();
  ctx.fillStyle='#d4d99a';ctx.beginPath();ctx.moveTo(-31,3);ctx.lineTo(-43,-18);ctx.lineTo(-33,-19);ctx.lineTo(-19,5);ctx.fill();
@@ -46,3 +46,4 @@ function events(){for(const e of game.events.splice(0)){tone(e);if(e==='flap'&&!
 function frame(now){requestAnimationFrame(frame);const dt=last?Math.min(.05,(now-last)/1000):0;last=now;if(!document.hidden){t+=dt;if(game.state==='playing'){acc+=dt;while(acc>=1/120&&game.state==='playing'){game.step(1/120);acc-=1/120;}events();}else acc=0;if(game.state==='over'&&!overShown&&t-crashAt>.5)result();render(game.state==='paused'?0:dt);}}
 requestAnimationFrame(frame);
 })();
+

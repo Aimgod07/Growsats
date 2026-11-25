@@ -1,0 +1,35 @@
+.game-overlay-toolbar {
+  box-sizing: border-box;
+  min-height: 60px;
+  height: auto !important;
+  padding: max(8px, env(safe-area-inset-top)) max(10px, env(safe-area-inset-right)) 8px max(10px, env(safe-area-inset-left)) !important;
+  gap: 8px;
+}
+.game-overlay-toolbar > span { min-width: 0; }
+.game-overlay-actions { flex-wrap: wrap; justify-content: flex-end; max-width: 100%; }
+.game-overlay-actions button { min-height: 36px; }
+@media (max-width: 600px) {
+  .game-overlay-toolbar { flex-wrap: wrap; }
+  .game-overlay-toolbar > span { flex: 1 1 100%; margin: 0 !important; font-size: 12px !important; }
+  .game-overlay-actions { width: 100%; gap: 6px !important; }
+}
+.game-overlay-menu {
+  position: fixed;
+  top: max(8px, env(safe-area-inset-top));
+  left: max(8px, env(safe-area-inset-left));
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid #bca6ee66;
+  border-radius: 12px;
+  background: #181128ed;
+  color: #f1eaff;
+  touch-action: manipulation;
+  cursor: pointer;
+}
+
+
+.game-idle-countdown{position:fixed;bottom:8px;left:50%;transform:translateX(-50%);z-index:10005;padding:6px 12px;border-radius:16px;background:#161b2ddd;color:#fff;font:12px system-ui;pointer-events:none}
+@media(pointer:coarse){.game-overlay-toolbar{flex-wrap:nowrap!important;min-height:44px;padding:5px 8px!important}.game-overlay-toolbar>span{display:none}.game-overlay-actions{width:auto;flex-wrap:nowrap}.game-overlay-menu{width:36px;height:36px}}

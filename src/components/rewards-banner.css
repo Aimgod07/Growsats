@@ -1,0 +1,27 @@
+.rewards-banner {
+ position: relative; isolation: isolate; overflow: hidden; width: 100%;
+ min-height: clamp(280px, 25vw, 420px); display: flex; align-items: center;
+ border: 1px solid #b3a5ff55; border-radius: 24px; background: #181333;
+ box-shadow: 0 18px 36px -20px #030117b3, inset 0 1px 0 #ffffff38;
+}
+.rewards-banner__art { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+.rewards-banner::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, #100b29aa, #100b2940 40%, transparent 65%); pointer-events: none; }
+.rewards-banner__copy { width: 48%; padding: clamp(24px, 3vw, 48px); color: #fff; }
+.rewards-banner__eyebrow { display: block; margin-bottom: 12px; color: #c9c0ff; font: 800 10px/1.5 Inter, system-ui, sans-serif; letter-spacing: .16em; }
+.rewards-banner h1 { margin: 0; color: #fff; font: 800 clamp(28px, 3.4vw, 52px)/1.08 Inter, system-ui, sans-serif; letter-spacing: -.035em; text-wrap: balance; }
+.rewards-banner h1 em { color: #c5bbff; font-style: normal; }
+.rewards-banner p { margin: 15px 0 20px; max-width: 39ch; color: #ded8f5; font: 400 clamp(12px, 1.1vw, 15px)/1.65 Inter, system-ui, sans-serif; }
+.rewards-banner__action { display: inline-flex; align-items: center; justify-content: center; gap: 12px; min-height: 44px; padding: 11px 17px; border: 1px solid #e5deff66; border-radius: 12px; background: linear-gradient(145deg, #bcb1ff, #9386e8); color: #191133; font: 750 13px/1.4 Inter, system-ui, sans-serif; text-decoration: none; box-shadow: 0 6px 14px #07031f44, inset 0 1px 0 #ffffff66; }
+.rewards-banner__action:hover { background: #cec5ff; }
+.rewards-banner__action:focus-visible { outline: 2px solid white; outline-offset: 4px; }
+.rewards-banner ul { display: flex; flex-wrap: wrap; gap: 8px 16px; margin: 16px 0 0; padding: 0; list-style: none; }
+.rewards-banner li { display: inline-flex; align-items: center; gap: 5px; color: #c2b9e4; font: 600 10px/1.4 Inter, system-ui, sans-serif; }
+#partner-offers, #daily-missions { scroll-margin-top: 100px; }
+@media (max-width: 600px) {
+ .rewards-banner { padding-top: 190px; min-height: 0; border-radius: 20px; }
+ .rewards-banner__art { height: 220px; object-position: right top; }
+ .rewards-banner::before { background: linear-gradient(180deg, transparent 110px, #181333 220px); }
+ .rewards-banner__copy { width: 100%; padding: 18px 22px 24px; }
+ .rewards-banner h1 { font-size: clamp(29px, 8vw, 38px); }
+ .rewards-banner p { font-size: 13px; }
+}

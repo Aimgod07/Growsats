@@ -4,7 +4,17 @@ import {backend} from '../utils/api';
 const Context=createContext({events:[],ads:[]});
 export function LiveFeaturesProvider({children}) {
  const [data,setData]=useState({events:[],ads:[]});
- useEffect(()=>{let alive=true;const load=()=>backend.live().then(d=>{if(alive)setData(d)}).catch(()=>{});load();const t=setInterval(load,60000);return()=>{alive=false;clearInterval(t)}},[]);
+ useEffect(()=>{
+  let alive=true,pending=false;
+  const load=async()=>{
+   if(document.hidden||pending)return;
+   pending=true;
+   try{const next=await backend.live();if(alive)setData(previous=>JSON.stringify(previous)===JSON.stringify(next)?previous:next);}catch{}finally{pending=false;}
+  };
+  load();const t=setInterval(load,60000);
+  document.addEventListener('visibilitychange',load);
+  return()=>{alive=false;clearInterval(t);document.removeEventListener('visibilitychange',load);};
+ },[]);
  return <Context.Provider value={data}>{children}</Context.Provider>;
 }
 export const useLiveFeatures=()=>useContext(Context);
@@ -26,9 +36,10 @@ export function AdPlacement({slot}) {
  const {ads}=useLiveFeatures();const ad=ads.find(a=>a.id===slot && a.enabled !== false && a.enabled !== 0);
  const anchor=useRef(null), [host,setHost]=useState(null);
  const position=ad?.position || 'top';
+ const hasAd=Boolean(ad);
  useLayoutEffect(()=>{
    const marker=anchor.current;
-   if(!ad || !marker || position==='top'){setHost(null);return;}
+   if(!hasAd || !marker || position==='top'){setHost(null);return;}
    const main=marker.closest('main');
    const container=main?.querySelector('.hub__body') || main?.querySelector('main > div:not([data-ad-slot])') || main;
    if(!container)return;
@@ -57,7 +68,7 @@ export function AdPlacement({slot}) {
    place();setHost(target);
    const observer=new MutationObserver(place);observer.observe(container,{childList:true,subtree:true});
    return()=>{observer.disconnect();target.remove();};
- },[slot,position,!!ad]);
+ },[slot,position,hasAd]);
  if(!ad)return <span ref={anchor} hidden/>;
  const source=normaliseAdSource(ad.src,ad.width,ad.height);
  if(!source)return <span ref={anchor} hidden/>;

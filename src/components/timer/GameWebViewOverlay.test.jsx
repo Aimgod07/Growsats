@@ -1,6 +1,6 @@
 import React from "react";
 import { beforeEach, describe, it, expect, vi } from "vitest";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import GameWebViewOverlay, {getGameOrientation} from "./GameWebViewOverlay";
 import { backend } from "../../utils/api";
@@ -39,6 +39,27 @@ describe("game reward claim", () => {
     expect(backend.claimPlay).toHaveBeenCalledWith("play-1");
     expect(onClose).not.toHaveBeenCalled();
     expect(screen.getByRole("button", { name: /claim/i })).toBeTruthy();
+  });
+
+  it('opens the embedded game header for five seconds without resizing the game', async () => {
+    backend.startPlay.mockResolvedValue({ sessionId: 'play-menu' });
+    const view = render(<MemoryRouter><GameWebViewOverlay game={{ id: 'embedded', title: 'Embedded Game', playUrl: '/game.html', embedded: true }} onClose={vi.fn()} /></MemoryRouter>);
+    await waitFor(() => expect(backend.startPlay).toHaveBeenCalled());
+    vi.useFakeTimers();
+    try {
+      const frame = screen.getByTitle('Embedded Game');
+      expect(frame.style.height).toBe('100dvh');
+      expect(screen.queryByRole('button', {name: /open game in a new tab/i})).toBeNull();
+      fireEvent.click(screen.getByRole('button', {name: /open game menu/i}));
+      expect(screen.getByRole('button', {name: /open game in a new tab/i})).toBeTruthy();
+      act(() => vi.advanceTimersByTime(5000));
+      expect(screen.getByRole('button', {name: /open game menu/i})).toBeTruthy();
+      expect(screen.getByTitle('Embedded Game')).toBe(frame);
+      expect(frame.style.height).toBe('100dvh');
+    } finally {
+      view.unmount();
+      vi.useRealTimers();
+    }
   });
 });
 

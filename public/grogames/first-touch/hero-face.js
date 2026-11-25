@@ -46,7 +46,7 @@ function build(head,data){
   const lp=[],li=[];for(let j=0;j<top.length;j++){const a=top[j],u=j/(top.length-1)*2-1,w=Math.sqrt(Math.max(0,1-u*u));lp.push(...a,a[0],a[1]+.011*w,a[2]+.022*w);if(j<top.length-1){const n=j*2;li.push(n,n+1,n+2,n+1,n+3,n+2);}}const lidMat=skin.clone();lidMat.side=T.DoubleSide;add(geom(lp,li),lidMat,'Upper lid skin');line(top,.0028,skin,'Upper eyelid');line(bottom,.0023,skin,'Lower eyelid');
   line(top.map(p=>[p[0],p[1]-.0014,p[2]-.0015]),.0015,hair,'Upper lash rim');
   const irisMat=new T.MeshPhysicalMaterial({color:amara?'#4b2f21':kai?'#776040':'#714222',roughness:.23,clearcoat:.6});
-  const iris=ell(irisMat,s*.052,.167,-.1112,.0178,.0200,.0056,'Brown iris');
+  (ell(irisMat,s*.052,.167,-.1112,.0178,.0200,.0056,'Brown iris'));
   // Fine radial iris fibers give depth without any external texture asset.
   const fibers=new T.MeshStandardMaterial({color:amara?'#67412c':kai?'#8d7550':'#80512f',roughness:.5});
   for(let j=0;j<28;j++){const a=j/28*Math.PI*2,r0=.0105,r1=.0165;line([[s*.052+Math.cos(a)*r0,.167+Math.sin(a)*r0*1.18,-.1166],[s*.052+Math.cos(a+.025)*r1,.167+Math.sin(a+.025)*r1*1.18,-.1141]],.00028,fibers,'Iris fiber');}

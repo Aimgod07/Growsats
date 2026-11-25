@@ -36,7 +36,7 @@ export interface GameWebViewPlugin {
   updateControls(options: { canClaim?: boolean; disabled?: boolean; claimLabel?: string; message?: string }): Promise<void>;
   addListener(event: 'game:claim' | 'game:close', listener: () => void): Promise<PluginListenerHandle>;
   addListener(event: 'game:ready', listener: () => void): Promise<PluginListenerHandle>;
-  addListener(event: 'game:score', listener: (event: { score: number }) => void): Promise<PluginListenerHandle>;
+  addListener(event: 'game:score', listener: (event: { score: number; runId?: string }) => void): Promise<PluginListenerHandle>;
   addListener(event: 'game:error', listener: () => void): Promise<PluginListenerHandle>;
   addListener(event: 'timer:tick', listener: (event: { elapsedSeconds: number }) => void): Promise<PluginListenerHandle>;
   addListener(event: 'game:idle', listener: (event: { timeoutSeconds: number }) => void): Promise<PluginListenerHandle>;

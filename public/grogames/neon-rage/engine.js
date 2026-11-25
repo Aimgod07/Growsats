@@ -1,12 +1,12 @@
 /* Deterministic fixed-step arcade simulation; no rendering or DOM dependencies. */
 (function(root){'use strict';
 const LEVELS=[
-{name:'Neon Underpass',boss:90,traffic:1.65,distance:2300,time:70,tint:'#472345'},
-{name:'Crimson Market',boss:120,traffic:1.4,distance:2600,time:73,tint:'#52233d'},
-{name:'Voltage Avenue',boss:150,traffic:1.25,distance:2900,time:76,tint:'#272f58'},
-{name:'Blackout District',boss:180,traffic:1.1,distance:3200,time:80,tint:'#292342'},
-{name:'Reactor Row',boss:220,traffic:.95,distance:3500,time:83,tint:'#3e2c42'},
-{name:'The Last Machine',boss:260,traffic:.85,distance:3800,time:88,tint:'#492042'}];
+{name:'Neon Underpass',boss:180,traffic:1.65,distance:2300,time:70,tint:'#472345'},
+{name:'Crimson Market',boss:240,traffic:1.4,distance:2600,time:73,tint:'#52233d'},
+{name:'Voltage Avenue',boss:300,traffic:1.25,distance:2900,time:76,tint:'#272f58'},
+{name:'Blackout District',boss:360,traffic:1.1,distance:3200,time:80,tint:'#292342'},
+{name:'Reactor Row',boss:440,traffic:.95,distance:3500,time:83,tint:'#3e2c42'},
+{name:'The Last Machine',boss:520,traffic:.85,distance:3800,time:88,tint:'#492042'}];
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 class Race{
  constructor(mode='hunt',level=0,seed=42){this.mode=mode;this.level=clamp(level,0,5);this.cfg=LEVELS[this.level];this.seed=seed;this.time=0;this.distance=0;this.score=0;this.fuel=100;this.health=100;this.speed=0;this.state='running';this.player={x:292,y:735,angle:0};this.boss={x:270,y:106,hp:this.cfg.boss,max:this.cfg.boss};this.traffic=[];this.pickups=[];this.bullets=[];this.attacks=[];this.events=[];this.trail=[];this.cooldown=0;this.shotTimer=0;this.spawnTimer=1.3;this.fuelTimer=4;this.attackTimer=4;this.boosting=false;this.combo=0;this.nearMisses=0;this.kills=0;this.sequence=0;this.survivalBoss=-1;}
@@ -45,4 +45,3 @@ class Race{
 }
 const api={Race,LEVELS,clamp};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.NeonRace=api;
 })(typeof window!=='undefined'?window:globalThis);
-

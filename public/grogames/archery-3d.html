@@ -22,7 +22,7 @@
   button{font:bold 22px Arial;padding:14px 34px;border:0;border-radius:30px;background:#facc15;color:#1a1a1a;cursor:pointer;margin-top:8px}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<link rel="stylesheet" href="/grogames/visuals/studio.css"><script src="/grogames/visuals/studio.js"></script><link rel="stylesheet" href="ui-polish.css"><script defer src="ui-polish.js"></script></head>
+<link rel="stylesheet" href="/grogames/visuals/studio.css"><script src="/grogames/visuals/studio.js"></script><link rel="stylesheet" href="ui-polish.css"><script defer src="ui-polish.js"></script><script src="/grogames/score-bridge.js"></script></head>
 <body>
 <div id="hud">
   <div class="top"><span class="pill" id="sc">Score 0</span><span class="pill" id="ar">Arrow 1/10</span><span class="pill" id="di">20 m</span><span class="pill" id="wi">Wind 0</span></div>
@@ -104,7 +104,7 @@ addEventListener("resize",resize);resize();
 function say(s,ms=1600){const m=$("msg");m.textContent=s;m.style.opacity=1;clearTimeout(say.t);say.t=setTimeout(()=>m.style.opacity=0,ms);}
 function hud(){$("sc").textContent="Score "+score;$("ar").textContent="Arrow "+Math.min(idx,ARROWS)+"/"+ARROWS;$("di").textContent=D+" m";
   $("wi").textContent="Wind "+(wind<0?"← ":wind>0?"→ ":"")+Math.abs(wind).toFixed(1);}
-function startGame(){
+function startGame(){PlaylootScores.start();
   idx=0;score=0;bulls=0;t0=performance.now();runId=crypto.randomUUID?crypto.randomUUID():String(Date.now()+Math.random());
   $("ov").style.display="none";Bridge.send("GAME_STARTED",{runId});nextArrow();
 }
@@ -127,7 +127,7 @@ function finish(hit,r){
   hud();Bridge.send("SCORE_UPDATE",{runId,score,arrowsShot:idx});
 }
 function gameOver(){
-  state="over";best=Math.max(best,score);
+  state="over";PlaylootScores.finish(score);best=Math.max(best,score);
   const msg=Bridge.send("GAME_OVER",{runId,score,maxScore:ARROWS*10,arrows:ARROWS,bullseyes:bulls,durationMs:Math.round(performance.now()-t0),timestamp:Date.now()});Bridge.submit(msg);
   $("ot").textContent="SCORE "+score+" / "+ARROWS*10;$("op").textContent="Bullseyes: "+bulls+"  ·  Best this session: "+best;$("ob").textContent="PLAY AGAIN";$("ov").style.display="flex";
 }
@@ -192,5 +192,5 @@ document.addEventListener("visibilitychange",()=>{if(document.hidden)clock.stop(
 Bridge.on("PAUSE",()=>clock.stop());Bridge.on("RESUME",()=>clock.start());Bridge.on("RESTART",()=>{if(!Bridge.error)startGame();});
 frame();
 </script>
-</body>
+<script defer src="/grogames/audio-effects.js"></script></body>
 </html>

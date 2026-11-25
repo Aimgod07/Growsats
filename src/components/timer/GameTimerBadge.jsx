@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { Gift } from "../PlaylootIcons";
 
 export const CLAIM_THRESHOLD_SECONDS = 120;
 
@@ -76,7 +77,7 @@ export default function GameTimerBadge({
       </span>
       {canClaim && (
         <button type="button" style={styles.claimBtn} onClick={onClaim} disabled={disabled}>
-          {disabled ? "Claiming…" : earnedCoins ? `🎁 Claim ${earnedCoins} coins` : "🎁 Claim (0 coins)"}
+          {disabled ? "Claiming…" : <><Gift size={16}/> {earnedCoins ? `Claim ${earnedCoins} coins` : "Claim (0 coins)"}</>}
         </button>
       )}
     </div>

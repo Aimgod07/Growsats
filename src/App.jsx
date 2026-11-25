@@ -1,25 +1,31 @@
 import DesktopExtras from './components/DesktopExtras';
+import SiteFooter from './components/SiteFooter';
 import './styles/responsive-app.css';
+import './styles/playloot-palette.css';
+import './styles/typography.css';
 import {ReminderLifecycle} from './components/ReminderSettings';
 import NotificationWelcome from './components/NotificationWelcome';
 import AppLoader, { LoadingScreen } from './components/AppLoader';
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import ErrorBoundary from "./components/ErrorBoundary";
-import AllGames from "./pages/AllGames";
 import Login from "./pages/Login";
-import StitchFrame from "./components/StitchFrame";
-import PlayerHub from "./pages/PlayerHub";
-import PublicPlayerProfile from "./pages/PublicPlayerProfile";
-import Events from './pages/Events';
-import Offers from './pages/Offers';
-import Transactions from './pages/Transactions';
-import ComingSoon from './pages/ComingSoon';
 import {LiveFeaturesProvider} from './components/LiveFeatures';
 import { backend, isSignedIn } from "./utils/api";
 import AppBottomNav from "./components/AppBottomNav";
 import { AppConfigProvider } from "./config/appConfig";
 import {WalletProvider} from './components/WalletState';
+
+const AllGames=lazy(()=>import('./pages/AllGames'));
+const StitchFrame=lazy(()=>import('./components/StitchFrame'));
+const PlayerHub=lazy(()=>import('./pages/PlayerHub'));
+const PublicPlayerProfile=lazy(()=>import('./pages/PublicPlayerProfile'));
+const Events=lazy(()=>import('./pages/Events'));
+const Offers=lazy(()=>import('./pages/Offers'));
+const Transactions=lazy(()=>import('./pages/Transactions'));
+const ComingSoon=lazy(()=>import('./pages/ComingSoon'));
+
+const pagesWithoutDesktopExtras = new Set(['/home', '/profile', '/profile/settings', '/notifications', '/leaderboard', '/redeem', '/transactions']);
 
 function RequireAuth({ children }) {
   const location = useLocation();
@@ -36,7 +42,9 @@ function RequireAuth({ children }) {
   }
   if (verified === null) return <LoadingScreen title="Loading your account" detail="Checking your session…" />;
   if (verified === 'offline') return <div style={{ minHeight: '100dvh', display: 'grid', placeItems: 'center', background: '#0e1017', color: '#fff', textAlign: 'center' }}><div><p>Couldn’t connect to Playloot.</p><button onClick={() => { setVerified(null); setRetry(value => value + 1); }}>Try again</button></div></div>;
-  return <div className="app-workspace">{location.pathname !== "/Home" && <DesktopExtras/>}{children}<AppBottomNav /></div>;
+  const pagePath = location.pathname.replace(/\/+$/, '').toLowerCase();
+  const hideDesktopExtras = pagesWithoutDesktopExtras.has(pagePath) || pagePath === '/events' || pagePath.startsWith('/events/') || pagePath === '/missions' || (pagePath === '/offers' && new URLSearchParams(location.search).get('reward') === 'diamonds');
+  return <div className="app-workspace" data-page={pagePath}>{!hideDesktopExtras && <DesktopExtras/>}{children}{pagePath !== '/home' && <SiteFooter/>}<AppBottomNav /></div>;
 }
 
 export default function App() {
@@ -49,6 +57,7 @@ export default function App() {
         <WalletProvider>
         <ReminderLifecycle/>
         <NotificationWelcome/>
+        <Suspense fallback={<LoadingScreen title="Opening your page" detail="Just a moment…"/>}>
         <Routes>
           <Route path="/coming-soon/:feature" element={<RequireAuth><ComingSoon/></RequireAuth>}/>
           <Route path="/transactions" element={<RequireAuth><Transactions/></RequireAuth>}/>
@@ -117,7 +126,7 @@ export default function App() {
             path="/tournaments"
             element={
               <RequireAuth>
-                <Events />
+                <ComingSoon feature="tournaments" />
               </RequireAuth>
             }
           />
@@ -148,6 +157,7 @@ export default function App() {
           <Route path="/hub" element={<RequireAuth><PlayerHub /></RequireAuth>} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
+        </Suspense>
         </WalletProvider>
       </Router>
       </LiveFeaturesProvider>

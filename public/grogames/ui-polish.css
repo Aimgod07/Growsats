@@ -20,7 +20,7 @@ h1,h2,.logo,.brand,.wordmark,#title,#dialog-title{
 
 /* Carved menu cards and pause/settings sheets */
 .panel,.dialog,.intro,.pause>div,.modal>div,[class*=settings-panel],[class*=menu-panel]{
-  position:relative;border:3px solid #fff0c980!important;border-radius:25px!important;
+  border:3px solid #fff0c980!important;border-radius:25px!important;
   background:
     radial-gradient(circle at 18% 7%,#fff8dc2e 0 2px,transparent 3px),
     linear-gradient(155deg,#36594ef2,#1d3e3beb 55%,#183535f2)!important;
@@ -81,3 +81,49 @@ progress,.meter,.progress{border:2px solid #263f37!important;border-radius:999px
   .scorebar>div,.stat,.stats>div{padding:.2rem .42rem}
 }
 @media(prefers-reduced-motion:reduce){button,.primary,.play{transition:none!important}}
+
+/* Per-game art direction: shared interaction grammar, individual palettes. */
+:root{--game-hue:205;--game-accent:42;--game-radius:20px}
+.panel,.dialog,.intro,.pause>div,.modal>div,[class*=settings-panel],[class*=menu-panel]{
+ border:2px solid hsl(var(--game-hue) 85% 72% / .65)!important;
+ border-radius:var(--game-radius)!important;
+ background:linear-gradient(155deg,hsl(var(--game-hue) 72% 35% / .98),hsl(var(--game-hue) 65% 12% / .98))!important;
+ box-shadow:0 7px 0 hsl(var(--game-hue) 70% 9%),0 20px 50px #0006,inset 0 2px 0 #ffffff50!important;
+}
+.panel::before,.dialog::before,.intro::before,.pause>div::before{border-style:solid;border-color:#ffffff15;border-radius:calc(var(--game-radius) - 6px)}
+.primary,.play,#start,#play,#resume,#again,.dialog button:not(.secondary),.panel button:not(.icon):not(:disabled){
+ background:linear-gradient(hsl(var(--game-accent) 95% 70%),hsl(var(--game-accent) 90% 48%))!important;
+ color:#101b29!important;border-color:hsl(var(--game-accent) 75% 25%)!important;
+ border-radius:calc(var(--game-radius) * .7)!important;
+ box-shadow:0 5px 0 hsl(var(--game-accent) 75% 25%),inset 0 2px 0 #fff9!important;text-shadow:none!important;
+}
+.secondary,#secondary,#restart,.under-game button,.icon,.tools button,.buttons button,#help{
+ background:linear-gradient(hsl(var(--game-hue) 65% 48%),hsl(var(--game-hue) 65% 30%))!important;
+ color:white!important;border-color:hsl(var(--game-hue) 80% 75% / .65)!important;
+ box-shadow:0 4px 0 hsl(var(--game-hue) 70% 16%),inset 0 2px 0 #fff4!important;
+ border-radius:calc(var(--game-radius) * .65)!important;text-shadow:none!important;
+}
+button[aria-pressed=true],button[aria-selected=true]{outline:3px solid hsl(var(--game-accent) 95% 70%);outline-offset:2px}
+#tagline,.info-bottom,.preview-note,#agentBio,#lobby footer,#lobby .edition,#lobby .brand small{display:none!important}
+.game-info .rule{margin-top:1rem}
+[data-game-theme=tactical] .loadout{background:#101f30e8;border:1px solid #72cdd455;border-radius:6px;padding:24px}
+[data-game-theme=tactical] button{font-family:system-ui,sans-serif!important;letter-spacing:.04em}
+@media(prefers-reduced-motion:reduce){button{transition:none!important}}
+.game-info{background:linear-gradient(145deg,hsl(var(--game-hue) 60% 22%),hsl(var(--game-hue) 65% 12%))!important;border:2px solid hsl(var(--game-hue) 70% 65% / .5)!important;border-radius:var(--game-radius)!important;box-shadow:0 6px 0 hsl(var(--game-hue) 70% 8%),0 18px 38px #0004!important;color:#edf8ff!important}
+.game-info #title{color:#fff!important;text-shadow:0 3px 0 #0004!important}
+.game-info summary{cursor:pointer;color:#fff;padding:.7rem 0;font-weight:700}
+.game-info summary:focus-visible{outline:3px solid white;outline-offset:3px}
+#levels button,[class*=level] button,.level-card{background:linear-gradient(hsl(var(--game-hue) 65% 46%),hsl(var(--game-hue) 65% 28%))!important;color:#fff!important;border-color:#ffffff60!important;box-shadow:0 4px 0 hsl(var(--game-hue) 70% 15%)!important}
+
+/* Include bespoke game menus, not just the shared arcade dialog. */
+.panel,.dialog,.pause>div,.modal>div,.lobby-panel,.loadout,#overlay>.card,.menu-panel{
+ background:linear-gradient(145deg,hsl(var(--game-hue) var(--game-saturation,60%) var(--game-lightness,30%)),hsl(var(--game-hue) var(--game-saturation,60%) 10%))!important;
+ border:2px solid hsl(var(--game-hue) 65% 70% / .65)!important;
+ border-radius:var(--game-radius)!important;color:#f6f8ff!important;
+ box-shadow:0 6px 0 hsl(var(--game-hue) 50% 8%),0 20px 48px #0005,inset 0 2px 0 #fff3!important;
+}
+.lobby-panel h1,#overlay>.card h1,.panel h1,.dialog h2{color:#fff!important;text-shadow:0 3px 0 #0004!important}
+.lobby-panel p,#overlay>.card p,.panel p,.dialog p{color:#e3edf3!important}
+.lobby-panel label,.lobby-panel .line-title,#overlay>.card .hint,#overlay>.card .eyebrow{color:#dceaf2!important}
+.lobby-panel select{color:#fff;background:hsl(var(--game-hue) 40% 16%)}
+.lobby-panel option{color:#fff;background:#14202b}

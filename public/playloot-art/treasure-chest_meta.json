@@ -1,0 +1,64 @@
+{
+  "resource": "image-to-3d",
+  "task": {
+    "id": "01a1deb1-3305-774c-9fa8-454c6fb2db0c",
+    "type": "image-to-3d",
+    "name": "",
+    "status": "SUCCEEDED",
+    "progress": 100,
+    "preceding_tasks": 0,
+    "created_at": 1794737520736,
+    "started_at": 1794737520750,
+    "finished_at": 1794737566498,
+    "expires_at": 1794996766498,
+    "task_error": null,
+    "model_urls": {
+      "glb": "https://assets.meshy.ai/0039fc69-f82e-481e-a274-d482219a2ad0/tasks/01a1deb1-3305-774c-9fa8-454c6fb2db0c/output/model.glb?Expires=1794996766&Signature=TsXcu3~LhfSr57jIVqGT39ziU9~~-9Y3f7f~-47-gZLlSvnDQgvtd316ON0WuMhFeRydE6BG7rr9Cd2ctk3HPYa4miFIg9-zAkJ9UFHLB1vxfAChP5OAufuowV6owiVEz1A5niuUUc7x4sntsaU0MkvOzSv~G82Q3MqVMh0nwOIrffZNBEnNuyfRI9cywLcCsQijGfPVefhbV7lfmS-5MNyaor18RcxpgneAOHSDlHPhIVgT9q3C6SRK9Jn86d07WBcSGUiOtsWuJ7fTgyBgLBzjcU9YgTUhl8wUdfWZBBdVyKyQW3XNgLKVDfiTXS~bCTF68qJyE2bJf~vT-a1dwA__&Key-Pair-Id=K1VGYTHIYLM9UM"
+    },
+    "texture_urls": [
+      {
+        "base_color": "https://assets.meshy.ai/0039fc69-f82e-481e-a274-d482219a2ad0/tasks/01a1deb1-3305-774c-9fa8-454c6fb2db0c/output/texture_0.png?Expires=1794996766&Signature=UMVS9qWBiZWYbHxotnDcp-gYQPvDBjnwjSSgg1-ZD-zXuagnf7CM2~3EhK4iz-5r~pf0Xv9exeYyIjCibujxkThJsyXluSWN~7fnX34bmUVWQFho1oUCQJGubrC-PqdFZQIEKYWmkOFiqolXroji1yYn9cz1cG3-hV4kzjRQAOlY-ORGP7IZKEGOKeOTM3eZB2O22pMLdKvwCu8WJ-OetZ8KpOEJMYMz5Wx6hvNs8P4M26iFCUvoOoSp0YBlzbUW79te2urBJ3Ra3UAs20DdXuyy89IwSvlz7hWBQb-S4tSr6K6~8W7UpszJPb05KKsafq69m-i-jkc8IdqCQO8HEw__&Key-Pair-Id=K1VGYTHIYLM9UM",
+        "metallic": "https://assets.meshy.ai/0039fc69-f82e-481e-a274-d482219a2ad0/tasks/01a1deb1-3305-774c-9fa8-454c6fb2db0c/output/texture_0_metallic.png?Expires=1794996766&Signature=aVKh9MhyJFXrw4G-Ut4ZUDWiSM0edJe7shGonhTI7ph7q3V2mQOHJtO~12kdqd7y-Dwb157r-7uKdZ-VQxazzvLRmflmtEqt6oF0rorUghANNt2mBierHsLf3KW5KsjZMXcRjgZ7An78QRojNlMe5SFfeWvZfv-WaaRnX2CWhufr7eMZBq6XDpvdRtX5pZD5jUF-RkNXXosgYBaTxigxjEbykk5dh3Wewnv5haZt4gWOsjPthtRKRWYZJEu4Cii6B0AvxcKj-n7rC1qOXc1I6X~i6e-WRrlZtydf~XrXBcG5dzZ~waZscKtPTg23CqD7uurPV2CFfVcpseUYcKPIdw__&Key-Pair-Id=K1VGYTHIYLM9UM",
+        "normal": "https://assets.meshy.ai/0039fc69-f82e-481e-a274-d482219a2ad0/tasks/01a1deb1-3305-774c-9fa8-454c6fb2db0c/output/texture_0_normal.png?Expires=1794996766&Signature=bdtwJXu~3k5i6gQQOSV-NWkAv1uoiChlprMkgzB70uf2sHHMt9POlX-T6PcfFsl-n1n2DRXB1zBPO8JT~CQyLzzZ2qzKhQhS2zSN16rZlOE-SaPiAb-1ZyDfJeW-Kb8TnKkP-Pbtery1dvKGFVThOST51-XSuLvb2GXtnjlpjJtqn2TErzbaGcpe7WNPw1M8vlP9EhERitGMCRyW8oMtncvgcDcCHoD0SpzsWYHVmlD6HkK1x8KU-K3-IG8OWScRQh5bYXebXzT3bc6oM6mwRaVh5CdsfqJUG6W6gfLQkoVAPc-HSU5WUsgdS-YsDUjHtMoYnSukVG5BY~6QfDSskg__&Key-Pair-Id=K1VGYTHIYLM9UM",
+        "roughness": "https://assets.meshy.ai/0039fc69-f82e-481e-a274-d482219a2ad0/tasks/01a1deb1-3305-774c-9fa8-454c6fb2db0c/output/texture_0_roughness.png?Expires=1794996766&Signature=M6tW2XTBmj-ay4ErvKELvmLXldQ5lfKWYSwdksDdDedS5JWkQigEYNfh-fZOD3Yv~98n741hFSusjlisAU3Y3jdvENtlMHOzIQWkm~jpMvaki7DJLIFN4Q5ZBTvOhT1cT~fPEFytIJExEFYdNSska~zLKUp2tZ0jRsogHkYCHdI8Od-lSIbzcEWoxsi-qf4zW9YAS5k9oiZQS0p44QKafSvbFZi9BbDTMxWGiFBWL8btJxZPxvILpCyCi8n~gUy3Xaeno~CH8zmsKsA2gwEHfa0QGaqn-pY53R78q6eSU~1U4xGBfXG39Hw~fjalNtNDc2Rtx7TA1rVvwsjd792GZg__&Key-Pair-Id=K1VGYTHIYLM9UM"
+      }
+    ],
+    "thumbnail_url": "https://assets.meshy.ai/0039fc69-f82e-481e-a274-d482219a2ad0/tasks/01a1deb1-3305-774c-9fa8-454c6fb2db0c/output/preview.png?Expires=1794996766&Signature=h8sI6bQy5JYgCpEwV5JSZdHA8kr7m2vndCm4IXFR9V3pV76kg74aIv0ajGCBk~NKy1npZ00-Z2RcVGk1Qze7ojVhXoYSoYbD0d626oLgMDDtK8F4Hgz7mlZw-vH6WB2voecETpG5AiRxp3lcHxpFxoVat~lG8dXDwX-Wwrv-5PitrQKqGGDXr2OMFc5cj7oDubO58oemSDETJQ7SuPz5sMMLau40eHXghVc5mxO4KeI5pKAULYPeUo5k7s0PzqwC48N7DnLeM6zUAQ~XainxJgccFNa-E0Rt5SbgC4NeH1J31prY355D~70zUZN1yQ4wEm8WbPJlA6E-6cKga6Bb1Q__&Key-Pair-Id=K1VGYTHIYLM9UM",
+    "consumed_credits": 15,
+    "texture_prompt": "Stylized low-poly game treasure chest, vivid purple wooden planks, polished golden metal bands and lock, bright emerald green faceted gemstones. Preserve reference colors.",
+    "texture_image_url": "",
+    "text_style_prompt": "",
+    "image_style_url": "",
+    "art_style": "",
+    "object_prompt": "",
+    "style_prompt": "",
+    "negative_prompt": "",
+    "model_url": "https://assets.meshy.ai/0039fc69-f82e-481e-a274-d482219a2ad0/tasks/01a1deb1-3305-774c-9fa8-454c6fb2db0c/output/model.glb?Expires=1794996766&Signature=TsXcu3~LhfSr57jIVqGT39ziU9~~-9Y3f7f~-47-gZLlSvnDQgvtd316ON0WuMhFeRydE6BG7rr9Cd2ctk3HPYa4miFIg9-zAkJ9UFHLB1vxfAChP5OAufuowV6owiVEz1A5niuUUc7x4sntsaU0MkvOzSv~G82Q3MqVMh0nwOIrffZNBEnNuyfRI9cywLcCsQijGfPVefhbV7lfmS-5MNyaor18RcxpgneAOHSDlHPhIVgT9q3C6SRK9Jn86d07WBcSGUiOtsWuJ7fTgyBgLBzjcU9YgTUhl8wUdfWZBBdVyKyQW3XNgLKVDfiTXS~bCTF68qJyE2bJf~vT-a1dwA__&Key-Pair-Id=K1VGYTHIYLM9UM"
+  },
+  "saved_files": [
+    "C:\\Users\\choud\\Desktop\\mobileapp\\growsats\\public\\playloot-art\\treasure-chest.glb"
+  ],
+  "skipped": [
+    {
+      "key": "thumbnail.primary",
+      "reason": "not_selected"
+    },
+    {
+      "key": "texture.0.base_color",
+      "reason": "embedded_textures"
+    },
+    {
+      "key": "texture.0.metallic",
+      "reason": "embedded_textures"
+    },
+    {
+      "key": "texture.0.normal",
+      "reason": "embedded_textures"
+    },
+    {
+      "key": "texture.0.roughness",
+      "reason": "embedded_textures"
+    }
+  ],
+  "downloaded_at": "2026-11-15T10:13:15.899Z"
+}

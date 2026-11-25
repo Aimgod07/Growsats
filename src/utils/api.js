@@ -1,3 +1,5 @@
+import {deliverScore} from './scoreDelivery';
+import {shareRead} from './inFlight';
 import {deviceIdentity} from './deviceIdentity';
 import { trackedFetch } from './loading';
 const TOKEN_KEY = "playloot.session.token";
@@ -90,7 +92,13 @@ export class ApiError extends Error {
   }
 }
 
-async function request(path, { method = "GET", body, auth = true, raw } = {}) {
+function request(path, options = {}) {
+  if ((options.method || 'GET') !== 'GET') return requestOnce(path, options);
+  const key = JSON.stringify([options.auth === false ? 'public' : getToken(), path]);
+  return shareRead(key, () => requestOnce(path, options));
+}
+
+async function requestOnce(path, { method = "GET", body, auth = true, raw } = {}) {
   const headers = {};
   if (body !== undefined && !raw) headers["content-type"] = "application/json";
   if (raw && body !== undefined) headers["content-type"] = raw;
@@ -163,7 +171,7 @@ export const backend = {
   joinEvent: (id) => request(BACKEND_URL+'/api/events/'+encodeURIComponent(id)+'/join',{method:'POST'}).then(data=>{signalWalletChanged();return data;}),
   claimEvent: (id) => request(`${BACKEND_URL}/api/events/${encodeURIComponent(id)}/claim`, { method: 'POST' }).then(data=>{signalWalletChanged();return data;}),
   eventHeartbeat: (sessionId) => request(`${BACKEND_URL}/api/game-events/heartbeat`, { method: 'POST', body: { sessionId } }),
-  submitEventScore: (sessionId, score) => request(`${BACKEND_URL}/api/game-events/score`, { method: 'POST', body: { sessionId, score } }),
+  submitEventScore: (sessionId, score, runId) => deliverScore(body => request(`${BACKEND_URL}/api/game-events/score`, { method: 'POST', body }),sessionId,score,runId),
   config: () => request(BACKEND.config, { auth: false }),
   register: (name, email, password, inviteCode, turnstileToken) =>
     request(BACKEND.register, { method: "POST", body: { name, email, password, inviteCode, turnstileToken }, auth: false }).then((data) => {
@@ -186,7 +194,7 @@ export const backend = {
   playerProfile: (id) => request(`${BACKEND.players}/${encodeURIComponent(id)}`),
   redeemOptions: () => request(BACKEND.redeemOptions),
   redeem,
-  startPlay: (gameCode, title, provider) => request(BACKEND.playStart, { method: "POST", body: { gameCode, title, provider } }),
+  startPlay: (gameCode, title, provider, eventId) => request(BACKEND.playStart, { method: "POST", body: { gameCode, title, provider, eventId } }),
   closePlay: (sessionId) => request(`${BACKEND_URL}/api/games/play/close`, { method: 'POST', body: { sessionId } }),
   claimPlay: (sessionId) => request(BACKEND.playClaim, { method: "POST", body: { sessionId } }).then(data=>{signalWalletChanged();return data;}),
   spinStatus: () => request(BACKEND.spin),

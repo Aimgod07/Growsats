@@ -30,8 +30,8 @@ function boat(m){const group=new T.Group();group.name='Saltwake hand-built coast
  for(const side of [-1,1]){for(const angle of [.19,.34,.49,.63]){tube(seamMat,edge.map(p=>[side*p[0]*Math.cos(angle)*1.006,p[1]-(p[1]+.5)*Math.sin(angle)**.74,p[2]]),.012);}
  for(const z of [-2.55,-2,-1.4,-.8,-.2,.4,1,1.6,2.2,2.8]){const w=width((z+3.7)/6.9);mesh(new T.SphereGeometry(.025,6,4),m.brass,side*w*1.003,1.02,z);}}
  // Caulked deck planks, with end joints and recessed fasteners on the exposed aft deck.
- for(let x=-1.3;x<=1.31;x+=.205){box(seamMat,x,1.137,1.98,.012,.006,2.28);box(seamMat,x+.1,1.14,1.52+(Math.round((x+1.3)*10)%2)*.65,.19,.006,.012);for(const z of [1.08,2.96]){const screw=mesh(new T.CylinderGeometry(.017,.017,.008,6),m.metal,x+.038,1.145,z);}}
- for(const side of [-1,1]){const join=box(m.wood,side*1.018,1.43,-.65,.06,.08,2.55);const trim=box(m.wood,side*1.034,2.79,-.65,.045,.075,2.65);}
+ for(let x=-1.3;x<=1.31;x+=.205){box(seamMat,x,1.137,1.98,.012,.006,2.28);box(seamMat,x+.1,1.14,1.52+(Math.round((x+1.3)*10)%2)*.65,.19,.006,.012);for(const z of [1.08,2.96]){(mesh(new T.CylinderGeometry(.017,.017,.008,6),m.metal,x+.038,1.145,z));}}
+ for(const side of [-1,1]){(box(m.wood,side*1.018,1.43,-.65,.06,.08,2.55));(box(m.wood,side*1.034,2.79,-.65,.045,.075,2.65));}
  // Rounded cabin, window surrounds and a planked, gently curved roof.
  rounded(m.cream,0,1.95,-.65,2.05,1.83,2.62,.16);box(m.wood,0,1.12,-.63,2.18,.19,2.82);
  rounded(m.wood,0,1.83,.693,.79,1.4,.12,.03);rounded(m.black,0,2.12,.77,.55,.51,.025,.04);rounded(m.glass,0,2.12,.792,.47,.43,.018,.04);beam(m.brass,[.28,1.6,.79],[.28,1.8,.79],.028);
@@ -46,14 +46,14 @@ function boat(m){const group=new T.Group();group.name='Saltwake hand-built coast
  tube(m.wood,[[-1.24,2.99,-2.22],[-1.24,3.02,-.62],[-1.24,2.99,1.08]],.055);tube(m.wood,[[1.24,2.99,-2.22],[1.24,3.02,-.62],[1.24,2.99,1.08]],.055);
  const hatch=rounded(m.wood,0,1.18,-2.75,.8,.67,.10,.03);hatch.rotation.x=-Math.PI/2;
  for(const side of [-1,1]){const x=side*.85;beam(m.brass,[x,1.13,2.7],[x,1.31,2.7],.07);beam(m.brass,[x-.18,1.28,2.7],[x+.18,1.28,2.7],.045);mesh(new T.SphereGeometry(.09,10,8),new T.MeshStandardMaterial({color:side<0?'#d14831':'#56af83',emissive:side<0?'#9c3219':'#2b7962',emissiveIntensity:.35}),side*1.16,3.12,-1.55);}
- const stack=mesh(new T.CylinderGeometry(.20,.24,.85,20),m.black,.53,3.48,-.3);const rim=mesh(new T.CylinderGeometry(.25,.25,.09,20),m.rust,.53,3.9,-.3);mesh(new T.CylinderGeometry(.16,.16,.02,16),m.black,.53,3.95,-.3);
+ (mesh(new T.CylinderGeometry(.20,.24,.85,20),m.black,.53,3.48,-.3));(mesh(new T.CylinderGeometry(.25,.25,.09,20),m.rust,.53,3.9,-.3));mesh(new T.CylinderGeometry(.16,.16,.02,16),m.black,.53,3.95,-.3);
  // The wheel is visible through the front glazing; the life ring is mounted on the stern cabin wall.
  const wheel=mesh(new T.TorusGeometry(.20,.024,8,24),m.brass,-.47,2.01,-1.73);wheel.rotation.x=.3;for(let i=0;i<6;i++){const a=i*Math.PI/3;beam(m.brass,[-.47,2.01,-1.72],[-.47+Math.cos(a)*.2,2.01+Math.sin(a)*.2,-1.72],.012);}
- const ring=mesh(new T.TorusGeometry(.27,.075,10,28),m.orange,-.64,2.16,.79);for(let i=0;i<4;i++){const a=i*Math.PI/2;const band=mesh(new T.TorusGeometry(.27,.077,6,6,.25),m.white,-.64,2.16,.792);band.rotation.z=a;}
+ (mesh(new T.TorusGeometry(.27,.075,10,28),m.orange,-.64,2.16,.79));for(let i=0;i<4;i++){const a=i*Math.PI/2;const band=mesh(new T.TorusGeometry(.27,.077,6,6,.25),m.white,-.64,2.16,.792);band.rotation.z=a;}
  box(m.wood,.68,1.27,1.79,.72,.45,.66);box(m.black,.68,1.505,1.79,.75,.025,.69);for(let k=0;k<4;k++){const co=mesh(new T.TorusGeometry(.22+k*.048,.024,6,32),m.rope,-.65,1.16+k*.009,2.13);co.rotation.x=Math.PI/2;}
  for(const side of [-1,1]){const pts=[];for(let i=0;i<=52;i++){const a=i/52*Math.PI*6;pts.push([side*.85+Math.cos(a)*.11,1.19+i/52*.06,2.7+Math.sin(a)*.065]);}tube(m.rope,pts,.014);}
  beam(m.wood,[-.85,3.12,-1.67],[-.85,4.35,-1.67],.035);const flagGeo=new T.PlaneGeometry(.5,.3,5,2);const flag=mesh(flagGeo,m.orange,-.59,4.19,-1.67);flag.material=m.orange.clone();flag.material.side=T.DoubleSide;
- const plate=rounded(m.cream,0,.78,3.295,1.07,.25,.025,.02);const c=document.createElement('canvas');c.width=256;c.height=64;const ctx=c.getContext('2d');ctx.fillStyle='#eee6c9';ctx.fillRect(0,0,256,64);ctx.fillStyle='#163e42';ctx.font='bold 27px sans-serif';ctx.textAlign='center';ctx.fillText('SALTWAKE',128,43);const tx=new T.CanvasTexture(c);tx.colorSpace=T.SRGBColorSpace;mesh(new T.PlaneGeometry(.99,.23),new T.MeshStandardMaterial({map:tx,roughness:.7}),0,.78,3.354);
+ (rounded(m.cream,0,.78,3.295,1.07,.25,.025,.02));const c=document.createElement('canvas');c.width=256;c.height=64;const ctx=c.getContext('2d');ctx.fillStyle='#eee6c9';ctx.fillRect(0,0,256,64);ctx.fillStyle='#163e42';ctx.font='bold 27px sans-serif';ctx.textAlign='center';ctx.fillText('SALTWAKE',128,43);const tx=new T.CanvasTexture(c);tx.colorSpace=T.SRGBColorSpace;mesh(new T.PlaneGeometry(.99,.23),new T.MeshStandardMaterial({map:tx,roughness:.7}),0,.78,3.354);
  Saltwake.mergeStatic(group,new Set([flag]));group.userData.flag=flag;group.userData.flagBase=flag.geometry.attributes.position.array.slice();group.userData.stack=new T.Vector3(.53,3.98,-.3);return group;
 }
 Saltwake.mergeStatic=function(group,keep=new Set()){
